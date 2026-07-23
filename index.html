@@ -103,7 +103,7 @@ button.small,a.small{font-size:.78rem;padding:.58rem .78rem;box-shadow:3px 3px 0
 .nav a:hover,.nav a.active{border-color:var(--ink);background:#fff;box-shadow:3px 3px 0 var(--ink);transform:rotate(-1deg)}
 .hero{
   display:grid;
-  grid-template-columns:minmax(0,1.05fr) minmax(320px,.95fr);
+  grid-template-columns:minmax(320px,.95fr) minmax(0,1.05fr);
   gap:28px;
   align-items:stretch;
   padding:26px 0 54px;
@@ -118,6 +118,7 @@ button.small,a.small{font-size:.78rem;padding:.58rem .78rem;box-shadow:3px 3px 0
   align-items:center;
   justify-content:center;
   min-width:0;
+  min-height:0;
 }
 .poster-box img{display:block;max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain}
 .hero-bottom{grid-column:1/-1;display:flex;flex-direction:column;gap:14px;min-width:0}
@@ -128,8 +129,12 @@ button.small,a.small{font-size:.78rem;padding:.58rem .78rem;box-shadow:3px 3px 0
   background:linear-gradient(135deg,#fff8df,#fff2c3 64%,#f5d78f);
   box-shadow:var(--shadow);
   padding:clamp(22px,4vw,48px);
-  overflow:hidden;
+  overflow-y:auto;
+  overflow-x:hidden;
   text-align:center;
+  height:100%;
+  min-height:0;
+  box-sizing:border-box;
 }
 .ticket::before{
   content:""; position:absolute; inset:18px; border:3px dashed rgba(23,33,43,.28); border-radius:24px; pointer-events:none;
@@ -204,6 +209,8 @@ h3{font-size:clamp(1.5rem,3vw,3rem)}
 .specimen{background:linear-gradient(135deg,#fff,#eafffb);min-height:250px}
 .specimen::before{content:"";position:absolute;right:-28px;top:-28px;width:120px;height:120px;border-radius:50%;background:var(--teal);border:4px solid var(--ink);opacity:.8}
 .specimen .jar{width:80px;height:96px;border:4px solid var(--ink);border-radius:16px 16px 28px 28px;background:linear-gradient(180deg,rgba(100,200,189,.32),rgba(223,109,157,.35));margin-bottom:14px;position:relative}
+.specimen .cover{height:220px;border:4px solid var(--ink);border-radius:16px;margin-bottom:14px;overflow:hidden;box-shadow:inset 0 0 0 6px rgba(255,255,255,.14)}
+.specimen .cover img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block}
 .specimen .jar::after{content:"";position:absolute;left:18px;top:22px;width:38px;height:38px;border-radius:50%;background:var(--sun);border:3px solid var(--ink)}
 .zine-cover{min-height:290px;display:flex;flex-direction:column;justify-content:space-between;transform:rotate(var(--tilt,0deg));background:var(--cover,#fff)}
 .zine-cover::before{content:"";position:absolute;inset:12px;border:3px dashed rgba(23,33,43,.35);border-radius:16px;pointer-events:none}
@@ -220,7 +227,7 @@ h3{font-size:clamp(1.5rem,3vw,3rem)}
 .guestbook{display:grid;grid-template-columns:.85fr 1.15fr;gap:20px;position:relative;z-index:1}.guest-form{border:var(--line);border-radius:26px;background:#fff;padding:22px;box-shadow:6px 6px 0 var(--ink)}
 label{display:block;font:900 .78rem/1 'Trebuchet MS',Verdana,sans-serif;text-transform:uppercase;letter-spacing:.1em;margin:14px 0 8px}input[type=text],textarea{width:100%;border:3px solid var(--ink);border-radius:14px;padding:12px;font:1rem/1.35 Georgia,serif;background:#fffaf0}textarea{min-height:116px;resize:vertical}.entries{display:grid;gap:12px;max-height:420px;overflow:auto;padding-right:8px}.guest-card{min-height:auto;background:#fff8d8;padding:14px}.guest-card strong{font-family:'Trebuchet MS',Verdana,sans-serif}.guest-card small{display:block;opacity:.65;margin-top:6px}
 .loop{display:grid;grid-template-columns:repeat(7,1fr);gap:10px;position:relative;z-index:1}.step{border:3px solid var(--ink);border-radius:18px;background:#fff;padding:14px;min-height:120px;display:flex;flex-direction:column;justify-content:space-between;font:900 .85rem/1.15 'Trebuchet MS',Verdana,sans-serif}.step b{font-size:1.8rem}.notice-board{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;position:relative;z-index:1}.notice{min-height:150px;background:var(--cover,#fff);font:900 .95rem/1.2 'Trebuchet MS',Verdana,sans-serif;transform:rotate(var(--r,0deg))}.notice small{display:block;margin-bottom:18px;opacity:.68;text-transform:uppercase;letter-spacing:.12em}
-.footer{margin:70px 0 0;border:var(--line);border-radius:34px;background:var(--ink);color:#fff;padding:34px;box-shadow:var(--shadow);display:flex;justify-content:space-between;gap:22px;align-items:center;flex-wrap:wrap}.footer h2{font-size:clamp(2.4rem,7vw,7rem);text-shadow:none;color:#fff}.footer p{max-width:560px;line-height:1.5}.footer .button{box-shadow:5px 5px 0 #fff}
+.footer{margin:70px 0 0;border:var(--line);border-radius:34px;background:var(--ink);color:#fff;padding:34px;box-shadow:var(--shadow);display:flex;justify-content:space-between;gap:22px;align-items:center;flex-wrap:wrap}.footer h2{font-size:clamp(1.6rem,4vw,3.2rem);text-shadow:none;color:#fff}.footer p{max-width:560px;line-height:1.5}.footer .button{box-shadow:5px 5px 0 #fff}
 .modal{position:fixed;inset:0;background:rgba(18,23,37,.72);display:none;align-items:center;justify-content:center;z-index:200;padding:20px}.modal.open{display:flex}.modal-card{max-width:620px;width:100%;border:var(--line);border-radius:28px;background:var(--paper);box-shadow:12px 12px 0 var(--ink);padding:28px;position:relative}.modal-card h3{margin-bottom:12px}.modal-card p{line-height:1.55}.close{position:absolute;right:14px;top:14px;width:42px;height:42px;border-radius:50%;padding:0;background:#fff}
 .float-tools{position:fixed;right:16px;bottom:16px;z-index:95;display:grid;gap:8px}.float-tools button{width:54px;height:54px;padding:0;border-radius:50%;background:#fff;font-size:1.2rem}
 @media (max-width:1040px){.plaza-grid,.workshop,.wall-wrap,.guestbook{grid-template-columns:minmax(0,1fr)}.card-grid{grid-template-columns:repeat(2,1fr)}.loop,.notice-board{grid-template-columns:repeat(3,1fr)}.ribbon{grid-template-columns:repeat(2,1fr)}.topbar{border-radius:24px}.brand{white-space:normal}.section-head{display:block}.section-head p{margin-top:12px}}
@@ -241,6 +248,9 @@ label{display:block;font:900 .78rem/1 'Trebuchet MS',Verdana,sans-serif;text-tra
 
   <main id="main">
     <section class="hero" id="entrance">
+      <div class="poster-box">
+        <img src="site-poster.png" alt="AIZAT WORLD poster" loading="eager" fetchpriority="high">
+      </div>
       <div class="ticket">
         <span class="kicker">Pesta Pelancaran Maya Kekal</span>
         <h1>AIZAT WORLD</h1>
@@ -250,10 +260,8 @@ label{display:block;font:900 .78rem/1 'Trebuchet MS',Verdana,sans-serif;text-tra
           <a class="button" href="#plaza">Start here</a>
           <a class="button secondary" href="#workshop">Make a zine</a>
           <a class="button secondary" href="#arcade">Play</a>
+          <a class="button secondary" href="#lab">App Lab</a>
         </div>
-      </div>
-      <div class="poster-box">
-        <img src="site-poster.png" alt="AIZAT WORLD poster" loading="eager" fetchpriority="high">
       </div>
 
       <div class="hero-bottom">
@@ -299,7 +307,6 @@ label{display:block;font:900 .78rem/1 'Trebuchet MS',Verdana,sans-serif;text-tra
             <span>Aizat's Zine Trails: Kuala Lumpur</span>
           </div>
         </div>
-        <div class="note">OPEN ALL DAY: play, make, read, doodle, experiment, leave a message.</div>
       </div>
     </section>
 
@@ -349,7 +356,7 @@ label{display:block;font:900 .78rem/1 'Trebuchet MS',Verdana,sans-serif;text-tra
         <p>Tools, generators, pointless machines, useful machines, and things that probably should not exist.</p>
       </div>
       <div class="card-grid">
-        <article class="specimen"><div class="jar"></div><h3>SAJAK: AKU</h3><p>A bilingual Malay-English poetry generator that turns your thoughts, feelings, and random words into an “I Am” poem — for self-expression, reflection, and a little poetic chaos.</p><button class="small" data-play="https://ipohzinester.github.io/sajak-generator/">Try it</button></article>
+        <article class="specimen"><div class="cover"><img src="sajak-aku-cover.png" alt="SAJAK: AKU — I Am Poem cover art" width="300" height="200" loading="lazy" decoding="async"></div><h3>SAJAK: AKU</h3><p>A bilingual Malay-English poetry generator that turns your thoughts, feelings, and random words into an “I Am” poem — for self-expression, reflection, and a little poetic chaos.</p><button class="small" data-play="https://ipohzinester.github.io/sajak-generator/">Try it</button></article>
         <article class="specimen"><div class="jar" style="background:linear-gradient(180deg,rgba(255,216,79,.4),rgba(240,107,53,.38))"></div><h3>Projek Mirror</h3><p>Projek Mirror – a bilingual spin on the House-Tree-Person test. Originally developed by John Buck in 1948, it asks you to draw a house, a tree, and a person, then answer a set of questions. Meant to crack open what's inside—personality, emotions, the stuff you don't say out loud. We kept the bones. Just less shrink, more edge.</p><button class="small" data-play="https://ipohzinester.github.io/projek-mirror/">Try it</button></article>
         <article class="specimen"><div class="jar" style="background:linear-gradient(180deg,rgba(121,200,89,.38),rgba(100,200,189,.4))"></div><h3>Menarot Harapan</h3><p>78 kad berputar di atas roda. Apabila ia berhenti, empat kad memilih diri — tuahmu, jalan di hadapan, ujian yang menanti, dan rahsia yang tak kau duga. Dipilih dengan kerawakan kriptografi, daripada lebih 500 juta possible spread.</p><button class="small" data-play="https://ipohzinester.github.io/menarot.harapan/">Try it</button></article>
       </div>
@@ -418,7 +425,7 @@ label{display:block;font:900 .78rem/1 'Trebuchet MS',Verdana,sans-serif;text-tra
 
     <footer class="footer" style="justify-content:center;text-align:center">
       <div><h2>COME BACK ANYTIME</h2></div>
-      <a class="button" href="#entrance">Return to entrance</a>
+      <a class="button" href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">Return to entrance</a>
     </footer>
   </main>
 </div>
@@ -492,7 +499,7 @@ label{display:block;font:900 .78rem/1 'Trebuchet MS',Verdana,sans-serif;text-tra
   }, {rootMargin:'-30% 0px -58% 0px', threshold:0});
   sections.forEach(s => observer.observe(s));
 
-  $('#top').addEventListener('click', () => location.hash = '#entrance');
+  $('#top').addEventListener('click', () => window.scrollTo({top:0,behavior:'smooth'}));
 
   // Ambience — streamed from YouTube via IFrame Player API
   const YT_VIDEO_ID = 'wQDW5TyNjdI';
