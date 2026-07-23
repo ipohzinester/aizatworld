@@ -360,16 +360,6 @@ label{display:block;font:900 .78rem/1 'Trebuchet MS',Verdana,sans-serif;text-tra
     <section class="section" id="guestbook">
       <div class="section-head">
         <div><span class="kicker">Guestbook</span><h2>YOU WERE HERE</h2></div>
-        <p>Symbolic in the shared-map version, functional in this HTML version. Entries are stored locally in the visitor’s browser.</p>
-      </div>
-      <div class="guestbook">
-        <form class="guest-form" id="guestForm">
-          <h3>Leave a message</h3>
-          <label for="guestName">Name</label><input id="guestName" type="text" maxlength="48" placeholder="Anonymous">
-          <label for="guestMsg">Message</label><textarea id="guestMsg" maxlength="220" placeholder="I found the secret room."></textarea>
-          <div class="hero-actions"><button type="submit">Sign guestbook</button><button type="button" class="secondary" id="seedGuest">Add sample</button></div>
-        </form>
-        <div class="entries" id="entries" aria-live="polite"></div>
       </div>
       <div class="guest-form" style="margin-top:20px;padding:22px;">
         <h3>Live chatbox</h3>
@@ -398,38 +388,15 @@ label{display:block;font:900 .78rem/1 'Trebuchet MS',Verdana,sans-serif;text-tra
       </div>
     </section>
 
-    <section class="section" id="loop">
-      <div class="section-head">
-        <div><span class="kicker">Visitor journey</span><h2>THE PERMANENT LOOP</h2></div>
-        <p>The experience is designed so people can enter, make, play, leave evidence, discover secrets, and return when the world changes.</p>
-      </div>
-      <div class="loop">
-        <div class="step"><b>01</b>Entrance</div><div class="step"><b>02</b>Main plaza</div><div class="step"><b>03</b>Make a zine</div><div class="step"><b>04</b>Play a game</div><div class="step"><b>05</b>Try an app</div><div class="step"><b>06</b>Leave a mark</div><div class="step"><b>07</b>Come back</div>
-      </div>
-    </section>
-
-    <section class="section" id="new">
-      <div class="section-head">
-        <div><span class="kicker">Noticeboard</span><h2>NEW IN AIZAT WORLD</h2></div>
-        <p>Update this board every time you add a zine, game, app, community drawing, or secret room.</p>
-      </div>
-      <div class="notice-board">
-        <div class="notice" style="--cover:#ffd84f;--r:-2deg"><small>New game</small>Zine Runner cabinet installed.</div>
-        <div class="notice" style="--cover:#64c8bd;--r:1deg"><small>New app</small>Menarot Harapan specimen added to the lab.</div>
-        <div class="notice" style="--cover:#df6d9d;--r:-1deg"><small>New zine</small>Secret District Passport in the library.</div>
-        <div class="notice" style="--cover:#fff;--r:2deg"><small>Community</small>Guestbook is open.</div>
-        <div class="notice" style="--cover:#79c859;--r:-1deg"><small>Secret</small>Eight objects are hiding in the dark.</div>
-      </div>
-    </section>
-
-    <footer class="footer">
-      <div><h2>COME BACK ANYTIME</h2><p>This single HTML file contains the map, districts, doodle wall, guestbook, secrets, and launch copy. It is ready for real links when your games, zines, and apps are connected.</p></div>
+    <footer class="footer" style="justify-content:center;text-align:center">
+      <div><h2>COME BACK ANYTIME</h2></div>
       <a class="button" href="#entrance">Return to entrance</a>
     </footer>
   </main>
 </div>
 
 <div class="float-tools" aria-label="Floating controls"><button id="sound" title="Toggle ambience" aria-label="Toggle ambience">♪</button><button id="top" title="Back to entrance" aria-label="Back to entrance">↑</button></div>
+<div id="ytAmbience" style="position:absolute;width:1px;height:1px;overflow:hidden;opacity:0;pointer-events:none"></div>
 
 <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
   <div class="modal-card">
@@ -499,18 +466,38 @@ label{display:block;font:900 .78rem/1 'Trebuchet MS',Verdana,sans-serif;text-tra
 
   $('#top').addEventListener('click', () => location.hash = '#entrance');
 
-  // Tiny generative ambience. No external audio files.
-  let audioCtx, oscillator, gain, playing=false;
-  $('#sound').addEventListener('click', async () => {
+  // Ambience — streamed from YouTube via IFrame Player API
+  const YT_VIDEO_ID = 'wQDW5TyNjdI';
+  let ytPlayer, ytReady=false, ytPlaying=false, ytWantsPlay=false;
+
+  const ytTag = document.createElement('script');
+  ytTag.src = 'https://www.youtube.com/iframe_api';
+  document.head.appendChild(ytTag);
+
+  window.onYouTubeIframeAPIReady = function(){
+    ytPlayer = new YT.Player('ytAmbience', {
+      videoId: YT_VIDEO_ID,
+      playerVars: { autoplay: 0, controls: 0, loop: 1, playlist: YT_VIDEO_ID, playsinline: 1 },
+      events: {
+        onReady: () => { ytReady = true; if(ytWantsPlay) ytPlayer.playVideo(); },
+        onStateChange: (e) => {
+          if(e.data === YT.PlayerState.PLAYING){ ytPlaying = true; $('#sound').textContent='×'; }
+          if(e.data === YT.PlayerState.PAUSED || e.data === YT.PlayerState.ENDED){ ytPlaying = false; $('#sound').textContent='♪'; }
+        }
+      }
+    });
+  };
+
+  $('#sound').addEventListener('click', () => {
     try{
-      if(!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-      if(!playing){
-        oscillator = audioCtx.createOscillator(); gain = audioCtx.createGain();
-        oscillator.type='triangle'; oscillator.frequency.value=110; gain.gain.value=.035;
-        oscillator.connect(gain).connect(audioCtx.destination); oscillator.start(); playing=true; $('#sound').textContent='×';
-        let t=0; const pulse=()=>{ if(!playing) return; t+=1; oscillator.frequency.setTargetAtTime([110,146.83,196,220,164.81][t%5], audioCtx.currentTime, .08); setTimeout(pulse, 900); }; pulse();
-      } else { playing=false; oscillator.stop(); $('#sound').textContent='♪'; }
-    }catch(e){ openModal('Ambience unavailable', 'Your browser blocked audio for this file. The universe still works without sound.'); }
+      if(!ytPlaying){
+        ytWantsPlay = true;
+        if(ytReady) ytPlayer.playVideo();
+      } else {
+        ytWantsPlay = false;
+        if(ytReady) ytPlayer.pauseVideo();
+      }
+    }catch(e){ openModal('Ambience unavailable', 'Your browser blocked the ambience stream. The universe still works without sound.'); }
   });
 
   // Doodle wall
@@ -531,35 +518,6 @@ label{display:block;font:900 .78rem/1 'Trebuchet MS',Verdana,sans-serif;text-tra
   $('#clearWall').addEventListener('click',()=>{ if(confirm('Clear the local doodle wall?')){ localStorage.removeItem(wallKey); setBackground(); }});
   loadWall();
 
-  // Guestbook — backed by Google Sheets via Apps Script Web App
-  const entriesEl = $('#entries');
-  const SHEET_URL = 'https://script.google.com/macros/s/AKfycbwOjYZuTVeDKSplDe4WDSMenPjaxHK6hCKEeByyfrJyTNlHIHZhaFJD-c1iEj8JpsEO/exec';
-
-  const renderEntries=(items)=>{ entriesEl.innerHTML=''; items.forEach(item=>{ const card=document.createElement('article'); card.className='guest-card'; card.innerHTML='<strong></strong><p></p><small></small>'; $('strong',card).textContent=item.name || 'Anonymous'; $('p',card).textContent=item.msg; $('small',card).textContent=item.date; entriesEl.appendChild(card); }); };
-
-  const loadEntries = async () => {
-    entriesEl.innerHTML = '<p style="opacity:.6">Loading guestbook…</p>';
-    try {
-      const res = await fetch(SHEET_URL);
-      const data = await res.json();
-      renderEntries(data);
-    } catch (err) {
-      entriesEl.innerHTML = '<p style="opacity:.6">Couldn\u2019t load the guestbook right now. Try refreshing.</p>';
-    }
-  };
-
-  const postEntry = async (name, msg) => {
-    await fetch(SHEET_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'text/plain;charset=utf-8' }, // avoids CORS preflight on Apps Script
-      body: JSON.stringify({ name, msg })
-    });
-    loadEntries();
-  };
-
-  $('#guestForm').addEventListener('submit', e => { e.preventDefault(); const name=$('#guestName').value.trim() || 'Anonymous'; const msg=$('#guestMsg').value.trim(); if(!msg){ openModal('Write a message first', 'The guestbook needs at least one sentence, clue, confession, or strange observation.'); return; } $('#guestMsg').value=''; postEntry(name, msg); });
-  $('#seedGuest').addEventListener('click',()=>{ const msg=['I left a tiny drawing on the wall.','The arcade cabinet blinked at me.','Please add more secret doors.','This feels like a portfolio with a pulse.'][Math.floor(Math.random()*4)]; postEntry('Visitor '+Math.ceil(Math.random()*99), msg); });
-  loadEntries();
 
 
   // Secret district
