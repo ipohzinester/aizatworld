@@ -31,5 +31,12 @@ window.libraryItems = [
     description: "A doodled comic about a sleepy cat named Musolini, morning coffee, and choosing a joyful, abundant day.",
     cover: "covers/wake-up-musolini.png",
     link: "zines/wake-up-musolini.pdf"
+  },
+  {
+    type: "zine",
+    title: "Berat",
+    description: "A Malay-English poetry collage on weight, the Big Bang, and being made of stardust — asking whether we're just carbon, or something sentient reading its own light.",
+    cover: "covers/berat.png",
+    link: "zines/berat.jpg"
   }
 ];
