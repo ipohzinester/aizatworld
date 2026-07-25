@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>AIZAT WORLD — The Permanent Virtual Launch Party</title>
 <meta name="description" content="A single-file HTML universe for jom.buat.zine, games, apps, community wall, guestbook and secret districts.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 <style>
 :root{
   --ink:#17212b;
@@ -125,7 +128,9 @@ body::after{
 }
 a{color:inherit}
 button,a.button{
-  font:900 1rem/1 'Trebuchet MS', Verdana, sans-serif;
+  font:400 .72rem/1.2 'Press Start 2P','Trebuchet MS', Verdana, sans-serif;
+  letter-spacing:.02em;
+  text-transform:uppercase;
   border:var(--line);
   background:var(--sun);
   color:var(--ink);
@@ -162,7 +167,7 @@ button.small,a.small{font-size:.78rem;padding:.58rem .78rem;box-shadow:3px 3px 0
   box-shadow:var(--shadow);
   margin-bottom:34px;
 }
-.brand{display:flex;align-items:center;gap:10px;padding-left:8px;min-width:0;font:900 1.05rem/1 'Trebuchet MS', Verdana, sans-serif;letter-spacing:.04em;text-transform:uppercase;white-space:nowrap}
+.brand{display:flex;align-items:center;gap:10px;padding-left:8px;min-width:0;font:400 .85rem/1.1 'Press Start 2P', 'Trebuchet MS', Verdana, sans-serif;letter-spacing:.04em;text-transform:uppercase;white-space:nowrap}
 .brand-stack{display:flex;flex-direction:column;align-items:flex-start;gap:4px}
 .nav-toggle{
   display:inline-flex;align-items:center;justify-content:center;
@@ -239,7 +244,8 @@ button.small,a.small{font-size:.78rem;padding:.58rem .78rem;box-shadow:3px 3px 0
 .ticket h1{text-shadow:4px 4px 0 rgba(0,0,0,.42),8px 8px 0 rgba(0,0,0,.68)}
 .kicker{font:900 .88rem/1.2 'Trebuchet MS', Verdana, sans-serif;text-transform:uppercase;letter-spacing:.16em;background:var(--teal);border:3px solid var(--ink);display:inline-block;padding:.5rem .7rem;border-radius:999px;box-shadow:4px 4px 0 var(--ink);transform:rotate(-2deg);margin-bottom:1rem}
 h1,h2,h3{margin:0;font-family:'Cooper Black','Bookman Old Style',Georgia,serif;letter-spacing:-.055em;line-height:.9}
-h1{font-size:clamp(3.2rem,8.5vw,7.8rem);text-transform:uppercase;text-shadow:6px 6px 0 var(--sun),10px 10px 0 var(--ink)}
+h1{font-family:'Press Start 2P','Cooper Black',Georgia,serif;font-size:clamp(1.6rem,5vw,4.2rem);letter-spacing:.02em;line-height:1.1;text-transform:uppercase;text-shadow:6px 6px 0 var(--sun),10px 10px 0 var(--ink)}
+h2{font-family:'Press Start 2P','Cooper Black',Georgia,serif;font-size:clamp(.8rem,2vw,1.4rem);letter-spacing:.02em;line-height:1.25;text-transform:uppercase}
 h2{font-size:clamp(2.2rem,6vw,5.8rem);text-shadow:4px 4px 0 rgba(255,216,79,.85)}
 .plaza-title-img{display:block;width:100%;height:auto;margin:0 auto}
 .plaza-head-inner{width:100%;flex:1 1 100%;text-align:center}
@@ -1160,5 +1166,6 @@ label{display:block;font:900 .78rem/1 'Trebuchet MS',Verdana,sans-serif;text-tra
 })();
 </script>
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"75124c326cb447fe934cde04713ae013","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"75124c326cb447fe934cde04713ae013","r":1}' crossorigin="anonymous"></script>
 </body>
 </html>
