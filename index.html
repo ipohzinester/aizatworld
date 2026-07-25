@@ -169,6 +169,11 @@ button.small,a.small{font-size:.78rem;padding:.58rem .78rem;box-shadow:3px 3px 0
 }
 .brand{display:flex;align-items:center;gap:10px;padding-left:8px;min-width:0;font:400 .85rem/1.1 'Press Start 2P', 'Trebuchet MS', Verdana, sans-serif;letter-spacing:.04em;text-transform:uppercase;white-space:nowrap}
 .brand-stack{display:flex;flex-direction:column;align-items:flex-start;gap:4px}
+.brand-title{display:inline-flex;align-items:center;gap:2px}
+.brand-title .brand-text{white-space:pre}
+.brand-title .brand-cursor{display:inline-block;width:.55em;height:1em;margin-left:2px;background:currentColor;vertical-align:-.12em;animation:brand-cursor-blink 1s steps(1,end) infinite}
+@keyframes brand-cursor-blink{0%,50%{opacity:1}50.01%,100%{opacity:0}}
+@media (prefers-reduced-motion:reduce){.brand-title .brand-cursor{animation-duration:1.6s}}
 .nav-toggle{
   display:inline-flex;align-items:center;justify-content:center;
   padding:.52rem .82rem;border:3px solid var(--ink);border-radius:999px;
@@ -530,7 +535,7 @@ label{display:block;font:900 .78rem/1 'Trebuchet MS',Verdana,sans-serif;text-tra
     <div class="brand">
       <span class="planet" aria-hidden="true"></span>
       <div class="brand-stack">
-        <span>AIZAT WORLD</span>
+        <span class="brand-title" id="brandTitle" aria-label="AIZAT WORLD"><span class="brand-text"></span><span class="brand-cursor" aria-hidden="true"></span></span>
       </div>
     </div>
     <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="topNav">Menu</button>
@@ -634,7 +639,7 @@ label{display:block;font:900 .78rem/1 'Trebuchet MS',Verdana,sans-serif;text-tra
     <section class="section" id="arcade">
       <div class="section-head">
         <div><span class="kicker">Attraction district</span><h2>AIZAT ARCADE</h2></div>
-        <p>HTML games become arcade machines. Each machine can point to a game file, a hosted page, or a hidden prototype.</p>
+        <p>Life is play, and we all play a game. At Aizat Arcade, real events are the inspiration for the gameplay. Made by Aizat (mostly).</p>
       </div>
       <div class="card-grid">
         <article class="machine poster-card"><div class="screen poster-screen" style="background-image:url('bukit-sapi-poster.png')"></div><h3>Game 01: Bukit Sapi — Serigala Lenggong</h3><p>A Malay-language social deduction game. Someone on the hill is a wolf. Would you die on this hill?</p><button class="small" data-play="https://ipohzinester.github.io/serigalalenggong/">Play</button></article>
@@ -1173,7 +1178,28 @@ label{display:block;font:900 .78rem/1 'Trebuchet MS',Verdana,sans-serif;text-tra
   loadWall();
 })();
 </script>
+<script>
+/* Brand title typing animation */
+(function(){
+  var host = document.getElementById('brandTitle');
+  if(!host) return;
+  var textEl = host.querySelector('.brand-text');
+  if(!textEl) return;
+  var full = 'AIZAT WORLD';
+  var i = 0;
+  textEl.textContent = '';
+  function tick(){
+    if(i <= full.length){
+      textEl.textContent = full.slice(0, i);
+      i++;
+      setTimeout(tick, 140);
+    }
+  }
+  setTimeout(tick, 300);
+})();
+</script>
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"75124c326cb447fe934cde04713ae013","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"75124c326cb447fe934cde04713ae013","r":1}' crossorigin="anonymous"></script>
 <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"75124c326cb447fe934cde04713ae013","r":1}' crossorigin="anonymous"></script>
 <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"75124c326cb447fe934cde04713ae013","r":1}' crossorigin="anonymous"></script>
 <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"75124c326cb447fe934cde04713ae013","r":1}' crossorigin="anonymous"></script>
