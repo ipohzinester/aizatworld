@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CERITA KEDAI KOPI · penjana idea zine — kacip style</title>
+    <style>
+        /* ── reset & base ── */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --merah: #C41E3A;
+            --emas: #D4A017;
+            --biru: #0033A0;
+            --kuning: #FFD700;
+            --putih: #FDF6EE;
+            --krim: #F7EDE0;
+            --kopi: #6B4F3C;
+            --hitam: #1E1A17;
+            --bayangan: 0 8px 32px rgba(0, 0, 0, 0.12);
+            --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            font-family: var(--font);
+            background: var(--putih);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            background-image:
+                radial-gradient(circle at 10% 20%, rgba(196, 30, 58, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 90% 80%, rgba(212, 160, 23, 0.05) 0%, transparent 50%);
+        }
+
+        /* ── batik-esque decorative border ── */
+        .app-wrapper {
+            max-width: 820px;
+            width: 100%;
+            background: var(--krim);
+            border-radius: 2.5rem 2.5rem 2rem 2rem;
+            padding: 2rem 2rem 2.5rem;
+            box-shadow: var(--bayangan);
+            border: 1px solid rgba(212, 160, 23, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .app-wrapper::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                repeating-linear-gradient(45deg,
+                    transparent,
+                    transparent 12px,
+                    rgba(212, 160, 23, 0.04) 12px,
+                    rgba(212, 160, 23, 0.04) 13px),
+                repeating-linear-gradient(-45deg,
+                    transparent,
+                    transparent 12px,
+                    rgba(196, 30, 58, 0.03) 12px,
+                    rgba(196, 30, 58, 0.03) 13px);
+            pointer-events: none;
+            border-radius: inherit;
+        }
+
+        /* ── header ── */
+        .header {
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            padding-bottom: 1.5rem;
+            border-bottom: 2px dashed rgba(196, 30, 58, 0.15);
+            margin-bottom: 2rem;
+        }
+
+        .header .title {
+            font-size: 3rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            color: var(--merah);
+            text-shadow: 0 2px 0 rgba(212, 160, 23, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.25rem;
+            flex-wrap: wrap;
+        }
+
+        .header .title .cerita {
+            background: var(--merah);
+            color: var(--putih);
+            padding: 0 0.6rem;
+            border-radius: 0.5rem;
+            font-size: 2.6rem;
+            line-height: 1.2;
+            transform: rotate(-1deg);
+        }
+
+        .header .title .kedai {
+            background: var(--emas);
+            color: var(--putih);
+            padding: 0 0.6rem;
+            border-radius: 0.5rem;
+            font-size: 2.6rem;
+            line-height: 1.2;
+            transform: rotate(1deg);
+        }
+
+        .header .title .kopi {
+            background: var(--biru);
+            color: var(--putih);
+            padding: 0 0.6rem;
+            border-radius: 0.5rem;
+            font-size: 2.6rem;
+            line-height: 1.2;
+            transform: rotate(0deg);
+        }
+
+        .header .sub {
+            font-size: 1.05rem;
+            color: var(--kopi);
+            margin-top: 0.5rem;
+            font-weight: 500;
+            letter-spacing: 0.04em;
+            opacity: 0.85;
+        }
+
+        .header .sub span {
+            background: rgba(212, 160, 23, 0.12);
+            padding: 0.1rem 0.8rem;
+            border-radius: 20px;
+            font-weight: 600;
+            color: var(--merah);
+        }
+
+        /* ── stats bar ── */
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            font-size: 0.8rem;
+            color: var(--kopi);
+            margin-top: 0.75rem;
+            opacity: 0.7;
+            font-weight: 500;
+        }
+        .stats em {
+            font-style: normal;
+            background: var(--putih);
+            padding: 0.1rem 0.5rem;
+            border-radius: 12px;
+            border: 1px solid rgba(212, 160, 23, 0.2);
+        }
+
+        /* ── prompt card ── */
+        .prompt-card {
+            background: var(--putih);
+            border-radius: 1.8rem;
+            padding: 2.2rem 2rem;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8), var(--bayangan);
+            border: 1px solid rgba(212, 160, 23, 0.15);
+            min-height: 180px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            z-index: 1;
+            transition: all 0.3s ease;
+            margin-bottom: 1.8rem;
+        }
+
+        .prompt-card .label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--kopi);
+            opacity: 0.4;
+            font-weight: 600;
+            margin-bottom: 0.6rem;
+        }
+
+        .prompt-card .prompt-text {
+            font-size: 1.6rem;
+            line-height: 1.5;
+            font-weight: 600;
+            color: var(--hitam);
+            transition: opacity 0.25s ease;
+            word-break: break-word;
+        }
+
+        .prompt-card .prompt-text .highlight {
+            color: var(--merah);
+            background: linear-gradient(to right, rgba(196, 30, 58, 0.08), transparent);
+            padding: 0 0.2rem;
+            border-radius: 4px;
+        }
+
+        .prompt-card .prompt-text .highlight-gold {
+            color: var(--emas);
+            background: linear-gradient(to right, rgba(212, 160, 23, 0.12), transparent);
+            padding: 0 0.2rem;
+            border-radius: 4px;
+        }
+
+        .prompt-card .prompt-text .highlight-blue {
+            color: var(--biru);
+            background: linear-gradient(to right, rgba(0, 51, 160, 0.08), transparent);
+            padding: 0 0.2rem;
+            border-radius: 4px;
+        }
+
+        .prompt-card .prompt-text .fade-in {
+            animation: fadeUp 0.45s ease forwards;
+        }
+
+        @keyframes fadeUp {
+            0% {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ── ingredient tags ── */
+        .ingredients {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem 0.6rem;
+            margin-top: 1.2rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .ingredients .tag {
+            font-size: 0.65rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            padding: 0.25rem 0.7rem;
+            border-radius: 20px;
+            background: var(--krim);
+            color: var(--kopi);
+            border: 1px solid rgba(212, 160, 23, 0.12);
+            opacity: 0.7;
+        }
+
+        .ingredients .tag.merah {
+            background: rgba(196, 30, 58, 0.08);
+            color: var(--merah);
+            border-color: rgba(196, 30, 58, 0.15);
+        }
+        .ingredients .tag.emas {
+            background: rgba(212, 160, 23, 0.10);
+            color: var(--emas);
+            border-color: rgba(212, 160, 23, 0.2);
+        }
+        .ingredients .tag.biru {
+            background: rgba(0, 51, 160, 0.06);
+            color: var(--biru);
+            border-color: rgba(0, 51, 160, 0.12);
+        }
+
+        /* ── buttons ── */
+        .actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            position: relative;
+            z-index: 1;
+            margin-top: 0.5rem;
+        }
+
+        .btn {
+            font-family: var(--font);
+            border: none;
+            padding: 0.85rem 2.2rem;
+            border-radius: 60px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            letter-spacing: 0.02em;
+        }
+
+        .btn-primary {
+            background: var(--merah);
+            color: white;
+            box-shadow: 0 4px 14px rgba(196, 30, 58, 0.3);
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(196, 30, 58, 0.35);
+        }
+        .btn-primary:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 8px rgba(196, 30, 58, 0.25);
+        }
+
+        .btn-secondary {
+            background: var(--krim);
+            color: var(--kopi);
+            border: 1px solid rgba(212, 160, 23, 0.2);
+        }
+        .btn-secondary:hover {
+            background: var(--putih);
+            border-color: var(--emas);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--kopi);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            padding: 0.85rem 1.4rem;
+        }
+        .btn-outline:hover {
+            background: var(--putih);
+            border-color: rgba(196, 30, 58, 0.2);
+        }
+
+        .btn .icon {
+            font-size: 1.2rem;
+            line-height: 1;
+        }
+
+        /* ── footer ── */
+        .footer {
+            text-align: center;
+            margin-top: 2rem;
+            font-size: 0.7rem;
+            color: var(--kopi);
+            opacity: 0.5;
+            letter-spacing: 0.04em;
+            position: relative;
+            z-index: 1;
+            line-height: 1.6;
+            font-weight: 400;
+        }
+        .footer a {
+            color: var(--merah);
+            text-decoration: none;
+            opacity: 0.6;
+        }
+        .footer a:hover {
+            opacity: 1;
+        }
+        .footer .divider {
+            display: inline-block;
+            margin: 0 0.3rem;
+            opacity: 0.3;
+        }
+
+        /* ── toast ── */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%) translateY(80px);
+            background: var(--hitam);
+            color: var(--putih);
+            padding: 0.7rem 1.8rem;
+            border-radius: 60px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            pointer-events: none;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+            z-index: 999;
+        }
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* ── responsive ── */
+        @media (max-width: 600px) {
+            .app-wrapper {
+                padding: 1.2rem 1.2rem 1.8rem;
+                border-radius: 1.8rem;
+            }
+            .header .title {
+                font-size: 2.2rem;
+            }
+            .header .title .cerita,
+            .header .title .kedai,
+            .header .title .kopi {
+                font-size: 1.9rem;
+            }
+            .header .sub {
+                font-size: 0.85rem;
+            }
+            .prompt-card {
+                padding: 1.5rem 1.2rem;
+                min-height: 140px;
+            }
+            .prompt-card .prompt-text {
+                font-size: 1.2rem;
+            }
+            .btn {
+                padding: 0.7rem 1.4rem;
+                font-size: 0.85rem;
+            }
+            .stats {
+                font-size: 0.65rem;
+                gap: 0.8rem;
+            }
+            .ingredients .tag {
+                font-size: 0.55rem;
+                padding: 0.15rem 0.5rem;
+            }
+            .footer {
+                font-size: 0.6rem;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .header .title {
+                font-size: 1.7rem;
+            }
+            .header .title .cerita,
+            .header .title .kedai,
+            .header .title .kopi {
+                font-size: 1.5rem;
+            }
+            .prompt-card .prompt-text {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-wrapper">
+
+        <!-- header -->
+        <header class="header">
+            <div class="title">
+                <span class="cerita">CERITA</span>
+                <span class="kedai">KEDAI</span>
+                <span class="kopi">KOPI</span>
+            </div>
+            <div class="sub">
+                ⚡ <span>penjana idea zine — kacip style</span>
+            </div>
+            <div class="stats">
+                <span>📍 <em id="statLokasi">0</em> lokasi</span>
+                <span>📦 <em id="statObjek">0</em> objek</span>
+                <span>🎭 <em id="statTwist">0</em> sentuhan</span>
+                <span>🎙️ <em id="statSuara">0</em> suara</span>
+                <span>🌀 <em id="statKombinasi">0</em> kombinasi</span>
+            </div>
+        </header>
+
+        <!-- prompt card -->
+        <div class="prompt-card" id="promptCard">
+            <div class="label">✦ idea zine</div>
+            <div class="prompt-text" id="promptText">
+                <span class="fade-in">Klik butang di bawah untuk hasilkan idea 🔽</span>
+            </div>
+            <div class="ingredients" id="ingredientTags">
+                <!-- tags will be injected here -->
+            </div>
+        </div>
+
+        <!-- actions -->
+        <div class="actions">
+            <button class="btn btn-primary" id="generateBtn">
+                <span class="icon">⚡</span> Hasilkan Idea
+            </button>
+            <button class="btn btn-secondary" id="copyBtn">
+                <span class="icon">📋</span> Salin
+            </button>
+            <button class="btn btn-outline" id="resetBtn">
+                <span class="icon">↺</span> Baru
+            </button>
+        </div>
+
+        <div class="footer">
+            offline, tiada A.I. hanya komer dan kacip behaviour. Ciptaan pada 2026.
+        </div>
+    </div>
+
+    <!-- toast -->
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        //  DATA — strictly from the text provided
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+        const DATA = {
+
+            kataKerja: [
+                "Buat", "Cipta", "Lukis", "Dokumen", "Siasat",
+                "Arkib", "Temu bual", "Kumpul", "Foto", "Tulis",
+                "Reka", "Cerita", "Perhatikan", "Rakam", "Teroka"
+            ],
+
+            format: [
+                "Buku Panduan", "Buku Resipi", "Laporan Kerajaan Palsu",
+                "Teori Konspirasi", "Panduan Pelancongan", "Diari",
+                "Manual Survival", "Manifesto", "Koleksi", "Esei Foto",
+                "Zine Temu Bual", "Puisi", "Komik", "Peta", "Arkib",
+                "Katalog Muzium", "Risalah", "Surat", "Jurnal", "Sketsa"
+            ],
+
+            lokasi: [
+                "Pasar Malam", "Kampung", "Flat PPR", "Mamak", "LRT",
+                "Surau", "Estet getah", "Felda", "Pulau", "Kedai runcit Cina",
+                "Old kopitiam", "Kaki lima", "Longhouse", "Rumah panjang",
+                "Borneo rainforest", "Fishing village", "Food court",
+                "KTM station", "R&R", "Night market", "Bazaar Ramadan",
+                "Taman perumahan", "Pasar basah", "Warung", "Stesen bas",
+                "Pantai", "Sawah padi", "Gunung", "Sungai", "Bandaraya"
+            ],
+
+            objek: [
+                "Milo tin", "Batik", "Sarong", "Songkok", "Rotan chair",
+                "Plastic stool", "Maggi", "Gardenia", "Kicap Cap Kipas",
+                "Tiger Balm", "Proton Saga", "Perodua Kancil", "Kuih lapis",
+                "Dodol", "Durian shell", "Keropok lekor", "Old Astro decoder",
+                "Touch 'n Go card", "Roadside shrine", "Bamboo basket", "Beca",
+                "Kain pelikat", "Tudung", "Topi keledar", "Payung", "Bekas ais",
+                "Kuali wok", "Cawan kopi", "Botol kaca", "Tikar mengkuang",
+                "Wayang kulit", "Gong", "Angklung", "Ketupat", "Lemang"
+            ],
+
+            perasaan: [
+                "balik kampung nostalgia", "malu", "segan", "gotong-royong",
+                "lepak", "merajuk", "rindu", "pasrah", "semangat jiran",
+                "kiasu", "tak apa attitude", "muhibbah", "bersyukur",
+                "merantau", "sunyi selepas raya", "terharu", "gembira",
+                "teruja", "sayu", "bangga", "cinta", "haru"
+            ],
+
+            sentuhanBudaya: [
+                "Only interview pakcik",
+                "Made entirely from old newspapers",
+                "Document only roadside shrines",
+                "Ask strangers one question",
+                "Everything costs RM5",
+                "Written as gossip",
+                "Made during one train ride",
+                "Photograph only blue objects",
+                "Only use receipts",
+                "Collect conversations from mamak",
+                "Temui lima orang nenek",
+                "Rakam bunyi-bunyi sekitar",
+                "Guna hanya pensel arang",
+                "Tulis di atas kertas pembalut",
+                "Buat di tengah malam",
+                "Libatkan kanak-kanak",
+                "Cerita dari mulut ke mulut",
+                "Hanya warna merah dan putih",
+                "Dengan tangan kiri sahaja",
+                "Sambil minum teh tarik"
+            ],
+
+            suara: [
+                "Curious", "Angry", "Funny", "Wholesome", "Sad",
+                "Academic", "Journalistic", "Chaotic", "Hopeful",
+                "Dreamlike", "Absurd", "Folklore", "Punk", "Tender",
+                "Sarkastik", "Romantik", "Misteri", "Epik", "Intim", "Gila"
+            ]
+
+        };
+
+        const TEMPLATES = [
+            function({ v, f, l, o, p, t, s }) {
+                return `${v} ${f} tentang ${o} di ${l} — ${t}. Gaya: ${s}.`;
+            },
+            function({ v, f, l, o, p, t, s }) {
+                return `Buat ${f} yang ${p} tentang ${l} dan ${o} dengan ${t}. Suara: ${s}.`;
+            },
+            function({ v, f, l, o, p, t, s }) {
+                return `${v} ${f} tentang ${o} di ${l} — ${t}. Dalam gaya ${s}, dengan sentuhan ${p}.`;
+            },
+            function({ v, f, l, o, p, t, s }) {
+                return `${v} ${f} tentang ${l} — fokus pada ${o}. ${t}. Gaya: ${s}.`;
+            },
+            function({ v, f, l, o, p, t, s }) {
+                return `Buat ${f} yang ${p} tentang ${o} di ${l}. ${t} — dengan suara ${s}.`;
+            },
+            function({ v, f, l, o, p, t, s }) {
+                return `${v} ${f} tentang ${l} dan ${o} — ${t}. ${p}. Gaya: ${s}.`;
+            },
+            function({ v, f, l, o, p, t, s }) {
+                return `${v} ${f} tentang ${o} di ${l}. Sentuhan: ${t}. Suara: ${s}. (rasa: ${p})`;
+            },
+            function({ v, f, l, o, p, t, s }) {
+                return `Buat ${f} yang ${p} tentang ${l} — ${o} sebagai fokus. ${t}. Gaya ${s}.`;
+            }
+        ];
+
+        function pick(arr) {
+            return arr[Math.floor(Math.random() * arr.length)];
+        }
+
+        function generateIdea() {
+            const v = pick(DATA.kataKerja);
+            const f = pick(DATA.format);
+            const l = pick(DATA.lokasi);
+            const o = pick(DATA.objek);
+            const p = pick(DATA.perasaan);
+            const t = pick(DATA.sentuhanBudaya);
+            const s = pick(DATA.suara);
+
+            const template = pick(TEMPLATES);
+            const raw = template({ v, f, l, o, p, t, s });
+
+            let result = raw.replace(/\s+/g, ' ').trim();
+            if (!result.endsWith('.') && !result.endsWith('!') && !result.endsWith('?')) {
+                result += '.';
+            }
+            result = result.charAt(0).toUpperCase() + result.slice(1);
+
+            return {
+                text: result,
+                ingredients: { v, f, l, o, p, t, s }
+            };
+        }
+
+        const promptText = document.getElementById('promptText');
+        const ingredientTags = document.getElementById('ingredientTags');
+        const generateBtn = document.getElementById('generateBtn');
+        const copyBtn = document.getElementById('copyBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const toast = document.getElementById('toast');
+
+        let currentIdea = null;
+
+        function updateStats() {
+            document.getElementById('statLokasi').textContent = DATA.lokasi.length;
+            document.getElementById('statObjek').textContent = DATA.objek.length;
+            document.getElementById('statTwist').textContent = DATA.sentuhanBudaya.length;
+            document.getElementById('statSuara').textContent = DATA.suara.length;
+
+            const total = DATA.kataKerja.length *
+                DATA.format.length *
+                DATA.lokasi.length *
+                DATA.objek.length *
+                DATA.perasaan.length *
+                DATA.sentuhanBudaya.length *
+                DATA.suara.length *
+                TEMPLATES.length;
+            document.getElementById('statKombinasi').textContent = total.toLocaleString();
+        }
+
+        function renderIdea(idea) {
+            currentIdea = idea;
+            promptText.innerHTML = '';
+            const span = document.createElement('span');
+            span.className = 'fade-in';
+            span.textContent = idea.text;
+            promptText.appendChild(span);
+
+            const { v, f, l, o, p, t, s } = idea.ingredients;
+            const tags = [
+                { label: v, cls: 'merah' },
+                { label: f, cls: 'emas' },
+                { label: l, cls: 'biru' },
+                { label: o, cls: '' },
+                { label: p, cls: '' },
+                { label: t, cls: 'merah' },
+                { label: s, cls: 'emas' },
+            ];
+            ingredientTags.innerHTML = '';
+            tags.forEach((tag) => {
+                const el = document.createElement('span');
+                el.className = `tag ${tag.cls}`;
+                el.textContent = tag.label;
+                ingredientTags.appendChild(el);
+            });
+        }
+
+        function generateAndRender() {
+            const idea = generateIdea();
+            renderIdea(idea);
+        }
+
+        function copyIdea() {
+            if (!currentIdea) {
+                showToast('📭 Tiada idea untuk disalin. Jana dulu!');
+                return;
+            }
+            navigator.clipboard.writeText(currentIdea.text).then(() => {
+                showToast('📋 Idea disalin ke papan keratan!');
+            }).catch(() => {
+                const ta = document.createElement('textarea');
+                ta.value = currentIdea.text;
+                document.body.appendChild(ta);
+                ta.select();
+                document.execCommand('copy');
+                ta.remove();
+                showToast('📋 Idea disalin!');
+            });
+        }
+
+        let toastTimeout = null;
+        function showToast(msg) {
+            toast.textContent = msg;
+            toast.classList.add('show');
+            clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => {
+                toast.classList.remove('show');
+            }, 2200);
+        }
+
+        function resetToPlaceholder() {
+            currentIdea = null;
+            promptText.innerHTML = `<span class="fade-in">Klik butang di bawah untuk hasilkan idea 🔽</span>`;
+            ingredientTags.innerHTML = '';
+            const placeholders = ['📍 lokasi', '📦 objek', '🎭 sentuhan', '🎙️ suara'];
+            placeholders.forEach((p) => {
+                const el = document.createElement('span');
+                el.className = 'tag';
+                el.textContent = p;
+                el.style.opacity = '0.3';
+                ingredientTags.appendChild(el);
+            });
+        }
+
+        updateStats();
+        resetToPlaceholder();
+
+        generateBtn.addEventListener('click', generateAndRender);
+        copyBtn.addEventListener('click', copyIdea);
+        resetBtn.addEventListener('click', resetToPlaceholder);
+
+        document.addEventListener('keydown', (e) => {
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+            if (e.key === ' ' || e.key === 'Space') {
+                e.preventDefault();
+                generateAndRender();
+            }
+        });
+
+        setTimeout(() => {
+            generateAndRender();
+        }, 300);
+    </script>
+
+</body>
+</html>

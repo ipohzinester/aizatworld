@@ -491,7 +491,7 @@ html[data-theme="dark"] #library .library-bookshelf{
 }
 html[data-theme="dark"] #library .library-shelf{background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(0,0,0,.18))}
 html[data-theme="dark"] #library .library-book-title{color:#fff7e4}
-.workshop{display:grid;grid-template-columns:.9fr 1.1fr;gap:22px;position:relative;z-index:1}.manifesto{border:var(--line);border-radius:26px;background:#fff;padding:26px;box-shadow:6px 6px 0 var(--ink)}
+.workshop{display:grid;grid-template-columns:1fr 1fr;gap:22px;position:relative;z-index:1;align-items:stretch}.workshop-left{display:flex;flex-direction:column;gap:22px;min-height:0}.workshop-right{display:flex;flex-direction:column;gap:22px;min-height:0}.widget-card{border:var(--line);border-radius:26px;background:#fff;padding:14px;box-shadow:6px 6px 0 var(--ink);max-width:600px;width:100%;display:flex;flex-direction:column;flex:1 1 auto;min-height:0;overflow:hidden}.widget-card .widget-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:2px 6px 12px;font:900 .78rem/1 'Trebuchet MS',Verdana,sans-serif;text-transform:uppercase;letter-spacing:.14em;flex:0 0 auto}.widget-card .widget-head .dot{width:10px;height:10px;border-radius:50%;background:#C41E3A;box-shadow:0 0 0 3px #fff,0 0 0 5px var(--ink);display:inline-block;margin-right:6px;vertical-align:middle}.widget-card .widget-badge{padding:.3rem .6rem;border:3px solid var(--ink);border-radius:999px;background:var(--sun);font-size:.7rem}.widget-frame{width:100%;flex:1 1 auto;min-height:600px;border:3px solid var(--ink);border-radius:18px;background:#FDF6EE;display:block;overflow:hidden}.widget-frame iframe{width:100%;height:100%;border:0;display:block;background:transparent}@media (max-width:1040px){.widget-card{max-width:100%}.widget-frame{min-height:760px}}.manifesto{border:var(--line);border-radius:26px;background:#fff;padding:26px;box-shadow:6px 6px 0 var(--ink)}
 .manifesto p{font-size:1.25rem;line-height:1.55;margin:.25rem 0}.maker-panel{border:var(--line);border-radius:26px;background:var(--sun);padding:22px;box-shadow:6px 6px 0 var(--ink)}
 .fake-zine{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:16px 0}.fake-zine div{aspect-ratio:3/4;border:3px solid var(--ink);background:#fff;background-size:cover;background-position:center;border-radius:8px;position:relative;overflow:hidden;box-shadow:3px 3px 0 var(--ink)}
 .fake-zine div span{position:absolute;left:6px;right:6px;bottom:6px;padding:3px 6px;border-radius:6px;background:rgba(10,8,16,.72);color:#fff;font:900 .64rem/1 'Trebuchet MS',Verdana,sans-serif;text-align:center}
@@ -672,18 +672,26 @@ label{display:block;font:900 .78rem/1 'Trebuchet MS',Verdana,sans-serif;text-tra
         <p>The central loop: visitor enters, makes a zine, shares it, the community sees it, visitor returns.</p>
       </div>
       <div class="workshop">
-        <div class="manifesto">
-          <p>You don’t need permission.</p>
-          <p>You don’t need to attend a workshop.</p>
-          <p>You don’t need to know anyone.</p>
-          <p>You don’t need to be a “real artist.”</p>
-          <p><strong>Just make a zine.</strong></p>
+        <div class="workshop-left">
+          <div class="widget-card" role="region" aria-label="Cerita Kedai Kopi idea generator">
+            <div class="widget-head"><span><span class="dot"></span> Idea generator</span><span class="widget-badge">Kacip style</span></div>
+            <div class="widget-frame"><iframe src="cerita-kedai-kopi.html" title="CERITA KEDAI KOPI — penjana idea zine" loading="lazy" referrerpolicy="no-referrer" sandbox="allow-scripts allow-same-origin allow-popups allow-clipboard-write"></iframe></div>
+          </div>
         </div>
-        <div class="maker-panel">
-          <h3>Mini zine launch pad</h3>
-          <div class="fake-zine" aria-hidden="true"><div style="background-image:url('zine-page-1.png')"><span>Cover</span></div><div style="background-image:url('zine-page-2.png')"><span>Page 2</span></div><div style="background-image:url('zine-page-3.png')"><span>Page 3</span></div><div style="background-image:url('zine-page-back.png')"><span>Back</span></div></div>
-          <p class="copy">Drag-and-drop your way to an 8-page zine, then print or download it. Opens right here — no separate tab, no losing your place.</p>
-          <div class="hero-actions"><button data-play="https://ipohzinester.github.io/jombuatzine/">Open zine maker</button><button class="secondary" data-modal="share">Submit / share your zine</button></div>
+        <div class="workshop-right">
+          <div class="manifesto">
+            <p>You don’t need permission.</p>
+            <p>You don’t need to attend a workshop.</p>
+            <p>You don’t need to know anyone.</p>
+            <p>You don’t need to be a “real artist.”</p>
+            <p><strong>Just make a zine.</strong></p>
+          </div>
+          <div class="maker-panel">
+            <h3>Mini zine launch pad</h3>
+            <div class="fake-zine" aria-hidden="true"><div style="background-image:url('zine-page-1.png')"><span>Cover</span></div><div style="background-image:url('zine-page-2.png')"><span>Page 2</span></div><div style="background-image:url('zine-page-3.png')"><span>Page 3</span></div><div style="background-image:url('zine-page-back.png')"><span>Back</span></div></div>
+            <p class="copy">Drag-and-drop your way to an 8-page zine, then print or download it. Opens right here — no separate tab, no losing your place.</p>
+            <div class="hero-actions"><button data-play="https://ipohzinester.github.io/jombuatzine/">Open zine maker</button><button class="secondary" data-modal="share">Submit / share your zine</button></div>
+          </div>
         </div>
       </div>
     </section>
@@ -1166,6 +1174,7 @@ label{display:block;font:900 .78rem/1 'Trebuchet MS',Verdana,sans-serif;text-tra
 })();
 </script>
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"75124c326cb447fe934cde04713ae013","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"75124c326cb447fe934cde04713ae013","r":1}' crossorigin="anonymous"></script>
 <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"75124c326cb447fe934cde04713ae013","r":1}' crossorigin="anonymous"></script>
 </body>
 </html>
