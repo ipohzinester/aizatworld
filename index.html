@@ -313,6 +313,178 @@ h3{font-size:clamp(1.5rem,3vw,3rem)}
 .zine-cover::before{content:"";position:absolute;inset:12px;border:3px dashed rgba(23,33,43,.35);border-radius:16px;pointer-events:none}
 .zine-cover .issue{font:900 .75rem/1 'Trebuchet MS',Verdana,sans-serif;text-transform:uppercase;letter-spacing:.12em;position:relative;z-index:1}
 .zine-cover h3{font-size:2rem;font-family:'Cooper Black','Bookman Old Style',Georgia,serif;letter-spacing:-.05em;position:relative;z-index:1}
+#library{overflow:hidden}
+#library .library-bookshelf{
+  position:relative;
+  z-index:1;
+  padding:clamp(16px,2vw,24px);
+  border:var(--line);
+  border-radius:28px;
+  background:
+    radial-gradient(circle at top left,rgba(255,255,255,.22),transparent 30%),
+    linear-gradient(180deg,#b67845 0%,#8f582f 22%,#774525 100%);
+  box-shadow:8px 8px 0 rgba(23,33,43,.3);
+  overflow:hidden;
+}
+#library .library-bookshelf::before{
+  content:"";
+  position:absolute;
+  inset:12px;
+  border-radius:20px;
+  border:3px solid rgba(255,248,232,.25);
+  pointer-events:none;
+}
+#library .library-shelves{display:grid;gap:clamp(18px,2.5vw,28px);position:relative}
+#library .library-shelf{
+  position:relative;
+  padding:clamp(18px,2vw,24px) clamp(12px,1.8vw,18px) clamp(26px,3vw,34px);
+  border-radius:22px;
+  background:linear-gradient(180deg,rgba(255,248,232,.16),rgba(0,0,0,.08));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.22);
+}
+#library .library-shelf::after{
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:0;
+  height:clamp(18px,2vw,24px);
+  border:4px solid var(--ink);
+  border-radius:14px;
+  background:linear-gradient(180deg,#c07c44,#8b522d 65%,#6a3b1d);
+  box-shadow:0 10px 18px rgba(18,12,6,.18);
+}
+#library .library-shelf-grid{
+  display:grid;
+  grid-template-columns:repeat(var(--shelf-columns,4),minmax(0,1fr));
+  gap:clamp(12px,1.6vw,20px);
+  align-items:end;
+}
+#library .library-book{
+  --book-width:clamp(120px,14vw,190px);
+  min-width:0;
+  display:flex;
+  justify-content:center;
+  align-self:end;
+}
+#library .library-book-button{
+  appearance:none;
+  background:none;
+  border:0;
+  padding:0;
+  margin:0;
+  width:100%;
+  display:grid;
+  justify-items:center;
+  gap:10px;
+  align-content:end;
+  text-align:left;
+  color:inherit;
+  cursor:pointer;
+  font:inherit;
+}
+#library .library-book-button:focus-visible .library-book-cover{outline:3px solid var(--sun);outline-offset:4px}
+#library .library-book-cover{
+  position:relative;
+  width:min(100%,var(--book-width));
+  aspect-ratio:3 / 4.25;
+  border:4px solid var(--ink);
+  border-radius:14px 14px 12px 12px;
+  overflow:hidden;
+  background:#fff;
+  box-shadow:0 14px 16px rgba(23,33,43,.12),6px 6px 0 var(--ink);
+  transform:translateY(0) rotate(var(--book-tilt,0deg));
+  transform-origin:50% 100%;
+  transition:transform .18s ease, box-shadow .18s ease;
+}
+#library .library-book img{width:100%;height:100%;display:block;object-fit:cover;background:#f6ead2}
+#library .library-book-button:hover .library-book-cover,
+#library .library-book-button:focus-visible .library-book-cover{
+  transform:translateY(-8px) rotate(calc(var(--book-tilt,0deg) * 1.8)) scale(1.02);
+  box-shadow:0 18px 22px rgba(23,33,43,.18),8px 10px 0 var(--ink);
+}
+#library .library-book-badge{
+  position:absolute;
+  top:10px;
+  left:10px;
+  z-index:2;
+  display:inline-flex;
+  align-items:center;
+  max-width:calc(100% - 20px);
+  padding:.34rem .55rem;
+  border:3px solid var(--ink);
+  border-radius:999px;
+  background:var(--library-type-color,var(--sun));
+  color:#17212b;
+  font:900 .64rem/1 'Trebuchet MS',Verdana,sans-serif;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+}
+#library .library-book-glow{
+  position:absolute;
+  inset:auto 12px 10px;
+  height:28%;
+  background:linear-gradient(180deg,rgba(255,255,255,0),rgba(255,255,255,.18));
+  border-radius:10px;
+  pointer-events:none;
+}
+#library .library-book-meta{
+  width:min(100%,var(--book-width));
+  min-width:0;
+  display:grid;
+  gap:4px;
+  padding-inline:4px;
+  color:#fff6e9;
+}
+#library .library-book-type{
+  font:900 .68rem/1 'Trebuchet MS',Verdana,sans-serif;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:#ffe2bf;
+}
+#library .library-book-title{
+  font:900 clamp(.88rem,1vw,1rem)/1.1 'Trebuchet MS',Verdana,sans-serif;
+  text-transform:uppercase;
+  letter-spacing:.02em;
+  color:#fffdf7;
+  word-break:break-word;
+}
+#library .library-book-description{
+  margin:0;
+  font-size:clamp(.82rem,.9vw,.9rem);
+  line-height:1.35;
+  color:#f6e8d4;
+  display:-webkit-box;
+  -webkit-line-clamp:2;
+  -webkit-box-orient:vertical;
+  overflow:hidden;
+}
+#library .library-book-action{
+  font:900 .72rem/1 'Trebuchet MS',Verdana,sans-serif;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+  color:#fff9ef;
+  opacity:.84;
+}
+#library .library-empty{
+  border:3px dashed rgba(255,248,232,.45);
+  border-radius:18px;
+  padding:20px;
+  color:#fff8ec;
+  background:rgba(0,0,0,.12);
+}
+#library .type-zine{--library-type-color:var(--sun)}
+#library .type-book{--library-type-color:var(--teal)}
+#library .type-game{--library-type-color:var(--rose)}
+#library .type-app{--library-type-color:var(--green)}
+#library .type-archive{--library-type-color:var(--orange)}
+html[data-theme="dark"] #library .library-bookshelf{
+  background:
+    radial-gradient(circle at top left,rgba(255,255,255,.1),transparent 30%),
+    linear-gradient(180deg,#7d4a28 0%,#5a3118 22%,#3a2112 100%);
+}
+html[data-theme="dark"] #library .library-shelf{background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(0,0,0,.18))}
+html[data-theme="dark"] #library .library-book-title{color:#fff7e4}
 .workshop{display:grid;grid-template-columns:.9fr 1.1fr;gap:22px;position:relative;z-index:1}.manifesto{border:var(--line);border-radius:26px;background:#fff;padding:26px;box-shadow:6px 6px 0 var(--ink)}
 .manifesto p{font-size:1.25rem;line-height:1.55;margin:.25rem 0}.maker-panel{border:var(--line);border-radius:26px;background:var(--sun);padding:22px;box-shadow:6px 6px 0 var(--ink)}
 .fake-zine{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:16px 0}.fake-zine div{aspect-ratio:3/4;border:3px solid var(--ink);background:#fff;background-size:cover;background-position:center;border-radius:8px;position:relative;overflow:hidden;box-shadow:3px 3px 0 var(--ink)}
@@ -339,7 +511,8 @@ label{display:block;font:900 .78rem/1 'Trebuchet MS',Verdana,sans-serif;text-tra
 .float-tools{position:fixed;right:16px;bottom:16px;z-index:95;display:grid;gap:8px}.float-tools button{width:54px;height:54px;padding:0;border-radius:50%;background:#fff;font-size:1.2rem}
 @media (max-width:1040px){.plaza-grid,.workshop,.wall-wrap,.guestbook{grid-template-columns:minmax(0,1fr)}.card-grid,.iklan-grid{grid-template-columns:repeat(2,1fr)}#arcade .card-grid,#lab .card-grid{grid-template-columns:1fr}.loop,.notice-board{grid-template-columns:repeat(3,1fr)}.ribbon{grid-template-columns:repeat(2,1fr)}.topbar{border-radius:24px}.brand{white-space:normal}.top-clock{justify-self:end}.section-head{display:block}.section-head p{margin-top:12px}}
 @media (max-width:720px){.hero{grid-template-columns:minmax(0,1fr)}}
-@media (max-width:620px){.shell{padding-inline:12px}.topbar{position:sticky;top:8px;grid-template-columns:minmax(0,1fr) auto auto;gap:8px;align-items:center}.brand{grid-column:1 / 2}.top-clock{grid-column:3 / 4;grid-row:1;justify-self:end;min-width:7.8ch;padding:.38rem .62rem;font-size:.78rem;letter-spacing:.12em}.nav-toggle{grid-column:2 / 3}.hero{min-height:auto}.ticket .hero-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.ticket .hero-actions .button,.ticket .hero-actions button{width:100%;padding:.78rem .7rem}.marquee-track img{width:180px;height:220px}.card-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.iklan-grid,.prompts,.loop,.notice-board,.ribbon{grid-template-columns:1fr}.node{width:72px;height:72px;font-size:.58rem}.node.plaza{width:94px;height:94px}.orbit-map{min-height:330px}h1{text-shadow:3px 3px 0 var(--sun),6px 6px 0 var(--ink)}}
+@media (max-width:900px){#library .library-book{--book-width:clamp(112px,24vw,180px)}}
+@media (max-width:620px){.shell{padding-inline:12px}.topbar{position:sticky;top:8px;grid-template-columns:minmax(0,1fr) auto auto;gap:8px;align-items:center}.brand{grid-column:1 / 2}.top-clock{grid-column:3 / 4;grid-row:1;justify-self:end;min-width:7.8ch;padding:.38rem .62rem;font-size:.78rem;letter-spacing:.12em}.nav-toggle{grid-column:2 / 3}.hero{min-height:auto}.ticket .hero-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.ticket .hero-actions .button,.ticket .hero-actions button{width:100%;padding:.78rem .7rem}.marquee-track img{width:180px;height:220px}.card-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.iklan-grid,.prompts,.loop,.notice-board,.ribbon{grid-template-columns:1fr}.node{width:72px;height:72px;font-size:.58rem}.node.plaza{width:94px;height:94px}.orbit-map{min-height:330px}h1{text-shadow:3px 3px 0 var(--sun),6px 6px 0 var(--ink)}#library .library-bookshelf{padding:14px}#library .library-shelf{padding:16px 10px 26px}#library .library-book{--book-width:min(100%,220px)}#library .library-book-meta{gap:3px}#library .library-book-description{-webkit-line-clamp:3}}
 @media (max-width:560px){.ticket .hero-actions{grid-template-columns:1fr}}
 @media (prefers-reduced-motion: reduce){*{animation:none!important;scroll-behavior:auto!important;transition:none!important}}
 </style>
@@ -468,7 +641,7 @@ label{display:block;font:900 .78rem/1 'Trebuchet MS',Verdana,sans-serif;text-tra
     <section class="section" id="lab">
       <div class="section-head">
         <div><span class="kicker">Experiment zone</span><h2>THE APP LAB</h2></div>
-        <p>Tools, generators, pointless machines, useful machines, and things that probably should not exist.</p>
+        <p>Tools, generators, pointless machines, useful machines, and things that probably should not exist. Made by Aizat.</p>
       </div>
       <div class="card-grid">
         <article class="specimen"><div class="cover"><img src="sajak-aku-cover.png" alt="SAJAK: AKU — I Am Poem cover art" width="300" height="200" loading="lazy" decoding="async"></div><h3>SAJAK: AKU</h3><p>A bilingual Malay-English poetry generator that turns your thoughts, feelings, and random words into an “I Am” poem — for self-expression, reflection, and a little poetic chaos.</p><button class="small" data-play="https://ipohzinester.github.io/sajak-generator/">Try it</button></article>
@@ -479,16 +652,11 @@ label{display:block;font:900 .78rem/1 'Trebuchet MS',Verdana,sans-serif;text-tra
 
     <section class="section" id="library">
       <div class="section-head">
-        <div><span class="kicker">Archive district</span><h2>ZINE LIBRARY</h2></div>
-        <p>Your existing work becomes the history of AIZAT WORLD. Visitors are not viewing a portfolio; they are exploring an archive.</p>
+        <div><span class="kicker">Archive district</span><h2>THE LIBRARY</h2></div>
+        <p>RuPaul traditionally starts the iconic RuPaul's Drag Race mini-challenge by saying: "In the grand tradition of Paris is Burning, the library is open." Then, famously prompting the room, he asks, "Because reading is what?" and the queens shout back, "Fundamental!"</p>
       </div>
-      <div class="card-grid">
-        <article class="zine-cover" style="--cover:#ffd84f;--tilt:-1.5deg"><span class="issue">Issue 001</span><h3>How to Start Before Ready</h3><button class="small" data-modal="placeholder">Read</button></article>
-        <article class="zine-cover" style="--cover:#64c8bd;--tilt:1deg"><span class="issue">Issue 002</span><h3>Notes From The Wall</h3><button class="small" data-modal="placeholder">Read</button></article>
-        <article class="zine-cover" style="--cover:#df6d9d;--tilt:-.7deg"><span class="issue">Issue 003</span><h3>Small Internet Machines</h3><button class="small" data-modal="placeholder">Read</button></article>
-        <article class="zine-cover" style="--cover:#fff;--tilt:1.4deg"><span class="issue">Issue 004</span><h3>Launch Party Forever</h3><button class="small" data-modal="placeholder">Read</button></article>
-        <article class="zine-cover" style="--cover:#f06b35;--tilt:-1deg"><span class="issue">Issue 005</span><h3>Field Guide To Weird Apps</h3><button class="small" data-modal="placeholder">Read</button></article>
-        <article class="zine-cover" style="--cover:#79c859;--tilt:.8deg"><span class="issue">Issue 006</span><h3>Secret District Passport</h3><button class="small" data-modal="placeholder">Read</button></article>
+      <div class="library-bookshelf">
+        <div class="library-shelves" id="libraryShelves" aria-live="polite"></div>
       </div>
     </section>
 
@@ -606,6 +774,7 @@ label{display:block;font:900 .78rem/1 'Trebuchet MS',Verdana,sans-serif;text-tra
   </div>
 </div>
 
+<script src="library.js"></script>
 <script>
 (() => {
   const $ = (sel, root=document) => root.querySelector(sel);
@@ -634,15 +803,58 @@ label{display:block;font:900 .78rem/1 'Trebuchet MS',Verdana,sans-serif;text-tra
   const modal = $('#modal');
   const modalTitle = $('#modalTitle');
   const modalText = $('#modalText');
-  const openModal = (title, text) => { modalTitle.textContent = title; modalText.textContent = text; modal.classList.add('open'); $('#closeModal').focus(); };
-  const closeModal = () => modal.classList.remove('open');
+  const modalPrimary = $('#modalPrimary');
+  let modalPrimaryAction = null;
+  const resetModalPrimary = () => {
+    if(modalPrimaryAction){
+      modalPrimary.removeEventListener('click', modalPrimaryAction);
+      modalPrimaryAction = null;
+    }
+    modalPrimary.textContent = 'Back to plaza';
+    modalPrimary.href = '#plaza';
+    modalPrimary.target = '';
+    modalPrimary.rel = '';
+  };
+  const openModal = (title, text, options = {}) => {
+    const {
+      html = false,
+      primaryLabel = 'Back to plaza',
+      primaryHref = '#plaza',
+      primaryTarget = '',
+      primaryRel = '',
+      onPrimaryClick = null
+    } = options;
+    modalTitle.textContent = title;
+    if(html) modalText.innerHTML = text;
+    else modalText.textContent = text;
+    resetModalPrimary();
+    modalPrimary.textContent = primaryLabel;
+    modalPrimary.href = primaryHref;
+    if(primaryTarget){
+      modalPrimary.target = primaryTarget;
+      modalPrimary.rel = primaryRel || 'noopener noreferrer';
+    }
+    if(onPrimaryClick){
+      modalPrimaryAction = (event) => {
+        event.preventDefault();
+        onPrimaryClick();
+      };
+      modalPrimary.addEventListener('click', modalPrimaryAction);
+    }
+    modal.classList.add('open');
+    $('#closeModal').focus();
+  };
+  const closeModal = () => {
+    modal.classList.remove('open');
+    resetModalPrimary();
+  };
   $('#closeModal').addEventListener('click', closeModal); $('#modalClose2').addEventListener('click', closeModal);
   modal.addEventListener('click', e => { if(e.target === modal) closeModal(); });
   document.addEventListener('keydown', e => { if(e.key === 'Escape') closeModal(); });
   $$('[data-modal]').forEach(btn => btn.addEventListener('click', () => {
     const type = btn.dataset.modal;
     if(type === 'connect') openModal('Connect the real link', 'This self-contained prototype avoids guessing URLs. Add your real jom.buat.zine, game, app, Excalidraw, or submission links when they are ready.');
-    else if(type === 'share') openModal('Submission portal placeholder', 'Use this slot for a form, email link, shared drive upload, or community submission page.');
+    else if(type === 'share') openModal('Submit / share your zine', 'Made something in the zine maker? Send it over — attach your file (PDF or images) and tell us a little about it.', { primaryLabel: 'Email Aizat', primaryHref: 'mailto:aizat.sahid@gmail.com?subject=' + encodeURIComponent('Zine submission') });
     else openModal('Door not connected yet', 'This portal is staged for your real HTML attraction. Replace the placeholder with the final link or local file path.');
   }));
 
@@ -665,6 +877,178 @@ label{display:block;font:900 .78rem/1 'Trebuchet MS',Verdana,sans-serif;text-tra
   gameOverlay.addEventListener('click', e => { if(e.target === gameOverlay) closeGame(); });
   document.addEventListener('keydown', e => { if(e.key === 'Escape' && gameOverlay.classList.contains('open')) closeGame(); });
   $$('[data-play]').forEach(btn => btn.addEventListener('click', () => openGame(btn.dataset.play)));
+
+  const TYPE_LABELS = {
+    zine: 'Zine',
+    book: 'Book',
+    game: 'Game',
+    app: 'App',
+    archive: 'Archive'
+  };
+  const ACTION_LABELS = {
+    zine: 'Read',
+    book: 'Read',
+    game: 'Play',
+    app: 'Open',
+    archive: 'Open'
+  };
+  const fallbackCoverSvg = (title, type) => {
+    const fillMap = {
+      zine: ['#ffd84f', '#ffb347'],
+      book: ['#64c8bd', '#2f7d88'],
+      game: ['#df6d9d', '#54254e'],
+      app: ['#79c859', '#235a33'],
+      archive: ['#f06b35', '#6a3119']
+    };
+    const [top, bottom] = fillMap[type] || fillMap.archive;
+    return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(`
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 820">
+        <defs>
+          <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="${top}"/>
+            <stop offset="100%" stop-color="${bottom}"/>
+          </linearGradient>
+        </defs>
+        <rect width="600" height="820" rx="42" fill="url(#bg)"/>
+        <rect x="34" y="34" width="532" height="752" rx="28" fill="none" stroke="#17212b" stroke-width="14" stroke-dasharray="18 16"/>
+        <circle cx="470" cy="128" r="68" fill="#fff5cf" opacity=".9"/>
+        <text x="56" y="122" fill="#17212b" font-size="34" font-weight="900" font-family="Trebuchet MS, Verdana, sans-serif">${(TYPE_LABELS[type] || TYPE_LABELS.archive).toUpperCase()}</text>
+        <text x="56" y="500" fill="#17212b" font-size="66" font-weight="900" font-family="Trebuchet MS, Verdana, sans-serif">${String(title || '').replace(/&/g, '&amp;').replace(/</g, '&lt;')}</text>
+      </svg>
+    `)}`;
+  };
+  const libraryShelves = $('#libraryShelves');
+  const isOverlayLink = (link='') => /\.(html?)(?:[?#].*)?$/i.test(link) || /^(https?:)?\/\//i.test(link);
+  const getLibraryColumns = (width) => {
+    if(width < 390) return 1;
+    if(width < 640) return 2;
+    if(width < 860) return 3;
+    if(width < 1120) return 4;
+    if(width < 1380) return 5;
+    return 6;
+  };
+  const getLibraryActionLabel = (type) => ACTION_LABELS[type] || ACTION_LABELS.archive;
+  const openLibraryItem = (item) => {
+    const typeLabel = TYPE_LABELS[item.type] || TYPE_LABELS.archive;
+    const hasLink = Boolean(item.link);
+    const description = item.description || 'No description has been added yet.';
+    const linkLine = hasLink ? `<strong>Link:</strong> ${item.link}` : '<strong>Link:</strong> Not connected yet.';
+    const modalOptions = hasLink
+      ? (isOverlayLink(item.link)
+        ? {
+            primaryLabel: getLibraryActionLabel(item.type),
+            primaryHref: item.link,
+            onPrimaryClick: () => {
+              closeModal();
+              openGame(item.link);
+            }
+          }
+        : {
+            primaryLabel: getLibraryActionLabel(item.type),
+            primaryHref: item.link,
+            primaryTarget: '_blank',
+            primaryRel: 'noopener noreferrer'
+          })
+      : {
+          primaryLabel: 'Back to library',
+          primaryHref: '#library'
+        };
+    openModal(
+      item.title,
+      `<strong>Type:</strong> ${typeLabel}<br><br>${description}<br><br>${linkLine}`,
+      { html: true, ...modalOptions }
+    );
+  };
+  const renderLibrary = (width = Math.round(libraryShelves.getBoundingClientRect().width)) => {
+    if(!libraryShelves || !width) return;
+    const libraryItems = Array.isArray(window.libraryItems) ? window.libraryItems : [];
+    const columns = getLibraryColumns(width);
+    libraryShelves.replaceChildren();
+    if(!libraryItems.length){
+      const empty = document.createElement('div');
+      empty.className = 'library-empty';
+      empty.textContent = 'Add an item to library.js and it will appear here automatically.';
+      libraryShelves.appendChild(empty);
+      return;
+    }
+    for(let i = 0; i < libraryItems.length; i += columns){
+      const shelf = document.createElement('section');
+      shelf.className = 'library-shelf';
+      shelf.setAttribute('aria-label', `Bookshelf row ${Math.floor(i / columns) + 1}`);
+      const grid = document.createElement('div');
+      grid.className = 'library-shelf-grid';
+      grid.style.setProperty('--shelf-columns', String(columns));
+      libraryItems.slice(i, i + columns).forEach((item, index) => {
+        const type = TYPE_LABELS[item.type] ? item.type : 'archive';
+        const book = document.createElement('article');
+        book.className = `library-book type-${type}`;
+        book.style.setProperty('--book-tilt', `${(((i + index) % 2 === 0 ? -1 : 1) * (0.4 + ((i + index) % 3) * 0.35)).toFixed(2)}deg`);
+
+        const button = document.createElement('button');
+        button.className = 'library-book-button';
+        button.type = 'button';
+        button.setAttribute('aria-label', `${getLibraryActionLabel(type)} ${item.title}`);
+        button.addEventListener('click', () => openLibraryItem(item));
+
+        const cover = document.createElement('span');
+        cover.className = 'library-book-cover';
+        const img = document.createElement('img');
+        img.src = item.cover;
+        img.alt = `${item.title} cover`;
+        img.loading = 'lazy';
+        img.decoding = 'async';
+        img.addEventListener('error', () => {
+          if(img.dataset.fallbackApplied === 'true') return;
+          img.dataset.fallbackApplied = 'true';
+          img.src = fallbackCoverSvg(item.title, type);
+        });
+        const badge = document.createElement('span');
+        badge.className = 'library-book-badge';
+        badge.textContent = TYPE_LABELS[type];
+        const glow = document.createElement('span');
+        glow.className = 'library-book-glow';
+        cover.append(img, badge, glow);
+
+        const meta = document.createElement('span');
+        meta.className = 'library-book-meta';
+        const typeText = document.createElement('span');
+        typeText.className = 'library-book-type';
+        typeText.textContent = TYPE_LABELS[type];
+        const title = document.createElement('span');
+        title.className = 'library-book-title';
+        title.textContent = item.title;
+        const description = document.createElement('span');
+        description.className = 'library-book-description';
+        description.textContent = item.description || 'Add a description in library.js.';
+        const action = document.createElement('span');
+        action.className = 'library-book-action';
+        action.textContent = getLibraryActionLabel(type);
+        meta.append(typeText, title, description, action);
+
+        button.append(cover, meta);
+        book.appendChild(button);
+        grid.appendChild(book);
+      });
+      shelf.appendChild(grid);
+      libraryShelves.appendChild(shelf);
+    }
+  };
+  if(libraryShelves){
+    let lastLibraryWidth = 0;
+    const scheduleLibraryRender = () => {
+      const width = Math.round(libraryShelves.getBoundingClientRect().width);
+      if(!width) return;
+      if(width === lastLibraryWidth && libraryShelves.childElementCount) return;
+      lastLibraryWidth = width;
+      renderLibrary(width);
+    };
+    window.renderAizatLibrary = () => {
+      lastLibraryWidth = 0;
+      renderLibrary();
+    };
+    renderLibrary();
+    window.addEventListener('resize', scheduleLibraryRender);
+  }
 
   const topClock = $('#topClock');
   const updateTopClock = () => {
