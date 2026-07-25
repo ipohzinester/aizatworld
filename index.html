@@ -66,6 +66,9 @@ html[data-theme="dark"] .step,
 html[data-theme="dark"] .skip{background:var(--dm-surface)}
 html[data-theme="dark"] .specimen{background:linear-gradient(135deg,#1c2437,#16302d)}
 html[data-theme="dark"] .guest-card{background:var(--dm-surface-2)}
+html[data-theme="dark"] .iklan-card,
+html[data-theme="dark"] .iklan-media{background:var(--dm-surface)}
+html[data-theme="dark"] .iklan-media::before{border-color:rgba(255,255,255,.18)}
 /* Keep the orbit-map illustration exactly as-is; only its fallback edge color shifts */
 html[data-theme="dark"] .orbit-map{background-color:var(--dm-surface)}
 html[data-theme="dark"] input[type=text],
@@ -306,15 +309,25 @@ h3{font-size:clamp(1.5rem,3vw,3rem)}
 #doodle{display:block;width:100%;height:430px;border-radius:18px;background:#fff8e2;touch-action:none;cursor:crosshair;border:3px dashed rgba(23,33,43,.45)}
 .wall-tools{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;align-items:center}.wall-tools input{width:48px;height:38px;border:3px solid var(--ink);border-radius:10px;background:#fff}
 .prompts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.prompt{border:3px solid var(--ink);border-radius:16px;background:var(--cream);padding:14px;font:900 .92rem/1.2 'Trebuchet MS',Verdana,sans-serif;transform:rotate(var(--r,0deg))}
+.iklan-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;position:relative;z-index:1}
+.iklan-card{border:var(--line);border-radius:26px;background:#fff;padding:16px;box-shadow:6px 6px 0 var(--ink);display:flex;flex-direction:column;gap:14px;min-height:100%}
+.iklan-media{aspect-ratio:1 / 1;border:4px solid var(--ink);border-radius:20px;background:linear-gradient(135deg,#fff6d5,#ffd7e8);position:relative;overflow:hidden;display:grid;place-items:center}
+.iklan-media::before{content:"";position:absolute;inset:10px;border:3px dashed rgba(23,33,43,.35);border-radius:14px}
+.iklan-media img{width:100%;height:100%;object-fit:cover;display:block}
+.iklan-placeholder{position:relative;z-index:1;padding:14px;text-align:center;font:900 .95rem/1.25 'Trebuchet MS',Verdana,sans-serif;text-transform:uppercase;letter-spacing:.08em}
+.iklan-card h3{margin:0;font-size:1.25rem}
+.iklan-card p{margin:0;line-height:1.45}
+.iklan-meta{display:grid;gap:10px}
+.iklan-tag{display:inline-block;width:max-content;padding:.4rem .7rem;border:3px solid var(--ink);border-radius:999px;background:var(--teal);font:900 .72rem/1 'Trebuchet MS',Verdana,sans-serif;text-transform:uppercase;letter-spacing:.1em}
 .guestbook{display:grid;grid-template-columns:.85fr 1.15fr;gap:20px;position:relative;z-index:1}.guest-form{border:var(--line);border-radius:26px;background:#fff;padding:22px;box-shadow:6px 6px 0 var(--ink)}
 label{display:block;font:900 .78rem/1 'Trebuchet MS',Verdana,sans-serif;text-transform:uppercase;letter-spacing:.1em;margin:14px 0 8px}input[type=text],textarea{width:100%;border:3px solid var(--ink);border-radius:14px;padding:12px;font:1rem/1.35 Georgia,serif;background:#fffaf0}textarea{min-height:116px;resize:vertical}.entries{display:grid;gap:12px;max-height:420px;overflow:auto;padding-right:8px}.guest-card{min-height:auto;background:#fff8d8;padding:14px}.guest-card strong{font-family:'Trebuchet MS',Verdana,sans-serif}.guest-card small{display:block;opacity:.65;margin-top:6px}
 .loop{display:grid;grid-template-columns:repeat(7,1fr);gap:10px;position:relative;z-index:1}.step{border:3px solid var(--ink);border-radius:18px;background:#fff;padding:14px;min-height:120px;display:flex;flex-direction:column;justify-content:space-between;font:900 .85rem/1.15 'Trebuchet MS',Verdana,sans-serif}.step b{font-size:1.8rem}.notice-board{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;position:relative;z-index:1}.notice{min-height:150px;background:var(--cover,#fff);font:900 .95rem/1.2 'Trebuchet MS',Verdana,sans-serif;transform:rotate(var(--r,0deg))}.notice small{display:block;margin-bottom:18px;opacity:.68;text-transform:uppercase;letter-spacing:.12em}
 .footer{margin:70px 0 0;border:var(--line);border-radius:34px;background:var(--ink);color:#fff;padding:34px;box-shadow:var(--shadow);display:flex;justify-content:space-between;gap:22px;align-items:center;flex-wrap:wrap}.footer h2{font-size:clamp(1.6rem,4vw,3.2rem);text-shadow:none;color:#fff}.footer p{max-width:560px;line-height:1.5}.footer .button{box-shadow:5px 5px 0 #fff}
 .modal{position:fixed;inset:0;background:rgba(18,23,37,.72);display:none;align-items:center;justify-content:center;z-index:200;padding:20px}.modal.open{display:flex}.modal-card{max-width:620px;width:100%;border:var(--line);border-radius:28px;background:var(--paper);box-shadow:12px 12px 0 var(--ink);padding:28px;position:relative}.modal-card h3{margin-bottom:12px}.modal-card p{line-height:1.55}.close{position:absolute;right:14px;top:14px;width:42px;height:42px;border-radius:50%;padding:0;background:#fff}
 .float-tools{position:fixed;right:16px;bottom:16px;z-index:95;display:grid;gap:8px}.float-tools button{width:54px;height:54px;padding:0;border-radius:50%;background:#fff;font-size:1.2rem}
-@media (max-width:1040px){.plaza-grid,.workshop,.wall-wrap,.guestbook{grid-template-columns:minmax(0,1fr)}.card-grid{grid-template-columns:repeat(2,1fr)}.loop,.notice-board{grid-template-columns:repeat(3,1fr)}.ribbon{grid-template-columns:repeat(2,1fr)}.topbar{border-radius:24px;grid-template-columns:auto auto;grid-template-rows:auto;align-items:flex-start}.brand{white-space:normal;grid-row:auto;align-self:auto}.nav{grid-column:1 / -1;grid-row:auto;justify-content:center}.top-clock{grid-column:auto;grid-row:auto;justify-self:end}.section-head{display:block}.section-head p{margin-top:12px}}
+@media (max-width:1040px){.plaza-grid,.workshop,.wall-wrap,.guestbook{grid-template-columns:minmax(0,1fr)}.card-grid,.iklan-grid{grid-template-columns:repeat(2,1fr)}.loop,.notice-board{grid-template-columns:repeat(3,1fr)}.ribbon{grid-template-columns:repeat(2,1fr)}.topbar{border-radius:24px;grid-template-columns:auto auto;align-items:flex-start}.brand{white-space:normal}.nav{grid-column:1 / -1;justify-content:center}.top-clock{justify-self:end}.section-head{display:block}.section-head p{margin-top:12px}}
 @media (max-width:720px){.hero{grid-template-columns:minmax(0,1fr)}}
-@media (max-width:620px){.shell{padding-inline:12px}.topbar{position:sticky;top:8px;grid-template-columns:minmax(0,1fr) auto auto;gap:8px;align-items:center}.brand{grid-column:1 / 2}.nav-toggle{display:inline-flex;grid-column:2 / 3;justify-self:end}.top-clock{grid-column:3 / 4;grid-row:1;justify-self:end;min-width:7.8ch;padding:.38rem .62rem;font-size:.78rem;letter-spacing:.12em}.nav{display:none;position:absolute;top:calc(100% + 10px);right:10px;z-index:120;grid-column:auto;width:min(240px,calc(100vw - 24px));padding:10px;border:var(--line);border-radius:22px;background:rgba(255,247,221,.96);backdrop-filter:blur(14px);box-shadow:var(--shadow);flex-direction:column;align-items:stretch;gap:8px}.topbar.nav-open .nav{display:flex}.nav a{width:100%;text-align:center}.hero{min-height:auto}.marquee-track img{width:180px;height:220px}.card-grid{grid-template-columns:repeat(2,minmax(0,1fr))}#arcade .card-grid,#lab .card-grid{grid-template-columns:1fr}.prompts,.loop,.notice-board,.ribbon{grid-template-columns:1fr}.node{width:72px;height:72px;font-size:.58rem}.node.plaza{width:94px;height:94px}.orbit-map{min-height:330px}h1{text-shadow:3px 3px 0 var(--sun),6px 6px 0 var(--ink)}}
+@media (max-width:620px){.shell{padding-inline:12px}.topbar{position:sticky;top:8px;grid-template-columns:minmax(0,1fr) auto auto;gap:8px;align-items:center}.brand{grid-column:1 / 2}.nav-toggle{display:inline-flex;grid-column:2 / 3;justify-self:end}.top-clock{grid-column:3 / 4;grid-row:1;justify-self:end;min-width:7.8ch;padding:.38rem .62rem;font-size:.78rem;letter-spacing:.12em}.nav{display:none;position:absolute;top:calc(100% + 10px);right:10px;z-index:120;grid-column:auto;width:min(240px,calc(100vw - 24px));padding:10px;border:var(--line);border-radius:22px;background:rgba(255,247,221,.96);backdrop-filter:blur(14px);box-shadow:var(--shadow);flex-direction:column;align-items:stretch;gap:8px}.topbar.nav-open .nav{display:flex}.nav a{width:100%;text-align:center}.hero{min-height:auto}.marquee-track img{width:180px;height:220px}.card-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.iklan-grid,.prompts,.loop,.notice-board,.ribbon{grid-template-columns:1fr}.node{width:72px;height:72px;font-size:.58rem}.node.plaza{width:94px;height:94px}.orbit-map{min-height:330px}h1{text-shadow:3px 3px 0 var(--sun),6px 6px 0 var(--ink)}}
 @media (prefers-reduced-motion: reduce){*{animation:none!important;scroll-behavior:auto!important;transition:none!important}}
 </style>
 </head>
@@ -330,7 +343,7 @@ label{display:block;font:900 .78rem/1 'Trebuchet MS',Verdana,sans-serif;text-tra
     </div>
     <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="topNav">Menu</button>
     <nav class="nav" id="topNav">
-      <a href="#entrance">Entrance</a><a href="#plaza">Plaza</a><a href="#arcade">Arcade</a><a href="#lab">Lab</a><a href="#library">Library</a><a href="#wall">Wall</a>
+      <a href="#entrance">Entrance</a><a href="#plaza">Plaza</a><a href="#arcade">Arcade</a><a href="#lab">Lab</a><a href="#library">Library</a><a href="#wall">Wall</a><a href="#iklan">IKLAN</a>
     </nav>
     <time class="top-clock" id="topClock" aria-label="Current time">00:00:00</time>
   </header>
@@ -509,6 +522,48 @@ label{display:block;font:900 .78rem/1 'Trebuchet MS',Verdana,sans-serif;text-tra
           <div class="prompt" style="--r:-2deg">Say something controversial.</div>
           <div class="prompt" style="--r:1deg">Leave something nice for a stranger.</div>
         </div>
+      </div>
+    </section>
+
+    <section class="section" id="iklan">
+      <div class="section-head">
+        <div><span class="kicker">Promo space</span><h2>IKLAN</h2></div>
+        <p>Merch things featuring Aizat.</p>
+      </div>
+      <div class="iklan-grid">
+        <article class="iklan-card">
+          <div class="iklan-media">
+            <img src="iklan-slot-1.png" alt="ZINE#13 OFFICIAL TRAILER thumbnail">
+          </div>
+          <div class="iklan-meta">
+            <span class="iklan-tag">Featured</span>
+            <h3>ZINE#13 OFFICIAL TRAILER</h3>
+            <p>Sementara itu, explore poster interaktif ini — lebih dari sekadar iklan, ia satu permainan.<br>Naskah sebenar menyusul.<br>Ini cuma permulaan.</p>
+            <a class="button small secondary" href="https://ipohzinester.github.io/zine13/" target="_blank" rel="noopener noreferrer">Open in new window</a>
+          </div>
+        </article>
+        <article class="iklan-card">
+          <div class="iklan-media">
+            <img src="iklan-slot-2.webp" alt="ZIPPED BLACK TOTE BAG: TOKOSUE IN MEMORY thumbnail">
+          </div>
+          <div class="iklan-meta">
+            <span class="iklan-tag">Shopee</span>
+            <h3>ZIPPED BLACK TOTE BAG: TOKOSUE IN MEMORY.</h3>
+            <p>100% untuk Tokosue. Terus dari Shopee Tokosue.</p>
+            <a class="button small secondary" href="https://shopee.com.my/ZIPPED-BLACK-TOTE-BAG-FOR-INDIE-BOOK-LOVERS-TOKOSUE-IN-MEMORY-i.283053439.51008786546?extraParams=%7B%22display_model_id%22%3A350780043151%2C%22model_selection_logic%22%3A3%7D" target="_blank" rel="noopener noreferrer">Open in new window</a>
+          </div>
+        </article>
+        <article class="iklan-card">
+          <div class="iklan-media">
+            <img src="iklan-slot-3.webp" alt="BLACK TSHIRT WITH PRINTED ART: TOKOSUE IN MEMORY PREMIUM COTTON LIMITED EDITION thumbnail">
+          </div>
+          <div class="iklan-meta">
+            <span class="iklan-tag">Limited</span>
+            <h3>BLACK TSHIRT WITH PRINTED ART: TOKOSUE IN MEMORY PREMIUM COTTON LIMITED EDITION.</h3>
+            <p>100% untuk Tokosue. Terus dari Shopee Tokosue.</p>
+            <a class="button small secondary" href="https://shopee.com.my/BLACK-TSHIRT-WITH-PRINTED-ART-TOKOSUE-IN-MEMORY-PREMIUM-COTTON-LIMITED-EDITION-i.283053439.46558803321?extraParams=%7B%22display_model_id%22%3A179150236963%2C%22model_selection_logic%22%3A3%7D" target="_blank" rel="noopener noreferrer">Open in new window</a>
+          </div>
+        </article>
       </div>
     </section>
 
