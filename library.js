@@ -38,5 +38,19 @@ window.libraryItems = [
     description: "A Malay-English poetry collage on weight, the Big Bang, and being made of stardust — asking whether we're just carbon, or something sentient reading its own light.",
     cover: "covers/berat.png",
     link: "zines/berat.jpg"
+  },
+  {
+    type: "zine",
+    title: "LET THEM MAKE ZINE",
+    description: "A manifesto zine of JOMBUATZINE app.",
+    cover: "covers/let-them-make-zine.jpg",
+    link: "zines/let-them-make-zine.pdf"
+  },
+  {
+    type: "book",
+    title: "LINES TO LIVE BY",
+    description: "LINES TO LIVE BY — Ariana Grande. Say 'thank you, next' to the bad vibes and live your best life.",
+    cover: "covers/LINES-TO-LIVE-BYARIANA.png",
+    link: "books/LINES-TO-LIVE-BYARIANA.pdf"
   }
 ];
