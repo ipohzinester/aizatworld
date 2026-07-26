@@ -169,7 +169,7 @@ button.small,a.small{font-size:.78rem;padding:.58rem .78rem;box-shadow:3px 3px 0
 }
 .brand{display:flex;align-items:center;gap:10px;padding-left:8px;min-width:0;font:400 .85rem/1.1 'Press Start 2P', 'Trebuchet MS', Verdana, sans-serif;letter-spacing:.04em;text-transform:uppercase;white-space:nowrap}
 .brand-stack{display:flex;flex-direction:column;align-items:flex-start;gap:4px}
-.brand-title{display:inline-flex;align-items:center;gap:2px}
+.brand-title{display:inline-flex;align-items:center;gap:2px;font-size:.8em}
 .brand-title .brand-text{white-space:pre}
 .brand-title .brand-cursor{display:inline-block;width:.55em;height:1em;margin-left:2px;background:currentColor;vertical-align:-.12em;animation:brand-cursor-blink 1s steps(1,end) infinite}
 @keyframes brand-cursor-blink{0%,50%{opacity:1}50.01%,100%{opacity:0}}
@@ -190,10 +190,12 @@ button.small,a.small{font-size:.78rem;padding:.58rem .78rem;box-shadow:3px 3px 0
   background:rgba(255,255,255,.05);color:#ff6b6b;
   box-shadow:inset 0 0 16px rgba(255,107,107,.16),0 0 14px rgba(255,92,92,.2);
   backdrop-filter:blur(8px);
-  font:900 .88rem/1 'Courier New', 'Lucida Console', monospace;
+  font:900 .968rem/1 'Courier New', 'Lucida Console', monospace;
   letter-spacing:.16em;text-transform:none;font-variant-numeric:tabular-nums;
   text-shadow:0 0 4px rgba(255,107,107,.96),0 0 12px rgba(255,92,92,.52)
 }
+.top-clock .clock-colon{animation:top-clock-blink 1s steps(1,end) infinite}
+@keyframes top-clock-blink{0%,50%{opacity:1}50.01%,100%{opacity:0}}
 .brand .planet{width:38px;height:38px;border:4px solid var(--ink);border-radius:50%;background:conic-gradient(from 20deg,var(--teal),var(--sun),var(--orange),var(--rose),var(--teal));box-shadow:3px 3px 0 var(--ink)}
 .nav{
   display:none;position:absolute;top:calc(100% + 10px);right:10px;z-index:120;
@@ -523,7 +525,7 @@ label{display:block;font:900 .78rem/1 'Trebuchet MS',Verdana,sans-serif;text-tra
 @media (max-width:1040px){.plaza-grid,.workshop,.wall-wrap,.guestbook{grid-template-columns:minmax(0,1fr)}.card-grid,.iklan-grid{grid-template-columns:repeat(2,1fr)}#arcade .card-grid,#lab .card-grid{grid-template-columns:1fr}.loop,.notice-board{grid-template-columns:repeat(3,1fr)}.ribbon{grid-template-columns:repeat(2,1fr)}.topbar{border-radius:24px}.brand{white-space:normal}.top-clock{justify-self:end}.section-head{display:block}.section-head p{margin-top:12px}}
 @media (max-width:720px){.hero{grid-template-columns:minmax(0,1fr)}}
 @media (max-width:900px){#library .library-book{--book-width:clamp(112px,24vw,180px)}}
-@media (max-width:620px){.shell{padding-inline:12px}.topbar{position:sticky;top:8px;grid-template-columns:minmax(0,1fr) auto auto;gap:8px;align-items:center}.brand{grid-column:1 / 2}.top-clock{grid-column:3 / 4;grid-row:1;justify-self:end;min-width:7.8ch;padding:.38rem .62rem;font-size:.78rem;letter-spacing:.12em}.nav-toggle{grid-column:2 / 3}.hero{min-height:auto}.ticket .hero-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.ticket .hero-actions .button,.ticket .hero-actions button{width:100%;padding:.78rem .7rem}.marquee-track img{width:180px;height:220px}.card-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.iklan-grid,.prompts,.loop,.notice-board,.ribbon{grid-template-columns:1fr}.node{width:72px;height:72px;font-size:.58rem}.node.plaza{width:94px;height:94px}.orbit-map{min-height:330px}h1{text-shadow:3px 3px 0 var(--sun),6px 6px 0 var(--ink)}#library .library-bookshelf{padding:14px}#library .library-shelf{padding:16px 10px 26px}#library .library-book{--book-width:min(100%,220px)}#library .library-book-meta{gap:3px}#library .library-book-description{-webkit-line-clamp:3}}
+@media (max-width:620px){.shell{padding-inline:12px}.topbar{position:sticky;top:8px;grid-template-columns:minmax(0,1fr) auto auto;gap:8px;align-items:center}.brand{grid-column:1 / 2}.top-clock{grid-column:3 / 4;grid-row:1;justify-self:end;min-width:7.8ch;padding:.38rem .62rem;font-size:.858rem;letter-spacing:.12em}.nav-toggle{grid-column:2 / 3}.hero{min-height:auto}.ticket .hero-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.ticket .hero-actions .button,.ticket .hero-actions button{width:100%;padding:.78rem .7rem}.marquee-track img{width:180px;height:220px}.card-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.iklan-grid,.prompts,.loop,.notice-board,.ribbon{grid-template-columns:1fr}.node{width:72px;height:72px;font-size:.58rem}.node.plaza{width:94px;height:94px}.orbit-map{min-height:330px}h1{text-shadow:3px 3px 0 var(--sun),6px 6px 0 var(--ink)}#library .library-bookshelf{padding:14px}#library .library-shelf{padding:16px 10px 26px}#library .library-book{--book-width:min(100%,220px)}#library .library-book-meta{gap:3px}#library .library-book-description{-webkit-line-clamp:3}}
 @media (max-width:560px){.ticket .hero-actions{grid-template-columns:1fr}}
 @media (prefers-reduced-motion: reduce){*{animation:none!important;scroll-behavior:auto!important;transition:none!important}}
 </style>
@@ -542,7 +544,7 @@ label{display:block;font:900 .78rem/1 'Trebuchet MS',Verdana,sans-serif;text-tra
     <nav class="nav" id="topNav">
       <a href="#entrance">Entrance</a><a href="#plaza">Plaza</a><a href="#arcade">Arcade</a><a href="#lab">Lab</a><a href="#library">Library</a><a href="#wall">Wall</a><a href="#iklan">IKLAN</a>
     </nav>
-    <time class="top-clock" id="topClock" aria-label="Current time">00:00:00</time>
+    <time class="top-clock" id="topClock" aria-label="Current time"><span class="clock-h">00</span><span class="clock-colon">:</span><span class="clock-m">00</span></time>
   </header>
 
   <main id="main">
@@ -1073,12 +1075,14 @@ label{display:block;font:900 .78rem/1 'Trebuchet MS',Verdana,sans-serif;text-tra
   const updateTopClock = () => {
     if(!topClock) return;
     const now = new Date();
-    topClock.textContent = now.toLocaleTimeString([], {
+    const parts = now.toLocaleTimeString([], {
       hour: '2-digit',
       minute: '2-digit',
-      second: '2-digit',
       hour12: true
-    });
+    }).split(':');
+    const hh = parts[0];
+    const mm = parts[1] || '';
+    topClock.innerHTML = '<span class="clock-h">' + hh + '</span><span class="clock-colon">:</span><span class="clock-m">' + mm + '</span>';
     topClock.setAttribute('datetime', now.toISOString());
   };
   updateTopClock();
