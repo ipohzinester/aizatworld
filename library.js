@@ -58,6 +58,6 @@ window.libraryItems = [
     title: "The Infinite Library",
     description: "A Zine#13 expansion pack.",
     cover: "covers/infinite-cover.png",
-    link: "https://ipohzinester.github.io/infinite-library/"
+    link: "infinite-library.html"
   }
 ];

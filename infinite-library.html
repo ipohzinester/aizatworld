@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THE INFINITE LIBRARY • ZINE #13</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=Space+Grotesk:wght@500;600&amp;family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&amp;display=swap');
+        
+        :root {
+            --accent-pink: #ff2e88;
+            --accent-red: #cc2244;
+        }
+        
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            background-color: #0a090f;
+            background-image: linear-gradient(rgba(10, 9, 15, 0.72), rgba(10, 9, 15, 0.72)), url('wallpaper-bg.png');
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-attachment: scroll;
+        }
+
+        .max-w-screen-2xl {
+            max-width: 70% !important;
+        }
+
+        @media (max-width: 1024px) {
+            .max-w-screen-2xl {
+                max-width: 92% !important;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .max-w-screen-2xl {
+                max-width: 100% !important;
+            }
+            .essay-text {
+                font-size: 14.5px !important;
+                line-height: 1.7 !important;
+            }
+        }
+        
+        .title-font {
+            font-family: 'Times New Roman', Times, serif;
+            font-weight: 600;
+            letter-spacing: -0.025em;
+        }
+
+        .library-bg {
+            background: radial-gradient(circle at center, #1a1425 0%, #0f0c17 70%, #0a090f 100%);
+        }
+
+        .neon-pink {
+            color: #ff2e88;
+            text-shadow: 0 0 10px rgb(255 46 136 / 0.5),
+                        0 0 20px rgb(255 46 136 / 0.3);
+        }
+
+        .neon-red {
+            color: #ff3366;
+            text-shadow: 0 0 10px rgb(255 51 102 / 0.5);
+        }
+
+        .book-card {
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .book-card:hover {
+            transform: translateY(-12px) rotate(1deg);
+            box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.4),
+                        0 0 0 1px rgb(255 46 136 / 0.1),
+                        0 0 25px rgb(255 46 136 / 0.15);
+        }
+
+        .book-cover {
+            background: linear-gradient(145deg, #1f1a2e 0%, #16131f 100%);
+            box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.06),
+                        0 10px 15px -3px rgb(0 0 0 / 0.3);
+            position: relative;
+        }
+
+        .book-cover::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: 
+                radial-gradient(circle at 30% 20%, rgba(255,46,136,0.08) 0%, transparent 50%),
+                radial-gradient(circle at 70% 80%, rgba(204,34,68,0.06) 0%, transparent 60%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .splatter {
+            position: absolute;
+            border-radius: 50%;
+            background: #ff2e88;
+            opacity: 0.15;
+            filter: blur(8px);
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .book-spine {
+            background: linear-gradient(to right, #0f0c17, #1f1a2e);
+            box-shadow: inset -2px 0 4px rgb(0 0 0 / 0.4);
+        }
+
+        .modal {
+            animation: modalEnter 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        @keyframes modalEnter {
+            from {
+                opacity: 0;
+                transform: translateY(40px) scale(0.96);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .essay-text {
+            font-size: 15.5px;
+            line-height: 1.75;
+            color: #d1d5db;
+        }
+
+        .glitch-text {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .glitch-text::before,
+        .glitch-text::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .glitch-text::before {
+            left: 2px;
+            text-shadow: -2px 0 #ff2e88;
+            clip-path: polygon(0 0, 100% 0, 100% 35%, 0 35%);
+            animation: glitch-anim 4s infinite linear alternate-reverse;
+        }
+        
+        .glitch-text::after {
+            left: -2px;
+            text-shadow: 2px 0 #00f0ff;
+            clip-path: polygon(0 65%, 100% 65%, 100% 100%, 0 100%);
+            animation: glitch-anim2 3.5s infinite linear alternate-reverse;
+        }
+
+        @keyframes glitch-anim {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 1px); }
+            40% { transform: translate(-1px, -1px); }
+            60% { transform: translate(2px, 1px); }
+            80% { transform: translate(1px, -1px); }
+            100% { transform: translate(0); }
+        }
+        
+        @keyframes glitch-anim2 {
+            0% { transform: translate(0); }
+            20% { transform: translate(2px, -1px); }
+            40% { transform: translate(1px, 1px); }
+            60% { transform: translate(-2px, -1px); }
+            80% { transform: translate(-1px, 1px); }
+            100% { transform: translate(0); }
+        }
+
+        .library-shelf {
+            background-image: 
+                linear-gradient(#2a2438 1px, transparent 1px),
+                linear-gradient(90deg, #2a2438 1px, transparent 1px);
+            background-size: 24px 24px;
+            opacity: 0.15;
+        }
+
+        .book-number {
+            font-size: 10px;
+            letter-spacing: 2px;
+            font-weight: 500;
+        }
+
+        .section-header {
+            font-size: 13px;
+            letter-spacing: 3px;
+            font-weight: 500;
+        }
+
+        .warning-text {
+            font-size: 10px;
+            letter-spacing: 1px;
+        }
+
+        .zine-stamp {
+            border: 1px solid #ff2e88;
+            color: #ff2e88;
+            font-size: 9px;
+            padding: 1px 9px;
+            letter-spacing: 1.5px;
+            transform: rotate(-2deg);
+            display: inline-block;
+        }
+
+        .floating-particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: #ff2e88;
+            border-radius: 50%;
+            opacity: 0.4;
+            animation: float-particle 25s infinite ease-in-out;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body class="text-zinc-200 overflow-x-hidden">
+    <!-- NAV -->
+    <nav class="border-b border-zinc-800 bg-[#0a090f]/95 backdrop-blur-lg sticky top-0 z-50">
+        <div class="max-w-screen-2xl mx-auto px-4 sm:px-8 py-4 sm:py-5 flex items-center justify-between gap-3">
+            <div class="flex items-center gap-x-2 sm:gap-x-3 min-w-0">
+                <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-[#ff2e88] to-[#cc2244] flex items-center justify-center shadow-lg shadow-pink-950/50 flex-shrink-0">
+                    <i class="fa-solid fa-infinity text-white text-2xl"></i>
+                </div>
+                <div class="min-w-0">
+                    <div class="font-bold tracking-tight text-lg sm:text-2xl truncate" style="font-family: 'Libre Baskerville', 'Baskerville', serif;">INFINITE LIBRARY</div>
+                    <div class="text-[10px] text-zinc-500 -mt-1 truncate" style="font-family: 'Libre Baskerville', 'Baskerville', serif;">ZINE #13 ARCHIVES</div>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-x-2 sm:gap-x-4 flex-shrink-0">
+                <div class="hidden md:flex items-center gap-x-2 text-xs uppercase tracking-[2px] text-zinc-500">
+                    <div class="px-3 py-1.5 bg-zinc-900 rounded-full border border-zinc-800 flex items-center gap-x-1.5">
+                        <i class="fa-solid fa-book text-[#ff2e88]"></i>
+                        <span>10 FORBIDDEN VOLUMES</span>
+                    </div>
+                </div>
+                
+                <button onclick="showRandomWhisper()" aria-label="Hear a whisper"
+                        class="flex items-center gap-x-2 px-3 sm:px-4 py-2 text-xs font-medium rounded-2xl border border-zinc-700 hover:border-[#ff2e88]/60 hover:text-[#ff2e88] transition-colors">
+                    <i class="fa-solid fa-headset text-xs"></i>
+                    <span class="hidden sm:inline">HEAR A WHISPER</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <div class="max-w-screen-2xl mx-auto px-4 sm:px-8 pt-6 sm:pt-10 pb-10 sm:pb-16">
+        <div class="relative rounded-2xl sm:rounded-3xl overflow-hidden border border-zinc-800 shadow-2xl min-h-[420px] sm:h-[520px] flex items-center bg-[#111018] py-10 sm:py-0">
+            <!-- Background wallpaper + effects -->
+            <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('wallpaper.webp');"></div>
+            <div class="absolute inset-0" style="background: linear-gradient(90deg, rgba(10,9,15,0.92) 0%, rgba(15,12,23,0.75) 45%, rgba(15,12,23,0.35) 100%);"></div>
+            <div class="absolute inset-0 library-shelf opacity-40"></div>
+            
+            <!-- Decorative floating particles -->
+            <div class="absolute inset-0 overflow-hidden">
+                <div class="floating-particle" style="left: 12%; top: 25%; animation-delay: 0s;"></div>
+                <div class="floating-particle" style="left: 28%; top: 68%; animation-delay: -4s; width:2px; height:2px;"></div>
+                <div class="floating-particle" style="left: 65%; top: 18%; animation-delay: -9s;"></div>
+                <div class="floating-particle" style="left: 82%; top: 55%; animation-delay: -14s; width:4px; height:4px;"></div>
+                <div class="floating-particle" style="left: 45%; top: 82%; animation-delay: -19s;"></div>
+            </div>
+            
+            <!-- Overlay content -->
+            <div class="relative z-10 px-6 sm:px-10 md:px-16 max-w-4xl w-full">
+                <div class="flex flex-wrap items-center gap-x-3 gap-y-2 mb-4">
+                    <div class="zine-stamp font-mono">RECOVERED</div>
+                    <div class="text-[10px] sm:text-xs tracking-[2px] sm:tracking-[3px] text-zinc-400">FROM THE DEPTHS OF ZINE#13 LORE</div>
+                </div>
+
+                <h1 class="text-3xl sm:text-4xl md:text-5xl leading-[0.95] font-semibold tracking-tighter title-font mb-3">
+                    THE<br>INFINITE<br>LIBRARY
+                </h1>
+
+                <p class="max-w-md text-base sm:text-xl text-zinc-300 mb-6 sm:mb-8">
+                    Ten 99-word essays. One haunting truth.<br>
+                    <span class="text-[#ff2e88]">ZINE #13</span> was only the beginning.
+                </p>
+
+                <div class="flex flex-col sm:flex-row sm:items-center gap-4">
+                    <button onclick="document.getElementById('archives-section').scrollIntoView({ behavior: 'smooth' })"
+                            class="group flex items-center justify-center gap-x-3 bg-white text-black px-6 sm:px-8 py-3.5 rounded-2xl font-semibold text-sm tracking-wider hover:bg-zinc-100 transition-all active:scale-[0.985] w-full sm:w-auto">
+                        <span>ENTER THE ARCHIVES</span>
+                        <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                    </button>
+
+                    <div class="text-xs text-zinc-400 max-w-[180px] leading-tight hidden md:block">
+                        Each volume rewrites itself.<br>
+                        The boy in the black hoodie is watching.
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Subtle boy silhouette hint on right -->
+            <div class="absolute right-12 bottom-8 hidden lg:block opacity-30">
+                <svg width="68" height="92" viewBox="0 0 68 92" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M34 12C38.4183 12 42 15.5817 42 20V28C42 32.4183 38.4183 36 34 36C29.5817 36 26 32.4183 26 28V20C26 15.5817 29.5817 12 34 12Z" fill="#1f1a2e"/>
+                    <path d="M22 38H46V82C46 85.3137 43.3137 88 40 88H28C24.6863 88 22 85.3137 22 82V38Z" fill="#1f1a2e"/>
+                    <path d="M18 42H24V78C24 80.2091 22.2091 82 20 82C17.7909 82 16 80.2091 16 78V42H18Z" fill="#16131f"/>
+                    <path d="M44 42H50V78C50 80.2091 48.2091 82 46 82C43.7909 82 42 80.2091 42 78V42H44Z" fill="#16131f"/>
+                </svg>
+            </div>
+            
+            <div class="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#ff2e88]/30 to-transparent"></div>
+        </div>
+    </div>
+
+    <!-- INTRO -->
+    <div class="max-w-screen-2xl mx-auto px-4 sm:px-8 pb-8 sm:pb-10">
+        <div class="max-w-3xl">
+            <div class="section-header text-[#ff2e88] mb-3">THE 13TH SHELF • FORBIDDEN COLLECTION</div>
+            <h2 class="text-2xl sm:text-4xl tracking-tight font-semibold mb-4">Stories that remember you back.</h2>
+            <p class="text-base sm:text-lg text-zinc-400 leading-relaxed">
+                These ten volumes were recovered from the Infinite Library. Each essay is exactly 99 words. 
+                They deepen the haunted lore surrounding <span class="font-medium text-zinc-300">ZINE #13</span>, 
+                <span class="font-medium text-zinc-300">TO AIZAT — THE GAME</span>, and the boy who was never born. 
+                Read at your own risk. The Library does not forget.
+            </p>
+        </div>
+    </div>
+
+    <!-- ARCHIVES GRID -->
+    <div id="archives-section" class="max-w-screen-2xl mx-auto px-4 sm:px-8 pb-16 sm:pb-20">
+        <div class="flex items-end justify-between mb-6 gap-4">
+            <div class="min-w-0">
+                <div class="section-header text-zinc-400">THE COLLECTION</div>
+                <div class="text-xl sm:text-3xl font-semibold tracking-tight">10 Volumes • 990 Words Total</div>
+            </div>
+            <div class="text-xs text-zinc-500 hidden md:block flex-shrink-0">Click any volume to read • Bilingual available</div>
+        </div>
+
+        <!-- Books Grid -->
+        <div id="books-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-5">
+            <!-- Populated dynamically via JS -->
+        </div>
+    </div>
+
+    <!-- FOOTER LORE -->
+    <div class="border-t border-zinc-800 py-8">
+        <div class="max-w-screen-2xl mx-auto px-4 sm:px-8 text-center">
+            <div class="text-[10px] tracking-[2px] text-zinc-500 mb-2">PASAR BESAR IPOH • 3:33 AM • THE BOY IN BLACK IS ALWAYS WAITING</div>
+            <div class="text-xs text-zinc-400 max-w-md mx-auto">
+                "The more you try to explain the haunting, the deeper it sinks its teeth into your ending."
+            </div>
+        </div>
+    </div>
+
+    <!-- BOOK MODAL -->
+    <div id="book-modal" onclick="if (event.target.id === 'book-modal') closeModal()"
+         class="hidden fixed inset-0 bg-black/90 backdrop-blur-xl z-[100] flex items-center justify-center p-2 sm:p-4 md:p-8 overflow-y-auto">
+        <div onclick="event.stopImmediatePropagation()"
+             class="modal w-full max-w-3xl bg-[#111018] border border-zinc-700 rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl my-auto max-h-[95vh] flex flex-col">
+
+            <!-- Modal Header -->
+            <div class="px-5 sm:px-8 pt-5 sm:pt-8 pb-4 sm:pb-5 border-b border-zinc-800 flex flex-col sm:flex-row items-start justify-between gap-3 sm:gap-4">
+                <div class="flex-1 min-w-0 w-full">
+                    <div class="flex flex-wrap items-center gap-x-3 gap-y-1 mb-2">
+                        <div id="modal-zine-badge"
+                             class="zine-stamp font-mono text-xs px-3 py-px">ZINE #13</div>
+                        <div class="text-[10px] text-zinc-500 tracking-widest">INFINITE LIBRARY • ENTRY <span id="modal-entry-num"></span></div>
+                    </div>
+
+                    <h2 id="modal-title-en" class="text-2xl sm:text-4xl font-semibold tracking-tighter leading-tight sm:leading-none pr-2 sm:pr-4 break-words"></h2>
+                    <h3 id="modal-title-my" class="text-lg sm:text-2xl text-zinc-400 tracking-tight mt-1 break-words"></h3>
+                </div>
+
+                <!-- Language Toggle -->
+                <div class="flex-shrink-0 self-start sm:self-auto">
+                    <div class="bg-zinc-900 border border-zinc-700 rounded-2xl p-1 flex text-sm">
+                        <button onclick="switchLanguage('en')" id="lang-en-btn"
+                                class="lang-btn active px-4 sm:px-5 py-1.5 rounded-[14px] font-medium flex items-center gap-x-1.5 transition-all">
+                            <span>EN</span>
+                        </button>
+                        <button onclick="switchLanguage('my')" id="lang-my-btn"
+                                class="lang-btn px-4 sm:px-5 py-1.5 rounded-[14px] font-medium flex items-center gap-x-1.5 text-zinc-400 hover:text-zinc-200 transition-all">
+                            <span>MY</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Essay Content -->
+            <div class="px-5 sm:px-8 py-6 sm:py-9 min-h-[200px] sm:min-h-[280px] overflow-y-auto flex-1">
+                <div id="modal-essay" class="essay-text max-w-prose">
+                    <!-- Injected by JS -->
+                </div>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="bg-zinc-900/60 px-5 sm:px-8 py-4 sm:py-5 border-t border-zinc-800 flex flex-col-reverse sm:flex-row sm:items-center sm:justify-between gap-3 text-xs">
+                <div class="flex items-center gap-x-2 text-zinc-400">
+                    <i class="fa-solid fa-exclamation-triangle text-[#ff2e88]"></i>
+                    <span class="warning-text">READING THIS MAY REWRITE YOUR REALITY</span>
+                </div>
+
+                <div class="flex items-center gap-x-2 justify-end">
+                    <!-- Navigation -->
+                    <button onclick="prevBook()" aria-label="Previous entry"
+                            class="w-9 h-9 flex items-center justify-center text-zinc-400 hover:text-white hover:bg-zinc-800 rounded-2xl transition-colors">
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </button>
+                    <button onclick="nextBook()" aria-label="Next entry"
+                            class="w-9 h-9 flex items-center justify-center text-zinc-400 hover:text-white hover:bg-zinc-800 rounded-2xl transition-colors">
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+
+                    <button onclick="closeModal()"
+                            class="ml-1 sm:ml-3 px-4 sm:px-5 py-2 text-xs font-medium rounded-2xl border border-zinc-700 hover:bg-zinc-800 transition-colors">
+                        <span class="hidden sm:inline">RETURN TO SHELF</span>
+                        <span class="sm:hidden">CLOSE</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tailwind script
+        function initializeTailwind() {
+            document.documentElement.style.setProperty('--accent-pink', '#ff2e88');
+            
+            tailwind.config = {
+                theme: {
+                    extend: {
+                        fontFamily: {
+                            'title': ['Space Grotesk', 'Inter', 'system-ui', 'sans-serif']
+                        }
+                    }
+                }
+            };
+        }
+
+        // Books Data - Exactly 99 words each
+        const books = [
+            {
+                id: 1,
+                number: "01",
+                title_en: "Whispers from the Unread Page",
+                title_my: "Bisikan dari Halaman yang Belum Terbaca",
+                essay_en: "In the dim corridors of the Infinite Library, a lone librarian notices that every returned book rewrites its own ending using pieces of her tomorrow. At first, the changes are subtle — a name here, a forgotten regret there. Soon entire chapters bleed into reality. The more she reads to understand the curse, the faster her present dissolves. Friends forget her face. Streets rearrange. By the final page, she realises the library was never collecting stories. It was collecting her. And now, she too is just another unread whisper waiting on the shelf for the next unfortunate soul.",
+                essay_my: "Di lorong-lorong samar Perpustakaan Tak Terhingga, seorang pustakawan perasan setiap buku yang dikembalikan menulis semula pengakhirannya menggunakan serpihan esoknya. Mulanya perubahan halus — satu nama, satu penyesalan lama. Tidak lama kemudian, bab-bab penuh meresap ke realiti. Semakin dia membaca untuk memahami kutukan itu, semakin cepat masanya kini larut. Rakan-rakan melupakan wajahnya. Jalan raya berubah susun. Di halaman akhir, dia sedar perpustakaan tidak pernah mengumpul cerita. Ia mengumpul dirinya. Dan kini, dia hanyalah bisikan yang belum terbaca, menunggu di rak untuk jiwa malang seterusnya."
+            },
+            {
+                id: 2,
+                number: "02",
+                title_en: "The Tarot of Forgotten Names",
+                title_my: "Tarot Nama-Nama yang Dilupakan",
+                essay_en: "This ancient deck holds seventy-eight cards, each engraved with a name that no living person remembers. Drawing one grants forbidden knowledge and power, but the price is erasure. Your name slowly fades from photos, voices, and memories of those you love. The final card always shows your own face — blank. In the Infinite Library, readers who played with this deck now exist only as footnotes in other people’s stories. The cards do not predict fate. They rewrite it, trading your identity for the secrets of the void. Choose wisely. Some names should stay forgotten.",
+                essay_my: "Dek purba ini mengandungi tujuh puluh lapan kad, setiap satu terukir dengan nama yang tiada lagi diingati manusia. Menarik satu kad memberi pengetahuan dan kuasa terlarang, tapi harganya adalah penghapusan. Namamu perlahan pudar dari gambar, suara, dan ingatan orang tersayang. Kad terakhir selalu menunjukkan wajahmu sendiri — kosong. Di Perpustakaan Tak Terhingga, pembaca yang bermain dengan dek ini kini hanya wujud sebagai catatan kaki dalam cerita orang lain. Kad-kad ini bukan meramal takdir. Mereka menulis semula, menukar identitimu dengan rahsia kekosongan. Pilih dengan bijak. Ada nama yang sepatutnya kekal dilupakan."
+            },
+            {
+                id: 3,
+                number: "03",
+                title_en: "Echoes in the Static",
+                title_my: "Gema dalam Statik",
+                essay_en: "An unmarked PS2 cartridge arrives at midnight. When played, it shows a save file from someone who never turned off the console. The character moves on its own, whispering coordinates to hidden rooms in the Infinite Library. Each new player hears voices of previous owners begging to be released from the game world. The screen flickers with corrupted text: “You are the last one.” Those who finish the game find their real-life memories replaced by in-game events. The cartridge is still out there, waiting in the shadows of Pasar Besar for its next victim.",
+                essay_my: "Sebuah kartrij PS2 tanpa tanda tiba tengah malam. Bila dimainkan, ia menunjukkan fail simpanan daripada seseorang yang tidak pernah mematikan konsol. Watak bergerak sendiri, berbisik koordinat ke bilik-bilik tersembunyi di Perpustakaan Tak Terhingga. Setiap pemain baru mendengar suara pemilik sebelumnya merayu dibebaskan dari dunia permainan. Skrin berkelip dengan teks rosak: “Kau yang terakhir.” Mereka yang habiskan permainan mendapati ingatan hidup sebenar mereka diganti dengan peristiwa dalam game. Kartrij itu masih berada di luar sana, menunggu dalam bayang Pasar Besar untuk mangsa seterusnya."
+            },
+            {
+                id: 4,
+                number: "04",
+                title_en: "The Arrival That Was Always Coming",
+                title_my: "Ketibaan yang Sentiasa Akan Datang",
+                essay_en: "In every family album from Ipoh taken after 3:33 a.m., a boy in a black hoodie stands silently at the edge. He was never photographed. He was never born. Yet he grows older with each new picture. Those who notice him begin dreaming of the Infinite Library, where all the missing frames are stored. The boy waits patiently. He is the prequel that demands to be written. Ignore him and he appears closer. Acknowledge him and your own childhood memories start rewriting themselves to include him — forever.",
+                essay_my: "Dalam setiap album keluarga dari Ipoh yang diambil selepas jam 3:33 pagi, seorang budak lelaki berhoodie hitam berdiri diam di pinggir. Dia tidak pernah difoto. Dia tidak pernah lahir. Namun dia semakin dewasa dengan setiap gambar baru. Mereka yang perasan dia mula bermimpi tentang Perpustakaan Tak Terhingga, tempat semua bingkai yang hilang disimpan. Budak itu menunggu dengan sabar. Dia adalah prequel yang menuntut ditulis. Abaikan dia dan dia muncul semakin dekat. Akui dia dan ingatan zaman kanak-kanakmu mula menulis semula untuk memasukkannya — selamanya."
+            },
+            {
+                id: 5,
+                number: "05",
+                title_en: "Prologues That Devour Their Own Endings",
+                title_my: "Prolog yang Menelan Penamatnya Sendiri",
+                essay_en: "Every prequel written for AIZAT - THE GAME weakens the original story. Chapters vanish. Characters forget their fates. ZINE #13 is merely the latest symptom. In the Infinite Library, these prologues are alive — hungry entities that consume their own conclusions and then feast on the main narrative. Authors who attempt to finish the tale find their words erased overnight. The library smiles. It has always preferred beginnings that never end. The more you try to explain the haunting, the deeper it sinks its teeth into your ending.",
+                essay_my: "Setiap prequel yang ditulis untuk AIZAT - THE GAME melemahkan cerita asal. Bab-bab hilang. Watak melupakan takdir mereka. ZINE #13 hanyalah gejala terkini. Di Perpustakaan Tak Terhingga, prolog-prolog ini hidup — entiti lapar yang memakan pengakhiran sendiri lalu melahap naratif utama. Penulis yang cuba menyelesaikan cerita mendapati kata-kata mereka terpadam semalaman. Perpustakaan tersenyum. Ia selalu lebih suka permulaan yang tidak pernah tamat. Semakin kau cuba jelaskan hantu itu, semakin dalam ia menghunjam giginya ke dalam penamatmu."
+            },
+            {
+                id: 6,
+                number: "06",
+                title_en: "The Library That Remembers You",
+                title_my: "Perpustakaan yang Mengingatimu",
+                essay_en: "The Infinite Library does not forget. It remembers everything about you — even the versions you tried to bury. Open the wrong book and your life becomes catalogued: every sin, every unspoken desire, every night you almost ended it. The shelves rearrange to trap you in your own story. Other readers will one day borrow your volume and judge your choices. There is no escape. The only way out is to become part of the collection — a silent book among millions, forever whispering your name to those brave enough to listen.",
+                essay_my: "Perpustakaan Tak Terhingga tidak lupa. Ia mengingati segalanya tentangmu — termasuk versi yang kau cuba kuburkan. Buka buku yang salah dan hidupmu dikatalogkan: setiap dosa, setiap nafsu tersembunyi, setiap malam kau hampir menyerah. Rak-rak menyusun semula untuk memerangkapmu dalam ceritamu sendiri. Pembaca lain suatu hari nanti akan meminjam jilidmu dan menghakimi pilihanmu. Tiada jalan keluar. Satu-satunya cara adalah menjadi sebahagian daripada koleksi — buku senyap di kalangan jutaan, selamanya berbisik namamu kepada mereka yang cukup berani mendengar."
+            },
+            {
+                id: 7,
+                number: "07",
+                title_en: "Neon Veins of Pasar Besar",
+                title_my: "Urat Neon Pasar Besar",
+                essay_en: "When the clock strikes midnight at Pasar Besar Ipoh, the stalls no longer sell fish or spices. They trade memories. Offer a precious childhood moment and receive glowing neon futures wrapped in newspaper. Most customers leave richer but hollow. Some never leave at all. Their shadows remain, flickering under broken fluorescent lights. The Infinite Library keeps records of every transaction. The boy in the black hoodie is the cashier. He smiles as he hands you tomorrow — a tomorrow already stained with the blood of yesterday.",
+                essay_my: "Bila jam menunjuk tengah malam di Pasar Besar Ipoh, gerai tidak lagi menjual ikan atau rempah. Mereka berdagang kenangan. Tawarkan detik kanak-kanak yang berharga dan terima masa depan neon yang dibungkus kertas akhbar. Kebanyakan pelanggan pulang lebih kaya tapi kosong. Ada yang tidak pernah keluar langsung. Bayang mereka kekal, berkelip di bawah lampu neon rosak. Perpustakaan Tak Terhingga menyimpan rekod setiap transaksi. Budak lelaki berhoodie hitam adalah juruwang. Dia tersenyum sambil menyerahkan esok — esok yang sudah ternoda darah semalam."
+            },
+            {
+                id: 8,
+                number: "08",
+                title_en: "Four Cards, One Fate",
+                title_my: "Empat Kad, Satu Takdir",
+                essay_en: "The four-card spread is deceptively simple: Tuahmu, Jalan di Hadapan, Ujian yang Menanti, Rahsia yang Tak Kau Duga. Yet every reading in the Infinite Library comes true because the future has already occurred. The cards are not warnings — they are confessions from tomorrow. Those who draw them feel time folding around them. The boy in black watches silently as destinies collapse. In the end, the final card is always the same: your own reflection, smiling with knowledge you were never meant to possess.",
+                essay_my: "Bacaan empat kad nampak ringkas: Tuahmu, Jalan di Hadapan, Ujian yang Menanti, Rahsia yang Tak Kau Duga. Namun setiap bacaan di Perpustakaan Tak Terhingga menjadi kenyataan kerana masa depan sudah berlaku. Kad bukan amaran — ia pengakuan dari esok. Mereka yang menariknya merasai masa melipat di sekeliling. Budak berhoodie hitam memerhati diam sementara takdir runtuh. Akhirnya, kad terakhir selalu sama: pantulan wajahmu sendiri, tersenyum dengan pengetahuan yang sepatutnya tidak kau miliki."
+            },
+            {
+                id: 9,
+                number: "09",
+                title_en: "The Boy Who Was Never Born",
+                title_my: "Budak Lelaki yang Tidak Pernah Dilahirkan",
+                essay_en: "He appears in the dreams of everyone who touched AIZAT - THE GAME. A child who was never born yet remembers playing with you as a child. He asks to be written into the story so he can finally exist. Each night he grows more solid. The Infinite Library holds the only copy of his unfinished life. If enough readers believe in him, the prequel becomes canon and the boy steps out of the screen into the waking world — bringing the haunting with him.",
+                essay_my: "Dia muncul dalam mimpi semua yang pernah menyentuh AIZAT - THE GAME. Seorang kanak-kanak yang tidak pernah lahir namun ingat bermain denganmu semasa kecil. Dia meminta ditulis ke dalam cerita supaya boleh wujud. Setiap malam dia semakin nyata. Perpustakaan Tak Terhingga menyimpan satu-satunya salinan hidupnya yang belum siap. Jika cukup ramai pembaca percaya padinya, prequel menjadi kanon dan budak itu melangkah keluar dari skrin ke dunia nyata — membawa hantu bersamanya."
+            },
+            {
+                id: 10,
+                number: "10",
+                title_en: "Infinite Library, Finite Lives",
+                title_my: "Perpustakaan Tak Terhingga, Kehidupan Terhingga",
+                essay_en: "Every new book added to the Infinite Library costs its author one chapter of their remaining life. The collection grows vast while writers fade into footnotes. ZINE #13 was written in blood and pixels. The boy in the black hoodie is both author and librarian. He collects not just stories, but the souls who tell them. In the end, all that remains are endless shelves and silent readers turning pages that once contained living hearts. Welcome to the library. Your chapter is already being written.",
+                essay_my: "Setiap buku baru yang ditambah ke Perpustakaan Tak Terhingga mengorbankan satu bab umur penulisnya. Koleksi semakin luas sementara penulis pudar menjadi catatan kaki. ZINE #13 ditulis dengan darah dan piksel. Budak berhoodie hitam adalah penulis sekaligus pustakawan. Dia mengumpul bukan sekadar cerita, tapi jiwa yang menceritakannya. Akhirnya, yang tinggal hanyalah rak-rak tak terhingga dan pembaca senyap yang membalik halaman yang dulunya mengandungi hati yang hidup. Selamat datang ke perpustakaan. Babmu sudah mula ditulis."
+            }
+        ]
+
+        let currentBookId = null;
+        let currentLang = 'en';
+
+        // Render all book cards
+        function renderBooks() {
+            const grid = document.getElementById('books-grid');
+            grid.innerHTML = '';
+
+            books.forEach(book => {
+                const cardHTML = `
+                    <div onclick="openBook(${book.id})"
+                         class="book-card group cursor-pointer bg-zinc-900 border border-zinc-700 hover:border-[#ff2e88]/40 rounded-2xl sm:rounded-3xl overflow-hidden flex flex-col h-full">
+
+                        <!-- Book Cover -->
+                        <div class="book-cover relative h-[190px] sm:h-[218px] flex flex-col p-4 sm:p-5">
+                            
+                            <!-- Splatter effects -->
+                            <div class="splatter w-8 h-8" style="top: 12%; left: 18%; opacity: 0.12;"></div>
+                            <div class="splatter w-5 h-5" style="top: 68%; left: 72%; opacity: 0.09;"></div>
+                            <div class="splatter w-6 h-6" style="top: 22%; left: 82%; opacity: 0.15;"></div>
+                            
+                            <!-- Top stamp -->
+                            <div class="flex justify-between items-start z-10">
+                                <div class="zine-stamp text-[9px] px-2.5 py-px tracking-widest">ZINE #13</div>
+                                <div class="text-right">
+                                    <div class="font-mono text-[10px] text-zinc-500">${book.number}</div>
+                                </div>
+                            </div>
+                            
+                            <!-- Title area -->
+                            <div class="flex-1 flex flex-col justify-center z-10 px-1 py-2">
+                                <div class="text-sm sm:text-base leading-[1.2] font-semibold tracking-[-0.3px] group-hover:text-[#ff2e88] transition-colors pr-1 sm:pr-2 line-clamp-3">
+                                    ${book.title_en}
+                                </div>
+                                <div class="text-[11px] sm:text-xs text-zinc-400 mt-1.5 tracking-tight line-clamp-2 pr-1">
+                                    ${book.title_my}
+                                </div>
+                            </div>
+                            
+                            <!-- Bottom meta -->
+                            <div class="z-10 flex items-center justify-between text-[10px]">
+                                <div class="flex items-center gap-x-1.5">
+                                    <div class="w-1.5 h-1.5 bg-[#ff2e88] rounded-full animate-pulse"></div>
+                                    <span class="font-mono text-zinc-500">99 WORDS</span>
+                                </div>
+                                
+                                <!-- Thematic mini icon -->
+                                <div class="text-zinc-400 group-hover:text-[#ff2e88] transition-colors">
+                                    ${getThematicIcon(book.id)}
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Card footer -->
+                        <div class="px-4 sm:px-5 py-3 sm:py-3.5 bg-zinc-950 flex items-center justify-between text-xs border-t border-zinc-800">
+                            <div class="flex items-center text-zinc-400">
+                                <i class="fa-solid fa-book-open mr-1.5 text-xs"></i>
+                                <span>Read entry</span>
+                            </div>
+                            <div class="text-[#ff2e88] opacity-0 group-hover:opacity-100 transition-all text-xs flex items-center">
+                                OPEN <i class="fa-solid fa-arrow-right ml-1.5 text-[10px]"></i>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                grid.innerHTML += cardHTML;
+            });
+        }
+
+        // Return a simple thematic icon for each book
+        function getThematicIcon(id) {
+            const icons = {
+                1: '<i class="fa-solid fa-book text-lg"></i>',
+                2: '<i class="fa-solid fa-cards text-lg"></i>',
+                3: '<i class="fa-solid fa-tv text-lg"></i>',
+                4: '<i class="fa-solid fa-camera text-lg"></i>',
+                5: '<i class="fa-solid fa-link text-lg"></i>',
+                6: '<i class="fa-solid fa-brain text-lg"></i>',
+                7: '<i class="fa-solid fa-lightbulb text-lg"></i>',
+                8: '<i class="fa-solid fa-hand-holding-heart text-lg"></i>',
+                9: '<i class="fa-solid fa-child text-lg"></i>',
+                10: '<i class="fa-solid fa-hourglass-half text-lg"></i>'
+            };
+            return icons[id] || '<i class="fa-solid fa-book text-lg"></i>';
+        }
+
+        // Open a specific book in modal
+        function openBook(bookId) {
+            currentBookId = bookId;
+            const book = books.find(b => b.id === bookId);
+            if (!book) return;
+
+            // Populate header
+            document.getElementById('modal-title-en').textContent = book.title_en;
+            document.getElementById('modal-title-my').textContent = book.title_my;
+            document.getElementById('modal-entry-num').textContent = book.number;
+            
+            // Set initial language
+            currentLang = 'en';
+            updateLanguageButtons();
+            renderEssay(book, currentLang);
+
+            // Show modal
+            const modal = document.getElementById('book-modal');
+            modal.style.display = 'flex';
+            modal.classList.remove('hidden');
+            
+            // Subtle entrance animation already handled by CSS
+        }
+
+        function renderEssay(book, lang) {
+            const essayEl = document.getElementById('modal-essay');
+            const text = lang === 'en' ? book.essay_en : book.essay_my;
+            
+            essayEl.innerHTML = `
+                <p class="leading-relaxed">${text}</p>
+            `;
+        }
+
+        function updateLanguageButtons() {
+            const enBtn = document.getElementById('lang-en-btn');
+            const myBtn = document.getElementById('lang-my-btn');
+            
+            if (currentLang === 'en') {
+                enBtn.classList.add('active', 'bg-[#ff2e88]', 'text-white', 'shadow-sm');
+                enBtn.classList.remove('text-zinc-400');
+                myBtn.classList.remove('active', 'bg-[#ff2e88]', 'text-white', 'shadow-sm');
+                myBtn.classList.add('text-zinc-400');
+            } else {
+                myBtn.classList.add('active', 'bg-[#ff2e88]', 'text-white', 'shadow-sm');
+                myBtn.classList.remove('text-zinc-400');
+                enBtn.classList.remove('active', 'bg-[#ff2e88]', 'text-white', 'shadow-sm');
+                enBtn.classList.add('text-zinc-400');
+            }
+        }
+
+        function switchLanguage(lang) {
+            if (!currentBookId) return;
+            
+            currentLang = lang;
+            const book = books.find(b => b.id === currentBookId);
+            
+            updateLanguageButtons();
+            renderEssay(book, currentLang);
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('book-modal');
+            modal.style.display = 'none';
+            modal.classList.add('hidden');
+        }
+
+        function prevBook() {
+            if (!currentBookId) return;
+            let newId = currentBookId - 1;
+            if (newId < 1) newId = 10;
+            openBook(newId);
+        }
+
+        function nextBook() {
+            if (!currentBookId) return;
+            let newId = currentBookId + 1;
+            if (newId > 10) newId = 1;
+            openBook(newId);
+        }
+
+        // Random whisper feature
+        function showRandomWhisper() {
+            const randomBook = books[Math.floor(Math.random() * books.length)];
+            const isEnglish = Math.random() > 0.5;
+            const text = isEnglish ? randomBook.essay_en : randomBook.essay_my;
+            
+            // Create toast
+            const toast = document.createElement('div');
+            toast.className = `fixed bottom-6 left-1/2 -translate-x-1/2 max-w-md bg-zinc-900 border border-zinc-700 rounded-2xl px-6 py-4 shadow-2xl z-[200] flex gap-4 items-start`;
+            toast.innerHTML = `
+                <div class="flex-1 text-sm">
+                    <div class="flex items-center gap-x-2 mb-1.5">
+                        <span class="text-[#ff2e88]"><i class="fa-solid fa-ghost"></i></span>
+                        <span class="font-mono text-xs tracking-widest text-zinc-400">WHISPER FROM ${randomBook.title_en.toUpperCase()}</span>
+                    </div>
+                    <p class="text-zinc-300 leading-snug">"${text.substring(0, 148)}..."</p>
+                </div>
+                <button class="text-zinc-400 hover:text-white mt-0.5" onclick="this.parentElement.remove()">
+                    <i class="fa-solid fa-times"></i>
+                </button>
+            `;
+            
+            document.body.appendChild(toast);
+            
+            // Auto remove after 9 seconds
+            setTimeout(() => {
+                if (toast.parentNode) toast.parentNode.removeChild(toast);
+            }, 9200);
+        }
+
+        // Keyboard support
+        function setupKeyboardControls() {
+            document.addEventListener('keydown', function(e) {
+                const modal = document.getElementById('book-modal');
+                if (modal.style.display === 'flex' || !modal.classList.contains('hidden')) {
+                    if (e.key === 'Escape') {
+                        closeModal();
+                    }
+                    if (e.key === 'ArrowRight') {
+                        nextBook();
+                    }
+                    if (e.key === 'ArrowLeft') {
+                        prevBook();
+                    }
+                    if (e.key.toLowerCase() === 'e' && currentLang !== 'en') {
+                        switchLanguage('en');
+                    }
+                    if (e.key.toLowerCase() === 'm' && currentLang !== 'my') {
+                        switchLanguage('my');
+                    }
+                }
+                
+                // Global shortcuts
+                if (e.key === '?' && document.activeElement.tagName === 'BODY') {
+                    e.preventDefault();
+                    showRandomWhisper();
+                }
+            });
+            
+            // Add hint in console for power users
+            console.log('%c[Infinite Library] Keyboard: ESC = close • ← → = prev/next • E/M = switch language • ? = random whisper', 'color:#555');
+        }
+
+        // Initialize everything
+        function initialize() {
+            initializeTailwind();
+            renderBooks();
+            setupKeyboardControls();
+            
+            // Optional: Show a subtle welcome whisper after 45 seconds if user is still here
+            setTimeout(() => {
+                const modalOpen = document.getElementById('book-modal').style.display === 'flex';
+                if (!modalOpen && Math.random() < 0.3) {
+                    // Uncomment if you want auto-whisper: showRandomWhisper();
+                }
+            }, 45000);
+            
+            // Easter egg: Click logo to hear whisper
+            const logo = document.querySelector('nav .fa-infinity');
+            if (logo) {
+                logo.style.cursor = 'pointer';
+                logo.addEventListener('click', () => {
+                    showRandomWhisper();
+                });
+            }
+            
+            console.log('%c[Infinite Library] HTML initialized. 10 volumes ready. The boy is watching.', 'color:#444');
+        }
+
+        // Boot
+        window.onload = initialize;
+    </script>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"75124c326cb447fe934cde04713ae013","r":1}' crossorigin="anonymous"></script>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"75124c326cb447fe934cde04713ae013","r":1}' crossorigin="anonymous"></script>
+</body>
+</html>
