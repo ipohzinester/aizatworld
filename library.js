@@ -3,7 +3,7 @@
 // item and it will automatically appear on the shelves in the Library section.
 //
 // Fields:
-//   type        "zine" | "book" | "game" | "app" | "archive"
+//   type        "zine" | "book" | "game" | "app" | "archive" | "essay"
 //   title       shown on the book spine + modal
 //   description shown under the title + in the modal
 //   cover       path to the cover image (falls back to a generated cover if missing)
@@ -52,5 +52,12 @@ window.libraryItems = [
     description: "LINES TO LIVE BY — Ariana Grande. Say 'thank you, next' to the bad vibes and live your best life.",
     cover: "covers/LINES-TO-LIVE-BYARIANA.png",
     link: "books/LINES-TO-LIVE-BYARIANA.pdf"
+  },
+  {
+    type: "essay",
+    title: "The Infinite Library",
+    description: "A Zine#13 expansion pack.",
+    cover: "covers/infinite-cover.png",
+    link: "https://ipohzinester.github.io/infinite-library/"
   }
 ];
