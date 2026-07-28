@@ -61,7 +61,7 @@ window.libraryItems = [
     link: "infinite-library.html"
   },
   {
-    type: "zine",
+    type: "archive",
     title: "Adakah AI bertentangan dengan Socratic Method dan Bloom's Taxonomy",
     description: "Would Socrated and Benjamin Bloom Be Anti-AI?",
     cover: "covers/ai-cover.PNG",
