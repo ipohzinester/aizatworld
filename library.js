@@ -63,7 +63,7 @@ window.libraryItems = [
   {
     type: "archive",
     title: "Adakah AI bertentangan dengan Socratic Method dan Bloom's Taxonomy",
-    description: "Would Socrated and Benjamin Bloom Be Anti-AI?",
+    description: "Would Socrates and Benjamin Bloom Be Anti-AI?",
     cover: "covers/ai-cover.PNG",
     link: "zines/ai.pdf"
   }
