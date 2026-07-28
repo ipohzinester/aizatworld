@@ -156,7 +156,7 @@ button.dark,a.dark{background:var(--ink);color:#fff;box-shadow:5px 5px 0 var(--s
 button.small,a.small{font-size:.78rem;padding:.58rem .78rem;box-shadow:3px 3px 0 var(--ink)}
 .skip{position:absolute;left:-999px;top:10px;background:#fff;z-index:1000;padding:10px;border:3px solid #000}
 .skip:focus{left:10px}
-.shell{max-width:1184px;margin:0 auto;padding:22px clamp(14px,3vw,40px) 80px;position:relative;z-index:10}
+.shell{max-width:1066px;margin:0 auto;padding:22px clamp(14px,3vw,40px) 80px;position:relative;z-index:10}
 .topbar{
   position:sticky;top:12px;z-index:90;
   display:grid;grid-template-columns:auto minmax(0,1fr) auto auto;align-items:center;gap:12px;
@@ -508,7 +508,7 @@ html[data-theme="dark"] #library .library-book-title{color:#fff7e4}
 .manifesto p{font-size:1.25rem;line-height:1.55;margin:.25rem 0}.maker-panel{border:var(--line);border-radius:26px;background:var(--sun);padding:22px;box-shadow:6px 6px 0 var(--ink)}
 .fake-zine{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:16px 0}.fake-zine div{aspect-ratio:3/4;border:3px solid var(--ink);background:#fff;background-size:cover;background-position:center;border-radius:8px;position:relative;overflow:hidden;box-shadow:3px 3px 0 var(--ink)}
 .fake-zine div span{position:absolute;left:6px;right:6px;bottom:6px;padding:3px 6px;border-radius:6px;background:rgba(10,8,16,.72);color:#fff;font:900 .64rem/1 'Trebuchet MS',Verdana,sans-serif;text-align:center}
-.wall-wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:22px;position:relative;z-index:1}.canvas-card{border:var(--line);border-radius:26px;background:#fff;padding:12px;box-shadow:6px 6px 0 var(--ink)}
+.wall-wrap{display:grid;grid-template-columns:minmax(0,1fr);gap:22px;position:relative;z-index:1}.canvas-card{border:var(--line);border-radius:26px;background:#fff;padding:12px;box-shadow:6px 6px 0 var(--ink)}
 #doodle{display:block;width:100%;height:430px;border-radius:18px;background:#fff8e2;touch-action:none;cursor:crosshair;border:3px dashed rgba(23,33,43,.45)}
 .wall-tools{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;align-items:center}.wall-tools input{width:48px;height:38px;border:3px solid var(--ink);border-radius:10px;background:#fff}
 .prompts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.prompt{border:3px solid var(--ink);border-radius:16px;background:var(--cream);padding:14px;font:900 .92rem/1.2 'Trebuchet MS',Verdana,sans-serif;transform:rotate(var(--r,0deg))}
@@ -716,19 +716,7 @@ label{display:block;font:900 .78rem/1 'Trebuchet MS',Verdana,sans-serif;text-tra
       </div>
       <div class="wall-wrap">
         <div class="canvas-card">
-          <canvas id="doodle" width="1200" height="620" aria-label="Drawable community wall"></canvas>
-          <div class="wall-tools">
-            <input type="color" id="ink" value="#17212b" aria-label="Ink color">
-            <button class="small" id="thin">Thin</button><button class="small" id="thick">Thick</button><button class="small secondary" id="saveWall">Save</button><button class="small secondary" id="clearWall">Clear</button>
-          </div>
-        </div>
-        <div class="prompts">
-          <div class="prompt" style="--r:-2deg">Draw your imaginary creature.</div>
-          <div class="prompt" style="--r:1deg">What are you making right now?</div>
-          <div class="prompt" style="--r:-1deg">Drop your favorite image idea.</div>
-          <div class="prompt" style="--r:2deg">Promote your project.</div>
-          <div class="prompt" style="--r:-2deg">Say something controversial.</div>
-          <div class="prompt" style="--r:1deg">Leave something nice for a stranger.</div>
+          <iframe src="https://wbo.ophir.dev/boards/jombuatzine" title="Doodle wall" loading="lazy" style="width:100%;height:620px;border:0;border-radius:16px;display:block;background:#fff"></iframe>
         </div>
       </div>
     </section>
@@ -1209,6 +1197,7 @@ label{display:block;font:900 .78rem/1 'Trebuchet MS',Verdana,sans-serif;text-tra
 })();
 </script>
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"75124c326cb447fe934cde04713ae013","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"75124c326cb447fe934cde04713ae013","r":1}' crossorigin="anonymous"></script>
 <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"75124c326cb447fe934cde04713ae013","r":1}' crossorigin="anonymous"></script>
 <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"75124c326cb447fe934cde04713ae013","r":1}' crossorigin="anonymous"></script>
 <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"75124c326cb447fe934cde04713ae013","r":1}' crossorigin="anonymous"></script>
