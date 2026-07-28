@@ -59,5 +59,12 @@ window.libraryItems = [
     description: "A Zine#13 expansion pack.",
     cover: "covers/infinite-cover.png",
     link: "infinite-library.html"
+  },
+  {
+    type: "zine",
+    title: "Adakah AI bertentangan dengan Socratic Method dan Bloom's Taxonomy",
+    description: "Would Socrated and Benjamin Bloom Be Anti-AI?",
+    cover: "covers/ai-cover.PNG",
+    link: "zines/ai.pdf"
   }
 ];
