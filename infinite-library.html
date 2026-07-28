@@ -27,22 +27,6 @@
         .max-w-screen-2xl {
             max-width: 70% !important;
         }
-
-        @media (max-width: 1024px) {
-            .max-w-screen-2xl {
-                max-width: 92% !important;
-            }
-        }
-
-        @media (max-width: 640px) {
-            .max-w-screen-2xl {
-                max-width: 100% !important;
-            }
-            .essay-text {
-                font-size: 14.5px !important;
-                line-height: 1.7 !important;
-            }
-        }
         
         .title-font {
             font-family: 'Times New Roman', Times, serif;
@@ -229,18 +213,18 @@
 <body class="text-zinc-200 overflow-x-hidden">
     <!-- NAV -->
     <nav class="border-b border-zinc-800 bg-[#0a090f]/95 backdrop-blur-lg sticky top-0 z-50">
-        <div class="max-w-screen-2xl mx-auto px-4 sm:px-8 py-4 sm:py-5 flex items-center justify-between gap-3">
-            <div class="flex items-center gap-x-2 sm:gap-x-3 min-w-0">
-                <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-[#ff2e88] to-[#cc2244] flex items-center justify-center shadow-lg shadow-pink-950/50 flex-shrink-0">
+        <div class="max-w-screen-2xl mx-auto px-8 py-5 flex items-center justify-between">
+            <div class="flex items-center gap-x-3">
+                <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-[#ff2e88] to-[#cc2244] flex items-center justify-center shadow-lg shadow-pink-950/50">
                     <i class="fa-solid fa-infinity text-white text-2xl"></i>
                 </div>
-                <div class="min-w-0">
-                    <div class="font-bold tracking-tight text-lg sm:text-2xl truncate" style="font-family: 'Libre Baskerville', 'Baskerville', serif;">INFINITE LIBRARY</div>
-                    <div class="text-[10px] text-zinc-500 -mt-1 truncate" style="font-family: 'Libre Baskerville', 'Baskerville', serif;">ZINE #13 ARCHIVES</div>
+                <div>
+                    <div class="font-bold tracking-tight text-2xl" style="font-family: 'Libre Baskerville', 'Baskerville', serif;">INFINITE LIBRARY</div>
+                    <div class="text-[10px] text-zinc-500 -mt-1" style="font-family: 'Libre Baskerville', 'Baskerville', serif;">ZINE #13 ARCHIVES</div>
                 </div>
             </div>
-
-            <div class="flex items-center gap-x-2 sm:gap-x-4 flex-shrink-0">
+            
+            <div class="flex items-center gap-x-4">
                 <div class="hidden md:flex items-center gap-x-2 text-xs uppercase tracking-[2px] text-zinc-500">
                     <div class="px-3 py-1.5 bg-zinc-900 rounded-full border border-zinc-800 flex items-center gap-x-1.5">
                         <i class="fa-solid fa-book text-[#ff2e88]"></i>
@@ -248,8 +232,8 @@
                     </div>
                 </div>
                 
-                <button onclick="showRandomWhisper()" aria-label="Hear a whisper"
-                        class="flex items-center gap-x-2 px-3 sm:px-4 py-2 text-xs font-medium rounded-2xl border border-zinc-700 hover:border-[#ff2e88]/60 hover:text-[#ff2e88] transition-colors">
+                <button onclick="showRandomWhisper()" 
+                        class="flex items-center gap-x-2 px-4 py-2 text-xs font-medium rounded-2xl border border-zinc-700 hover:border-[#ff2e88]/60 hover:text-[#ff2e88] transition-colors">
                     <i class="fa-solid fa-headset text-xs"></i>
                     <span class="hidden sm:inline">HEAR A WHISPER</span>
                 </button>
@@ -258,8 +242,8 @@
     </nav>
 
     <!-- HERO -->
-    <div class="max-w-screen-2xl mx-auto px-4 sm:px-8 pt-6 sm:pt-10 pb-10 sm:pb-16">
-        <div class="relative rounded-2xl sm:rounded-3xl overflow-hidden border border-zinc-800 shadow-2xl min-h-[420px] sm:h-[520px] flex items-center bg-[#111018] py-10 sm:py-0">
+    <div class="max-w-screen-2xl mx-auto px-8 pt-10 pb-16">
+        <div class="relative rounded-3xl overflow-hidden border border-zinc-800 shadow-2xl h-[520px] flex items-center bg-[#111018]">
             <!-- Background wallpaper + effects -->
             <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('wallpaper.webp');"></div>
             <div class="absolute inset-0" style="background: linear-gradient(90deg, rgba(10,9,15,0.92) 0%, rgba(15,12,23,0.75) 45%, rgba(15,12,23,0.35) 100%);"></div>
@@ -275,28 +259,28 @@
             </div>
             
             <!-- Overlay content -->
-            <div class="relative z-10 px-6 sm:px-10 md:px-16 max-w-4xl w-full">
-                <div class="flex flex-wrap items-center gap-x-3 gap-y-2 mb-4">
+            <div class="relative z-10 px-10 md:px-16 max-w-4xl">
+                <div class="flex items-center gap-x-3 mb-4">
                     <div class="zine-stamp font-mono">RECOVERED</div>
-                    <div class="text-[10px] sm:text-xs tracking-[2px] sm:tracking-[3px] text-zinc-400">FROM THE DEPTHS OF ZINE#13 LORE</div>
+                    <div class="text-xs tracking-[3px] text-zinc-400">FROM THE DEPTHS OF ZINE#13 LORE</div>
                 </div>
-
-                <h1 class="text-3xl sm:text-4xl md:text-5xl leading-[0.95] font-semibold tracking-tighter title-font mb-3">
+                
+                <h1 class="text-4xl md:text-5xl leading-[0.95] font-semibold tracking-tighter title-font mb-3">
                     THE<br>INFINITE<br>LIBRARY
                 </h1>
-
-                <p class="max-w-md text-base sm:text-xl text-zinc-300 mb-6 sm:mb-8">
+                
+                <p class="max-w-md text-xl text-zinc-300 mb-8">
                     Ten 99-word essays. One haunting truth.<br>
                     <span class="text-[#ff2e88]">ZINE #13</span> was only the beginning.
                 </p>
-
-                <div class="flex flex-col sm:flex-row sm:items-center gap-4">
-                    <button onclick="document.getElementById('archives-section').scrollIntoView({ behavior: 'smooth' })"
-                            class="group flex items-center justify-center gap-x-3 bg-white text-black px-6 sm:px-8 py-3.5 rounded-2xl font-semibold text-sm tracking-wider hover:bg-zinc-100 transition-all active:scale-[0.985] w-full sm:w-auto">
+                
+                <div class="flex items-center gap-x-4">
+                    <button onclick="document.getElementById('archives-section').scrollIntoView({ behavior: 'smooth' })" 
+                            class="group flex items-center gap-x-3 bg-white text-black px-8 py-3.5 rounded-2xl font-semibold text-sm tracking-wider hover:bg-zinc-100 transition-all active:scale-[0.985]">
                         <span>ENTER THE ARCHIVES</span>
                         <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
                     </button>
-
+                    
                     <div class="text-xs text-zinc-400 max-w-[180px] leading-tight hidden md:block">
                         Each volume rewrites itself.<br>
                         The boy in the black hoodie is watching.
@@ -319,11 +303,11 @@
     </div>
 
     <!-- INTRO -->
-    <div class="max-w-screen-2xl mx-auto px-4 sm:px-8 pb-8 sm:pb-10">
+    <div class="max-w-screen-2xl mx-auto px-8 pb-10">
         <div class="max-w-3xl">
             <div class="section-header text-[#ff2e88] mb-3">THE 13TH SHELF • FORBIDDEN COLLECTION</div>
-            <h2 class="text-2xl sm:text-4xl tracking-tight font-semibold mb-4">Stories that remember you back.</h2>
-            <p class="text-base sm:text-lg text-zinc-400 leading-relaxed">
+            <h2 class="text-4xl tracking-tight font-semibold mb-4">Stories that remember you back.</h2>
+            <p class="text-lg text-zinc-400 leading-relaxed">
                 These ten volumes were recovered from the Infinite Library. Each essay is exactly 99 words. 
                 They deepen the haunted lore surrounding <span class="font-medium text-zinc-300">ZINE #13</span>, 
                 <span class="font-medium text-zinc-300">TO AIZAT — THE GAME</span>, and the boy who was never born. 
@@ -333,24 +317,24 @@
     </div>
 
     <!-- ARCHIVES GRID -->
-    <div id="archives-section" class="max-w-screen-2xl mx-auto px-4 sm:px-8 pb-16 sm:pb-20">
-        <div class="flex items-end justify-between mb-6 gap-4">
-            <div class="min-w-0">
+    <div id="archives-section" class="max-w-screen-2xl mx-auto px-8 pb-20">
+        <div class="flex items-end justify-between mb-6">
+            <div>
                 <div class="section-header text-zinc-400">THE COLLECTION</div>
-                <div class="text-xl sm:text-3xl font-semibold tracking-tight">10 Volumes • 990 Words Total</div>
+                <div class="text-3xl font-semibold tracking-tight">10 Volumes • 990 Words Total</div>
             </div>
-            <div class="text-xs text-zinc-500 hidden md:block flex-shrink-0">Click any volume to read • Bilingual available</div>
+            <div class="text-xs text-zinc-500 hidden md:block">Click any volume to read • Bilingual available</div>
         </div>
 
         <!-- Books Grid -->
-        <div id="books-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-5">
+        <div id="books-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5">
             <!-- Populated dynamically via JS -->
         </div>
     </div>
 
     <!-- FOOTER LORE -->
     <div class="border-t border-zinc-800 py-8">
-        <div class="max-w-screen-2xl mx-auto px-4 sm:px-8 text-center">
+        <div class="max-w-screen-2xl mx-auto px-8 text-center">
             <div class="text-[10px] tracking-[2px] text-zinc-500 mb-2">PASAR BESAR IPOH • 3:33 AM • THE BOY IN BLACK IS ALWAYS WAITING</div>
             <div class="text-xs text-zinc-400 max-w-md mx-auto">
                 "The more you try to explain the haunting, the deeper it sinks its teeth into your ending."
@@ -359,68 +343,67 @@
     </div>
 
     <!-- BOOK MODAL -->
-    <div id="book-modal" onclick="if (event.target.id === 'book-modal') closeModal()"
-         class="hidden fixed inset-0 bg-black/90 backdrop-blur-xl z-[100] flex items-center justify-center p-2 sm:p-4 md:p-8 overflow-y-auto">
-        <div onclick="event.stopImmediatePropagation()"
-             class="modal w-full max-w-3xl bg-[#111018] border border-zinc-700 rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl my-auto max-h-[95vh] flex flex-col">
-
+    <div id="book-modal" onclick="if (event.target.id === 'book-modal') closeModal()" 
+         class="hidden fixed inset-0 bg-black/90 backdrop-blur-xl z-[100] flex items-center justify-center p-4 md:p-8">
+        <div onclick="event.stopImmediatePropagation()" 
+             class="modal w-full max-w-3xl bg-[#111018] border border-zinc-700 rounded-3xl overflow-hidden shadow-2xl">
+            
             <!-- Modal Header -->
-            <div class="px-5 sm:px-8 pt-5 sm:pt-8 pb-4 sm:pb-5 border-b border-zinc-800 flex flex-col sm:flex-row items-start justify-between gap-3 sm:gap-4">
-                <div class="flex-1 min-w-0 w-full">
-                    <div class="flex flex-wrap items-center gap-x-3 gap-y-1 mb-2">
-                        <div id="modal-zine-badge"
+            <div class="px-8 pt-8 pb-5 border-b border-zinc-800 flex items-start justify-between gap-4">
+                <div class="flex-1 min-w-0">
+                    <div class="flex items-center gap-x-3 mb-2">
+                        <div id="modal-zine-badge" 
                              class="zine-stamp font-mono text-xs px-3 py-px">ZINE #13</div>
                         <div class="text-[10px] text-zinc-500 tracking-widest">INFINITE LIBRARY • ENTRY <span id="modal-entry-num"></span></div>
                     </div>
-
-                    <h2 id="modal-title-en" class="text-2xl sm:text-4xl font-semibold tracking-tighter leading-tight sm:leading-none pr-2 sm:pr-4 break-words"></h2>
-                    <h3 id="modal-title-my" class="text-lg sm:text-2xl text-zinc-400 tracking-tight mt-1 break-words"></h3>
+                    
+                    <h2 id="modal-title-en" class="text-4xl font-semibold tracking-tighter leading-none pr-4"></h2>
+                    <h3 id="modal-title-my" class="text-2xl text-zinc-400 tracking-tight mt-1"></h3>
                 </div>
-
+                
                 <!-- Language Toggle -->
-                <div class="flex-shrink-0 self-start sm:self-auto">
+                <div class="flex-shrink-0">
                     <div class="bg-zinc-900 border border-zinc-700 rounded-2xl p-1 flex text-sm">
                         <button onclick="switchLanguage('en')" id="lang-en-btn"
-                                class="lang-btn active px-4 sm:px-5 py-1.5 rounded-[14px] font-medium flex items-center gap-x-1.5 transition-all">
+                                class="lang-btn active px-5 py-1.5 rounded-[14px] font-medium flex items-center gap-x-1.5 transition-all">
                             <span>EN</span>
                         </button>
                         <button onclick="switchLanguage('my')" id="lang-my-btn"
-                                class="lang-btn px-4 sm:px-5 py-1.5 rounded-[14px] font-medium flex items-center gap-x-1.5 text-zinc-400 hover:text-zinc-200 transition-all">
+                                class="lang-btn px-5 py-1.5 rounded-[14px] font-medium flex items-center gap-x-1.5 text-zinc-400 hover:text-zinc-200 transition-all">
                             <span>MY</span>
                         </button>
                     </div>
                 </div>
             </div>
-
+            
             <!-- Essay Content -->
-            <div class="px-5 sm:px-8 py-6 sm:py-9 min-h-[200px] sm:min-h-[280px] overflow-y-auto flex-1">
+            <div class="px-8 py-9 min-h-[280px]">
                 <div id="modal-essay" class="essay-text max-w-prose">
                     <!-- Injected by JS -->
                 </div>
             </div>
-
+            
             <!-- Modal Footer -->
-            <div class="bg-zinc-900/60 px-5 sm:px-8 py-4 sm:py-5 border-t border-zinc-800 flex flex-col-reverse sm:flex-row sm:items-center sm:justify-between gap-3 text-xs">
+            <div class="bg-zinc-900/60 px-8 py-5 border-t border-zinc-800 flex items-center justify-between text-xs">
                 <div class="flex items-center gap-x-2 text-zinc-400">
                     <i class="fa-solid fa-exclamation-triangle text-[#ff2e88]"></i>
                     <span class="warning-text">READING THIS MAY REWRITE YOUR REALITY</span>
                 </div>
-
-                <div class="flex items-center gap-x-2 justify-end">
+                
+                <div class="flex items-center gap-x-2">
                     <!-- Navigation -->
-                    <button onclick="prevBook()" aria-label="Previous entry"
+                    <button onclick="prevBook()" 
                             class="w-9 h-9 flex items-center justify-center text-zinc-400 hover:text-white hover:bg-zinc-800 rounded-2xl transition-colors">
                         <i class="fa-solid fa-chevron-left"></i>
                     </button>
-                    <button onclick="nextBook()" aria-label="Next entry"
+                    <button onclick="nextBook()" 
                             class="w-9 h-9 flex items-center justify-center text-zinc-400 hover:text-white hover:bg-zinc-800 rounded-2xl transition-colors">
                         <i class="fa-solid fa-chevron-right"></i>
                     </button>
-
-                    <button onclick="closeModal()"
-                            class="ml-1 sm:ml-3 px-4 sm:px-5 py-2 text-xs font-medium rounded-2xl border border-zinc-700 hover:bg-zinc-800 transition-colors">
-                        <span class="hidden sm:inline">RETURN TO SHELF</span>
-                        <span class="sm:hidden">CLOSE</span>
+                    
+                    <button onclick="closeModal()" 
+                            class="ml-3 px-5 py-2 text-xs font-medium rounded-2xl border border-zinc-700 hover:bg-zinc-800 transition-colors">
+                        RETURN TO SHELF
                     </button>
                 </div>
             </div>
@@ -537,11 +520,11 @@
 
             books.forEach(book => {
                 const cardHTML = `
-                    <div onclick="openBook(${book.id})"
-                         class="book-card group cursor-pointer bg-zinc-900 border border-zinc-700 hover:border-[#ff2e88]/40 rounded-2xl sm:rounded-3xl overflow-hidden flex flex-col h-full">
-
+                    <div onclick="openBook(${book.id})" 
+                         class="book-card group cursor-pointer bg-zinc-900 border border-zinc-700 hover:border-[#ff2e88]/40 rounded-3xl overflow-hidden flex flex-col h-full">
+                        
                         <!-- Book Cover -->
-                        <div class="book-cover relative h-[190px] sm:h-[218px] flex flex-col p-4 sm:p-5">
+                        <div class="book-cover relative h-[218px] flex flex-col p-5">
                             
                             <!-- Splatter effects -->
                             <div class="splatter w-8 h-8" style="top: 12%; left: 18%; opacity: 0.12;"></div>
@@ -557,11 +540,11 @@
                             </div>
                             
                             <!-- Title area -->
-                            <div class="flex-1 flex flex-col justify-center z-10 px-1 py-2">
-                                <div class="text-sm sm:text-base leading-[1.2] font-semibold tracking-[-0.3px] group-hover:text-[#ff2e88] transition-colors pr-1 sm:pr-2 line-clamp-3">
+                            <div class="flex-1 flex flex-col justify-center z-10 px-1">
+                                <div class="text-base leading-[1.15] font-semibold tracking-[-0.3px] group-hover:text-[#ff2e88] transition-colors pr-2">
                                     ${book.title_en}
                                 </div>
-                                <div class="text-[11px] sm:text-xs text-zinc-400 mt-1.5 tracking-tight line-clamp-2 pr-1">
+                                <div class="text-xs text-zinc-400 mt-1.5 tracking-tight line-clamp-2 pr-1">
                                     ${book.title_my}
                                 </div>
                             </div>
@@ -581,7 +564,7 @@
                         </div>
                         
                         <!-- Card footer -->
-                        <div class="px-4 sm:px-5 py-3 sm:py-3.5 bg-zinc-950 flex items-center justify-between text-xs border-t border-zinc-800">
+                        <div class="px-5 py-3.5 bg-zinc-950 flex items-center justify-between text-xs border-t border-zinc-800">
                             <div class="flex items-center text-zinc-400">
                                 <i class="fa-solid fa-book-open mr-1.5 text-xs"></i>
                                 <span>Read entry</span>
@@ -785,7 +768,6 @@
         // Boot
         window.onload = initialize;
     </script>
-<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"75124c326cb447fe934cde04713ae013","r":1}' crossorigin="anonymous"></script>
 <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"75124c326cb447fe934cde04713ae013","r":1}' crossorigin="anonymous"></script>
 </body>
 </html>
