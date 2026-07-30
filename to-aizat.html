@@ -1012,8 +1012,10 @@ function resolveHunterShot(targetId){
 
 /* ===================== RENDER ===================== */
 const DAY_PHASES = ['dayreveal','discussion','voting','hunter','gameover'];
+let _lastRenderedPhase = null;
 
 function render(){
+  const phaseChanged = state.phase !== _lastRenderedPhase;
   const stamp = document.getElementById('stampIcon');
   const label = document.getElementById('phaseLabel');
   const wash = document.getElementById('paperwash');
@@ -1050,7 +1052,13 @@ function render(){
   stage.classList.remove('fade-in'); void stage.offsetWidth;
   stage.innerHTML = html;
   stage.classList.add('fade-in');
-  window.scrollTo(0,0);
+  // Only jump to top when the phase actually changes,
+  // so in-phase re-renders (dropdown changes, avatar uploads,
+  // timer refreshes, etc.) preserve the user's scroll position.
+  if(phaseChanged){
+    window.scrollTo(0,0);
+  }
+  _lastRenderedPhase = state.phase;
 
   // Re-attach prolog scroll controls after render
   if(state.phase==='setup'){
@@ -1692,6 +1700,7 @@ document.getElementById('resetFabBtn').addEventListener('click', ()=>{
 });
 render();
 </script>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"75124c326cb447fe934cde04713ae013","r":1}' crossorigin="anonymous"></script>
 <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"75124c326cb447fe934cde04713ae013","r":1}' crossorigin="anonymous"></script>
 <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"75124c326cb447fe934cde04713ae013","r":1}' crossorigin="anonymous"></script>
 </body>
