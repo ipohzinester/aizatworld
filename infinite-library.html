@@ -14,6 +14,10 @@
             --accent-red: #cc2244;
         }
         
+        html, body {
+            overscroll-behavior: contain;
+        }
+
         body {
             font-family: 'Times New Roman', Times, serif;
             background-color: #0a090f;
@@ -346,12 +350,12 @@
 
     <!-- BOOK MODAL -->
     <div id="book-modal" onclick="if (event.target.id === 'book-modal') closeModal()" 
-         class="hidden fixed inset-0 bg-black/90 backdrop-blur-xl z-[100] flex items-center justify-center p-4 md:p-8">
+         class="hidden fixed inset-0 bg-black/90 backdrop-blur-xl z-[100] flex items-center justify-center p-4 md:p-8 overflow-y-auto">
         <div onclick="event.stopImmediatePropagation()" 
-             class="modal w-full max-w-3xl bg-[#111018] border border-zinc-700 rounded-3xl overflow-hidden shadow-2xl">
+             class="modal w-full max-w-3xl max-h-[90vh] overflow-y-auto bg-[#111018] border border-zinc-700 rounded-3xl shadow-2xl my-auto">
             
             <!-- Modal Header -->
-            <div class="px-8 pt-8 pb-5 border-b border-zinc-800 flex items-start justify-between gap-4">
+            <div class="px-8 pt-8 pb-5 border-b border-zinc-800 flex items-start justify-between gap-4 rounded-t-3xl bg-[#111018]">
                 <div class="flex-1 min-w-0">
                     <div class="flex items-center gap-x-3 mb-2">
                         <div id="modal-zine-badge" 
@@ -386,7 +390,7 @@
             </div>
             
             <!-- Modal Footer -->
-            <div class="bg-zinc-900/60 px-8 py-5 border-t border-zinc-800 flex items-center justify-between text-xs">
+            <div class="bg-zinc-900/60 px-8 py-5 border-t border-zinc-800 flex items-center justify-between text-xs rounded-b-3xl">
                 <div class="flex items-center gap-x-2 text-zinc-400">
                     <i class="fa-solid fa-exclamation-triangle text-[#ff2e88]"></i>
                     <span class="warning-text">READING THIS MAY REWRITE YOUR REALITY</span>
