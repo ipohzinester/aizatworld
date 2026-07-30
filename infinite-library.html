@@ -24,8 +24,10 @@
             background-attachment: scroll;
         }
 
-        .max-w-screen-2xl {
-            max-width: 70% !important;
+        @media (min-width: 768px) {
+            .max-w-screen-2xl {
+                max-width: 70% !important;
+            }
         }
         
         .title-font {
@@ -243,7 +245,7 @@
 
     <!-- HERO -->
     <div class="max-w-screen-2xl mx-auto px-8 pt-10 pb-16">
-        <div class="relative rounded-3xl overflow-hidden border border-zinc-800 shadow-2xl h-[520px] flex items-center bg-[#111018]">
+        <div class="relative rounded-3xl overflow-hidden border border-zinc-800 shadow-2xl min-h-[480px] py-10 md:py-0 md:h-[520px] flex items-center bg-[#111018]">
             <!-- Background wallpaper + effects -->
             <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('wallpaper.webp');"></div>
             <div class="absolute inset-0" style="background: linear-gradient(90deg, rgba(10,9,15,0.92) 0%, rgba(15,12,23,0.75) 45%, rgba(15,12,23,0.35) 100%);"></div>
@@ -327,7 +329,7 @@
         </div>
 
         <!-- Books Grid -->
-        <div id="books-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5">
+        <div id="books-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5">
             <!-- Populated dynamically via JS -->
         </div>
     </div>
