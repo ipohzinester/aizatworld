@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+<title>AIZAT: The Reckoning</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --present: #9bbc0f;   /* Nokia LCD lit green */
+  --past: #8bac0f;      /* dimmer LCD */
+  --memory: #306230;    /* mid green */
+  --text: #0f380f;      /* dark pixel green */
+  --accent: #0f380f;
+  --shadow: rgba(15,56,15,0.6);
+  --transition: 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body {
+  font-family: 'VT323', 'Courier New', 'Lucida Console', monospace;
+  background: #454d32;  /* dark plastic bezel */
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  image-rendering: pixelated;
+}
+
+.game-container {
+  width: 100%;
+  max-width: 600px;
+  height: 100vh;
+  max-height: 800px;
+  position: relative;
+  background: var(--present);
+  overflow: hidden;
+  box-shadow:
+    inset 0 0 0 6px #2a2a2a,
+    inset 0 0 0 14px #6d6d6d,
+    inset 0 0 0 22px #2a2a2a,
+    0 0 80px rgba(0,0,0,0.9);
+  border-radius: 8px;
+  /* subtle LCD scanlines */
+  background-image:
+    repeating-linear-gradient(
+      to bottom,
+      rgba(15,56,15,0.08) 0,
+      rgba(15,56,15,0.08) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+}
+
+/* Timeline Backgrounds — all monochrome LCD, only tint shifts */
+.timeline-present {
+  background: #9bbc0f;
+}
+
+.timeline-past {
+  background: #8bac0f;
+}
+
+.timeline-memory {
+  background: #7a9a0d;
+}
+
+/* Scene Container */
+.scene {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 28px 36px;
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  transition: opacity 1s ease;
+  pointer-events: none;
+}
+
+.scene.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0 12px;
+  flex-shrink: 0;
+  border-bottom: 2px dashed var(--text);
+}
+
+.timeline-label {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  opacity: 0.9;
+  font-family: 'Courier New', 'Lucida Console', monospace;
+  color: var(--text);
+}
+
+.timeline-indicator {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 0;              /* square pixel */
+  background: transparent;
+  border: 2px solid var(--text);
+  transition: all 0.2s ease;
+}
+
+.dot.active {
+  background: var(--text);
+  box-shadow: none;
+}
+
+/* Content Area */
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 8px 0 10px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* Typography */
+.title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  line-height: 1.2;
+  margin-bottom: 12px;
+  font-family: 'Courier New', 'Lucida Console', monospace;
+  text-transform: uppercase;
+  color: var(--text);
+}
+
+.title .highlight {
+  color: var(--text);
+  background: var(--text);
+  color: var(--present);
+  padding: 2px 6px;
+}
+
+.subtitle {
+  font-size: 0.85rem;
+  opacity: 0.9;
+  line-height: 1.5;
+  margin-bottom: 20px;
+  font-family: 'Courier New', monospace;
+  color: var(--text);
+}
+
+.narrative {
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 16px;
+  opacity: 1;
+  font-family: 'Courier New', 'Lucida Console', monospace;
+  color: var(--text);
+}
+
+.narrative .emphasis {
+  color: var(--present);
+  background: var(--text);
+  padding: 1px 4px;
+  font-weight: 700;
+}
+
+/* Memory Fragment */
+.memory-fragment {
+  background: transparent;
+  border: 2px dashed var(--text);
+  padding: 12px 16px;
+  margin: 12px 0;
+  border-radius: 0;
+  font-style: normal;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  font-family: 'Courier New', monospace;
+  color: var(--text);
+}
+
+.memory-fragment::before {
+  content: "> ";
+  font-weight: 700;
+}
+
+.memory-fragment .speaker {
+  display: block;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 0.75rem;
+  margin-top: 8px;
+  opacity: 0.9;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* Choices */
+.choices {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 16px 0 10px;
+}
+
+.choice-btn {
+  background: transparent;
+  border: 2px solid var(--text);
+  color: var(--text);
+  padding: 10px 14px;
+  border-radius: 0;
+  font-family: 'Courier New', 'Lucida Console', monospace;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: none;
+  text-align: left;
+  line-height: 1.4;
+  position: relative;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.choice-btn:hover {
+  background: var(--text);
+  color: var(--present);
+  border-color: var(--text);
+  transform: none;
+}
+
+.choice-btn:active {
+  transform: none;
+  background: var(--text);
+  color: var(--present);
+}
+
+.choice-btn .choice-label {
+  opacity: 1;
+  font-size: 0.8rem;
+  font-family: 'Courier New', monospace;
+  margin-right: 8px;
+  font-weight: 700;
+}
+
+/* Footer */
+.footer {
+  flex-shrink: 0;
+  padding: 12px 0 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 2px dashed var(--text);
+  font-size: 0.75rem;
+  opacity: 0.9;
+  font-family: 'Courier New', monospace;
+  color: var(--text);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* UI Elements */
+.fade-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, transparent 55%, rgba(15,56,15,0.35) 100%);
+}
+
+/* Transitions */
+.slide-up {
+  animation: slideUp 0.8s ease forwards;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+  animation: fadeIn 1s ease forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .title { font-size: 1.6rem; }
+  .narrative { font-size: 0.95rem; }
+  .choice-btn { padding: 12px 16px; font-size: 0.9rem; }
+  .scene { padding: 20px 24px; }
+}
+
+/* Scrollbar styling */
+.content::-webkit-scrollbar {
+  width: 3px;
+}
+.content::-webkit-scrollbar-track {
+  background: transparent;
+}
+.content::-webkit-scrollbar-thumb {
+  background: var(--text);
+  border-radius: 0;
+}
+
+/* Memory pulse */
+@keyframes pulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+.memory-indicator {
+  animation: pulse 2s infinite;
+}
+</style>
+</head>
+<body>
+
+<div class="game-container" id="game">
+  <div class="fade-overlay"></div>
+
+  <!-- SCENE: INTRO -->
+  <div class="scene active" id="scene-intro" data-timeline="present">
+    <div class="header">
+      <span class="timeline-label">✦ present</span>
+      <div class="timeline-indicator">
+        <span class="dot active"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+      </div>
+    </div>
+    <div class="content">
+      <div class="title slide-up">
+        <span class="highlight">AIZAT</span><br>THE RECKONING
+      </div>
+      <div class="subtitle slide-up" style="animation-delay:0.2s">
+        Some goodbyes are just conversations waiting to be finished.
+      </div>
+      <div class="narrative fade-in" style="animation-delay:0.4s">
+        It's been three years since you walked away.<br><br>
+        You've built a new life. New routines. New people.<br><br>
+        <span class="emphasis">But the past has a way of finding you.</span>
+      </div>
+      <div class="choices">
+        <button class="choice-btn" onclick="goToScene('scene-awaken')">
+          <span class="choice-label">▸</span> Begin the journey
+        </button>
+      </div>
+    </div>
+    <div class="footer">
+      <span>aizat · reckoning</span>
+      <span>✦</span>
+    </div>
+  </div>
+
+  <!-- SCENE: AWAKEN -->
+  <div class="scene" id="scene-awaken" data-timeline="present">
+    <div class="header">
+      <span class="timeline-label">✦ present</span>
+      <div class="timeline-indicator">
+        <span class="dot active"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+      </div>
+    </div>
+    <div class="content">
+      <div class="narrative fade-in">
+        You wake up at 3:17 AM.<br><br>
+        There's a song stuck in your head. You haven't heard it in years.<br><br>
+        You reach for your phone. A notification glows:<br>
+        <span class="emphasis">"You have 1 memory from this day, 3 years ago."</span>
+      </div>
+      <div class="memory-fragment">
+        "Do you ever think about what we could have been?"
+        <span class="speaker">— a voice from the past</span>
+      </div>
+      <div class="choices">
+        <button class="choice-btn" onclick="goToScene('scene-memory-1')">
+          <span class="choice-label">▸</span> Open the memory
+        </button>
+        <button class="choice-btn" onclick="goToScene('scene-resist')">
+          <span class="choice-label">▸</span> Delete the notification
+        </button>
+      </div>
+    </div>
+    <div class="footer">
+      <span>aizat · reckoning</span>
+      <span>✦</span>
+    </div>
+  </div>
+
+  <!-- SCENE: RESIST -->
+  <div class="scene" id="scene-resist" data-timeline="present">
+    <div class="header">
+      <span class="timeline-label">✦ present</span>
+      <div class="timeline-indicator">
+        <span class="dot active"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+      </div>
+    </div>
+    <div class="content">
+      <div class="narrative fade-in">
+        You delete the notification.<br><br>
+        But the song stays.<br><br>
+        <span class="emphasis">Some things don't disappear just because you ignore them.</span>
+      </div>
+      <div class="memory-fragment">
+        "You can't outrun a memory. It'll find you when you least expect it."
+        <span class="speaker">— words you once said</span>
+      </div>
+      <div class="choices">
+        <button class="choice-btn" onclick="goToScene('scene-memory-1')">
+          <span class="choice-label">▸</span> Let it in
+        </button>
+      </div>
+    </div>
+    <div class="footer">
+      <span>aizat · reckoning</span>
+      <span>✦</span>
+    </div>
+  </div>
+
+  <!-- SCENE: MEMORY 1 -->
+  <div class="scene" id="scene-memory-1" data-timeline="past">
+    <div class="header">
+      <span class="timeline-label">✦ memory · 3 years ago</span>
+      <div class="timeline-indicator">
+        <span class="dot"></span>
+        <span class="dot active"></span>
+        <span class="dot"></span>
+      </div>
+    </div>
+    <div class="content">
+      <div class="narrative fade-in">
+        The café is quiet. Rain taps against the window.<br><br>
+        You're sitting across from someone you used to know.<br><br>
+        <span class="emphasis">"I've been thinking about us,"</span> they say.
+      </div>
+      <div class="memory-fragment">
+        "Not the ending. The beginning. When everything felt possible."
+        <span class="speaker">— a confession</span>
+      </div>
+      <div class="choices">
+        <button class="choice-btn" onclick="goToScene('scene-memory-2')">
+          <span class="choice-label">▸</span> "I remember that."
+        </button>
+        <button class="choice-btn" onclick="goToScene('scene-memory-2b')">
+          <span class="choice-label">▸</span> "Why are you telling me this now?"
+        </button>
+      </div>
+    </div>
+    <div class="footer">
+      <span>aizat · reckoning</span>
+      <span>✦</span>
+    </div>
+  </div>
+
+  <!-- SCENE: MEMORY 2 -->
+  <div class="scene" id="scene-memory-2" data-timeline="past">
+    <div class="header">
+      <span class="timeline-label">✦ memory · 3 years ago</span>
+      <div class="timeline-indicator">
+        <span class="dot"></span>
+        <span class="dot active"></span>
+        <span class="dot"></span>
+      </div>
+    </div>
+    <div class="content">
+      <div class="narrative fade-in">
+        They smile. It's the same smile that once made your heart skip.<br><br>
+        <span class="emphasis">"I remember everything,"</span> they say.<br><br>
+        The rain gets louder.
+      </div>
+      <div class="memory-fragment">
+        "I remember the way you'd trace patterns on my hand. The way you'd laugh at my terrible jokes."
+        <span class="speaker">— a memory within a memory</span>
+      </div>
+      <div class="choices">
+        <button class="choice-btn" onclick="goToScene('scene-memory-3')">
+          <span class="choice-label">▸</span> Stay in the memory
+        </button>
+        <button class="choice-btn" onclick="goToScene('scene-present-shift')">
+          <span class="choice-label">▸</span> Pull yourself back to the present
+        </button>
+      </div>
+    </div>
+    <div class="footer">
+      <span>aizat · reckoning</span>
+      <span>✦</span>
+    </div>
+  </div>
+
+  <!-- SCENE: MEMORY 2B -->
+  <div class="scene" id="scene-memory-2b" data-timeline="past">
+    <div class="header">
+      <span class="timeline-label">✦ memory · 3 years ago</span>
+      <div class="timeline-indicator">
+        <span class="dot"></span>
+        <span class="dot active"></span>
+        <span class="dot"></span>
+      </div>
+    </div>
+    <div class="content">
+      <div class="narrative fade-in">
+        They look down at their coffee.<br><br>
+        <span class="emphasis">"Because I never got to say goodbye properly."</span><br><br>
+        The words hang in the air like smoke.
+      </div>
+      <div class="memory-fragment">
+        "I thought time would make it easier. It doesn't. It just makes it quieter."
+        <span class="speaker">— the truth</span>
+      </div>
+      <div class="choices">
+        <button class="choice-btn" onclick="goToScene('scene-memory-3')">
+          <span class="choice-label">▸</span> Listen
+        </button>
+      </div>
+    </div>
+    <div class="footer">
+      <span>aizat · reckoning</span>
+      <span>✦</span>
+    </div>
+  </div>
+
+  <!-- SCENE: MEMORY 3 -->
+  <div class="scene" id="scene-memory-3" data-timeline="past">
+    <div class="header">
+      <span class="timeline-label">✦ memory · 3 years ago</span>
+      <div class="timeline-indicator">
+        <span class="dot"></span>
+        <span class="dot active"></span>
+        <span class="dot"></span>
+      </div>
+    </div>
+    <div class="content">
+      <div class="narrative fade-in">
+        The café is empty now. Just you and them.<br><br>
+        <span class="emphasis">"I don't want to forget you,"</span> they whisper.<br><br>
+        But you already know what happens next.
+      </div>
+      <div class="memory-fragment">
+        "Some people stay with you not because they're meant to, but because they changed you."
+        <span class="speaker">— the last thing you remember</span>
+      </div>
+      <div class="choices">
+        <button class="choice-btn" onclick="goToScene('scene-present-return')">
+          <span class="choice-label">▸</span> Return to the present
+        </button>
+      </div>
+    </div>
+    <div class="footer">
+      <span>aizat · reckoning</span>
+      <span>✦</span>
+    </div>
+  </div>
+
+  <!-- SCENE: PRESENT SHIFT -->
+  <div class="scene" id="scene-present-shift" data-timeline="present">
+    <div class="header">
+      <span class="timeline-label">✦ present</span>
+      <div class="timeline-indicator">
+        <span class="dot active"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+      </div>
+    </div>
+    <div class="content">
+      <div class="narrative fade-in">
+        You're back in your room.<br><br>
+        The notification is gone. But the feeling lingers.<br><br>
+        <span class="emphasis">Something has shifted.</span>
+      </div>
+      <div class="memory-fragment">
+        "The past doesn't need your permission to visit. It just arrives."
+        <span class="speaker">— a realization</span>
+      </div>
+      <div class="choices">
+        <button class="choice-btn" onclick="goToScene('scene-final')">
+          <span class="choice-label">▸</span> Accept what's coming
+        </button>
+      </div>
+    </div>
+    <div class="footer">
+      <span>aizat · reckoning</span>
+      <span>✦</span>
+    </div>
+  </div>
+
+  <!-- SCENE: PRESENT RETURN -->
+  <div class="scene" id="scene-present-return" data-timeline="present">
+    <div class="header">
+      <span class="timeline-label">✦ present</span>
+      <div class="timeline-indicator">
+        <span class="dot active"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+      </div>
+    </div>
+    <div class="content">
+      <div class="narrative fade-in">
+        You close your eyes.<br><br>
+        When you open them, you're in your room. The sun is rising.<br><br>
+        <span class="emphasis">You're not the same person who went to sleep.</span>
+      </div>
+      <div class="memory-fragment">
+        "Every goodbye is a doorway. Sometimes you have to walk through to see what's on the other side."
+        <span class="speaker">— the lesson</span>
+      </div>
+      <div class="choices">
+        <button class="choice-btn" onclick="goToScene('scene-final')">
+          <span class="choice-label">▸</span> Step through
+        </button>
+      </div>
+    </div>
+    <div class="footer">
+      <span>aizat · reckoning</span>
+      <span>✦</span>
+    </div>
+  </div>
+
+  <!-- SCENE: FINAL -->
+  <div class="scene" id="scene-final" data-timeline="present">
+    <div class="header">
+      <span class="timeline-label">✦ present</span>
+      <div class="timeline-indicator">
+        <span class="dot active"></span>
+        <span class="dot active"></span>
+        <span class="dot active"></span>
+      </div>
+    </div>
+    <div class="content">
+      <div class="narrative fade-in" style="text-align:center; font-size:1.2rem;">
+        <span class="emphasis">You carry them with you now.</span><br><br>
+        Not as a weight.<br>
+        As a reminder.<br><br>
+        Some stories don't end.<br>
+        They just change shape.
+      </div>
+      <div class="memory-fragment" style="text-align:center; border-left-color: transparent; background: rgba(224,122,95,0.08);">
+        "And that's okay."
+        <span class="speaker">— you, finally</span>
+      </div>
+      <div class="choices" style="margin-top:20px;">
+        <button class="choice-btn" onclick="resetGame()" style="text-align:center; justify-content:center;">
+          <span class="choice-label">↻</span> Begin again
+        </button>
+      </div>
+    </div>
+    <div class="footer">
+      <span>aizat · reckoning</span>
+      <span>✦</span>
+    </div>
+  </div>
+
+</div>
+
+<script>
+let currentScene = 'scene-intro';
+
+function goToScene(sceneId) {
+  // Fade out current
+  const current = document.getElementById(currentScene);
+  if (current) {
+    current.classList.remove('active');
+  }
+
+  // Fade in new
+  const next = document.getElementById(sceneId);
+  if (next) {
+    // Update timeline colors
+    const timeline = next.dataset.timeline || 'present';
+    const container = document.getElementById('game');
+    container.className = 'game-container';
+    if (timeline === 'past') {
+      container.classList.add('timeline-past');
+    } else if (timeline === 'memory') {
+      container.classList.add('timeline-memory');
+    } else {
+      container.classList.add('timeline-present');
+    }
+
+    // Reset animations
+    const content = next.querySelector('.content');
+    const children = content.querySelectorAll('.title, .subtitle, .narrative, .memory-fragment, .choices');
+    children.forEach(el => {
+      el.style.animation = 'none';
+      void el.offsetHeight; // trigger reflow
+      el.style.animation = '';
+    });
+
+    next.classList.add('active');
+    currentScene = sceneId;
+  }
+}
+
+function resetGame() {
+  goToScene('scene-intro');
+}
+
+// Keyboard support
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' || e.key === ' ') {
+    const buttons = document.querySelectorAll('.choice-btn');
+    if (buttons.length === 1) {
+      buttons[0].click();
+    }
+  }
+});
+
+// Touch support for mobile
+document.addEventListener('touchstart', () => {}, { passive: true });
+
+console.log('✦ AIZAT: The Reckoning ✦');
+console.log('Some goodbyes are just conversations waiting to be finished.');
+</script>
+
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"75124c326cb447fe934cde04713ae013","r":1}' crossorigin="anonymous"></script>
+</body>
+</html>
