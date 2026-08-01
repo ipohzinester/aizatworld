@@ -54,6 +54,13 @@ window.libraryItems = [
     link: "books/LINES-TO-LIVE-BYARIANA.pdf"
   },
   {
+    type: "archive",
+    title: "AI Untuk Rakyat",
+    description: "This article explores decentralized AI access, human autonomy, and equality by arguing for open-weighted models as public technological empowerment.",
+    cover: "covers/ai-untuk-rakyat.png",
+    link: "books/AI-Untuk-Rakyat.pdf"
+  },
+  {
     type: "essay",
     title: "The Infinite Library",
     description: "A Zine#13 expansion pack.",
@@ -61,9 +68,9 @@ window.libraryItems = [
     link: "infinite-library.html"
   },
   {
-    type: "archive",
+    type: "zine",
     title: "Adakah AI bertentangan dengan Socratic Method dan Bloom's Taxonomy",
-    description: "Would Socrates and Benjamin Bloom Be Anti-AI?",
+    description: "Would Socrated and Benjamin Bloom Be Anti-AI?",
     cover: "covers/ai-cover.PNG",
     link: "zines/ai.pdf"
   }
