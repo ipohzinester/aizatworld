@@ -96,7 +96,7 @@ body,.topbar,.ticket,.section,.rib,.poster-box,button,a.button,input,textarea{
   transition:background-color .25s ease, background .25s ease, color .25s ease, box-shadow .25s ease;
 }
 *{box-sizing:border-box}
-html{scroll-behavior:smooth;font-size:85%}
+html{scroll-behavior:smooth;font-size:72.25%}
 body{
   margin:0;
   color:var(--ink);
@@ -156,7 +156,7 @@ button.dark,a.dark{background:var(--ink);color:#fff;box-shadow:5px 5px 0 var(--s
 button.small,a.small{font-size:.78rem;padding:.58rem .78rem;box-shadow:3px 3px 0 var(--ink)}
 .skip{position:absolute;left:-999px;top:10px;background:#fff;z-index:1000;padding:10px;border:3px solid #000}
 .skip:focus{left:10px}
-.shell{max-width:1066px;margin:0 auto;padding:22px clamp(14px,3vw,40px) 80px;position:relative;z-index:10}
+.shell{max-width:906px;margin:0 auto;padding:22px clamp(14px,3vw,40px) 80px;position:relative;z-index:10}
 .topbar{
   position:sticky;top:12px;z-index:90;
   display:grid;grid-template-columns:auto minmax(0,1fr) auto auto;align-items:center;gap:12px;
@@ -269,16 +269,19 @@ h3{font-size:clamp(1.5rem,3vw,3rem)}
 .hero-marquee::after{content:"";position:absolute;inset:0;pointer-events:none;box-shadow:inset 0 0 0 6px rgba(255,255,255,.08)}
 .marquee-track{display:flex;width:max-content;animation:marquee-scroll 59s linear infinite}
 .hero-marquee:hover .marquee-track{animation-play-state:paused}
-.marquee-track img{flex:0 0 auto;width:260px;height:320px;object-fit:cover;border-right:4px solid var(--ink);display:block}
+.marquee-track img{flex:0 0 auto;width:auto;height:272px;aspect-ratio:auto;object-fit:contain;border-right:4px solid var(--ink);display:block}
 @keyframes marquee-scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 .credit-marquee{overflow:hidden;border:3px solid var(--ink);border-radius:999px;background:var(--sun);box-shadow:4px 4px 0 var(--ink)}
 .credit-track{display:flex;width:max-content;gap:48px;padding:9px 0;animation:marquee-scroll 16s linear infinite;font:900 .8rem/1 'Trebuchet MS',Verdana,sans-serif;text-transform:uppercase;letter-spacing:.08em;white-space:nowrap;padding-left:24px}
 .credit-marquee:hover .credit-track{animation-play-state:paused}
+.hero-marquee + .credit-marquee .credit-track{animation-duration:52s}
 .note{
   position:absolute;right:0;bottom:28px;z-index:6;max-width:300px;background:var(--rose);color:#fff;border:var(--line);border-radius:18px;padding:18px;box-shadow:var(--shadow);font:900 1rem/1.25 'Trebuchet MS',Verdana,sans-serif;transform:rotate(-4deg)
 }
 .hero-media .note,.hero-bottom .note{position:relative;right:auto;bottom:auto;align-self:flex-end;margin:0}
-.ribbon{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:20px 0 52px}
+.ribbon{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:28px 0}
+.hero{padding-bottom:0}
+.ribbon + .section{margin-top:28px}
 .rib{border:var(--line);border-radius:22px;background-color:#fff;padding:16px;box-shadow:6px 6px 0 var(--ink);font:900 .9rem/1.15 'Trebuchet MS',Verdana,sans-serif;text-transform:uppercase;min-height:92px;display:flex;align-items:end;position:relative;overflow:hidden;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.65),0 0 6px rgba(0,0,0,.35);background-size:cover;background-position:center;background-repeat:no-repeat}
 /* Rib wallpapers — apply in BOTH day and night mode, with !important so the
    dark-mode surface color cannot wipe the image layer via the shorthand. */
@@ -533,7 +536,7 @@ label{display:block;font:900 .78rem/1 'Trebuchet MS',Verdana,sans-serif;text-tra
 @media (max-width:480px){#arcade .card-grid,#lab .card-grid,.iklan-grid{grid-template-columns:1fr}}
 @media (max-width:720px){.hero{grid-template-columns:minmax(0,1fr)}}
 @media (max-width:900px){#library .library-book{--book-width:clamp(112px,24vw,180px)}}
-@media (max-width:620px){.shell{padding-inline:12px}.topbar{position:sticky;top:8px;grid-template-columns:minmax(0,1fr) auto auto;gap:8px;align-items:center}.brand{grid-column:1 / 2}.top-clock{grid-column:3 / 4;grid-row:1;justify-self:end;min-width:7.8ch;padding:.38rem .62rem;font-size:.858rem;letter-spacing:.12em}.nav-toggle{grid-column:2 / 3}.hero{min-height:auto}.ticket .hero-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.ticket .hero-actions .button,.ticket .hero-actions button{width:100%;padding:.78rem .7rem}.marquee-track img{width:180px;height:220px}.card-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.prompts,.loop,.notice-board,.ribbon{grid-template-columns:1fr}.node{width:72px;height:72px;font-size:.58rem}.node.plaza{width:94px;height:94px}.orbit-map{min-height:330px}h1{text-shadow:3px 3px 0 var(--sun),6px 6px 0 var(--ink)}#library .library-bookshelf{padding:14px}#library .library-shelf{padding:16px 10px 26px}#library .library-book{--book-width:min(100%,220px)}#library .library-book-meta{gap:3px}#library .library-book-description{-webkit-line-clamp:3}}
+@media (max-width:620px){.shell{padding-inline:12px}.topbar{position:sticky;top:8px;grid-template-columns:minmax(0,1fr) auto auto;gap:8px;align-items:center}.brand{grid-column:1 / 2}.top-clock{grid-column:3 / 4;grid-row:1;justify-self:end;min-width:7.8ch;padding:.38rem .62rem;font-size:.858rem;letter-spacing:.12em}.nav-toggle{grid-column:2 / 3}.hero{min-height:auto}.ticket .hero-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.ticket .hero-actions .button,.ticket .hero-actions button{width:100%;padding:.78rem .7rem}.marquee-track img{width:auto;height:187px}.card-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.prompts,.loop,.notice-board,.ribbon{grid-template-columns:1fr}.node{width:72px;height:72px;font-size:.58rem}.node.plaza{width:94px;height:94px}.orbit-map{min-height:330px}h1{text-shadow:3px 3px 0 var(--sun),6px 6px 0 var(--ink)}#library .library-bookshelf{padding:14px}#library .library-shelf{padding:16px 10px 26px}#library .library-book{--book-width:min(100%,220px)}#library .library-book-meta{gap:3px}#library .library-book-description{-webkit-line-clamp:3}}
 @media (max-width:560px){.ticket .hero-actions{grid-template-columns:1fr}}
 @media (prefers-reduced-motion: reduce){*{animation:none!important;scroll-behavior:auto!important;transition:none!important}}
 </style>
@@ -614,6 +617,22 @@ label{display:block;font:900 .78rem/1 'Trebuchet MS',Verdana,sans-serif;text-tra
           <img src="photo-12.jpg" width="260" height="320" alt="Handwritten 'To the people I LOVE!' letters and notes" loading="lazy">
           <img src="photo-13.jpg" width="260" height="320" alt="Group photo with a caricature drawing outside TOKOSUE" loading="lazy">
           <img src="photo-14.jpg" width="260" height="320" alt="Assorted zines display stand outside the shop" loading="lazy">
+          </div>
+        </div>
+        <div class="credit-marquee" aria-hidden="true">
+          <div class="credit-track">
+            <span>"Never stop learning, because life never stops teaching." - The Internet.</span>
+            <span>STOP THAT TRAIN (of thought) and make a zine!</span>
+            <span>"Never stop learning, because life never stops teaching." - The Internet.</span>
+            <span>STOP THAT TRAIN (of thought) and make a zine!</span>
+            <span>"Never stop learning, because life never stops teaching." - The Internet.</span>
+            <span>STOP THAT TRAIN (of thought) and make a zine!</span>
+            <span>"Never stop learning, because life never stops teaching." - The Internet.</span>
+            <span>STOP THAT TRAIN (of thought) and make a zine!</span>
+            <span>"Never stop learning, because life never stops teaching." - The Internet.</span>
+            <span>STOP THAT TRAIN (of thought) and make a zine!</span>
+            <span>"Never stop learning, because life never stops teaching." - The Internet.</span>
+            <span>STOP THAT TRAIN (of thought) and make a zine!</span>
           </div>
         </div>
       </div>
@@ -1203,6 +1222,7 @@ label{display:block;font:900 .78rem/1 'Trebuchet MS',Verdana,sans-serif;text-tra
 })();
 </script>
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"75124c326cb447fe934cde04713ae013","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"75124c326cb447fe934cde04713ae013","r":1}' crossorigin="anonymous"></script>
 <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"75124c326cb447fe934cde04713ae013","r":1}' crossorigin="anonymous"></script>
 <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"75124c326cb447fe934cde04713ae013","r":1}' crossorigin="anonymous"></script>
 <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"75124c326cb447fe934cde04713ae013","r":1}' crossorigin="anonymous"></script>
