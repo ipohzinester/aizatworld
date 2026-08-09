@@ -213,6 +213,25 @@ button.small,a.small{font-size:.78rem;padding:.58rem .78rem;box-shadow:3px 3px 0
   align-items:stretch;
   padding:4px 0 54px;
 }
+/* Two-column hero: the poster defines the row height and the ticket follows it,
+   so there is no empty space above/below the poster. The ticket is taken out of
+   flow (absolute) so its own content can't stretch the row; its containing block
+   is its grid area, so inset:0 makes it track the poster's height exactly.
+   Vertical rhythm inside the ticket is tightened so the content still fits. */
+@media (min-width:721px){
+  .hero{position:relative}
+  .poster-box{align-self:start}
+  .poster-box img{max-height:none}
+  .hero>.ticket{
+    position:absolute;grid-column:2/3;grid-row:1/2;inset:0;height:auto;
+    padding:clamp(14px,2vw,24px) clamp(22px,4vw,48px);
+    display:flex;flex-direction:column;justify-content:center;
+  }
+  .hero>.ticket .subtitle{margin-top:14px;margin-bottom:0;font-size:clamp(1rem,1.75vw,1.65rem)}
+  /* single line of space before and after the intro copy */
+  .hero>.ticket .copy{margin-top:1.55em;margin-bottom:1.55em}
+  .hero>.ticket .hero-actions{margin-top:0}
+}
 .poster-box{
   border:var(--line);
   border-radius:28px;
@@ -257,7 +276,7 @@ h2{font-size:clamp(1.76rem,4.8vw,4.64rem);text-shadow:4px 4px 0 rgba(255,216,79,
 .plaza-title-img{display:block;width:100%;height:auto;margin:0 auto}
 .plaza-head-inner{width:100%;flex:1 1 100%;text-align:center}
 h3{font-size:clamp(1.5rem,3vw,3rem)}
-.subtitle{font:900 clamp(1.15rem,2.1vw,2rem)/1.05 'Trebuchet MS',Verdana,sans-serif;text-transform:uppercase;max-width:820px;margin:22px auto 18px}
+.subtitle{font:900 clamp(1rem,1.75vw,1.65rem)/1.1 'Trebuchet MS',Verdana,sans-serif;text-transform:uppercase;max-width:820px;margin:22px auto 18px}
 .copy{font-size:clamp(1rem,1.2vw,1.2rem);line-height:1.55;max-width:720px;margin-left:auto;margin-right:auto}
 .hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px;justify-content:center}
 .poster-card{
@@ -267,7 +286,7 @@ h3{font-size:clamp(1.5rem,3vw,3rem)}
 .hero-media{display:flex;flex-direction:column;gap:14px}
 .hero-marquee{position:relative;overflow:hidden;border:var(--line);border-radius:28px;box-shadow:var(--shadow);background:var(--night)}
 .hero-marquee::after{content:"";position:absolute;inset:0;pointer-events:none;box-shadow:inset 0 0 0 6px rgba(255,255,255,.08)}
-.marquee-track{display:flex;width:max-content;animation:marquee-scroll 59s linear infinite}
+.marquee-track{display:flex;width:max-content;animation:marquee-scroll 72s linear infinite}
 .hero-marquee:hover .marquee-track{animation-play-state:paused}
 .marquee-track img{flex:0 0 auto;width:auto;height:272px;aspect-ratio:auto;object-fit:contain;border-right:4px solid var(--ink);display:block}
 @keyframes marquee-scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
@@ -297,6 +316,10 @@ h3{font-size:clamp(1.5rem,3vw,3rem)}
 .section-head p{max-width:620px;margin:0;font-size:1.05rem;line-height:1.45}
 .plaza-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:22px;position:relative;z-index:1}
 .signboard{border:var(--line);border-radius:28px;background:var(--ink);color:#fff;padding:28px;box-shadow:8px 8px 0 var(--sun);position:relative;overflow:hidden}
+/* Plaza poster: the box hugs the artwork, so nothing is cropped and there is
+   no empty space above/below it. */
+.plaza-poster{border:var(--line);border-radius:28px;background:#fff;box-shadow:6px 6px 0 var(--ink);overflow:hidden;align-self:start;justify-self:center;width:100%;max-width:420px;min-width:0;line-height:0}
+.plaza-poster img{display:block;width:100%;height:auto}
 .signboard::after{content:"";position:absolute;right:-60px;top:-80px;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,var(--orange),transparent 65%);opacity:.8}
 .signboard h3{text-shadow:none;color:#fff;position:relative;z-index:1}
 .signboard p,.signboard .button{position:relative;z-index:1}
@@ -309,6 +332,7 @@ h3{font-size:clamp(1.5rem,3vw,3rem)}
 .node.library{left:12%;top:16%;background:#fff}
 .node.wall{right:22%;top:12%;background:var(--green)}
 .card-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;position:relative;z-index:1}
+#arcade .card-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
 .machine,.specimen,.zine-cover,.notice,.guest-card{
   border:var(--line);border-radius:24px;background:#fff;box-shadow:6px 6px 0 var(--ink);padding:18px;position:relative;overflow:hidden;min-height:230px;
 }
@@ -507,7 +531,7 @@ html[data-theme="dark"] #library .library-bookshelf{
 }
 html[data-theme="dark"] #library .library-shelf{background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(0,0,0,.18))}
 html[data-theme="dark"] #library .library-book-title{color:#fff7e4}
-.workshop{display:grid;grid-template-columns:1fr 1fr;gap:22px;position:relative;z-index:1;align-items:stretch}.workshop-left{display:flex;flex-direction:column;gap:22px;min-height:0}.workshop-right{display:flex;flex-direction:column;gap:22px;min-height:0}.widget-card{border:var(--line);border-radius:26px;background:#fff;padding:14px;box-shadow:6px 6px 0 var(--ink);max-width:600px;width:100%;display:flex;flex-direction:column;flex:1 1 auto;min-height:0;overflow:hidden}.widget-card .widget-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:2px 6px 12px;font:900 .78rem/1 'Trebuchet MS',Verdana,sans-serif;text-transform:uppercase;letter-spacing:.14em;flex:0 0 auto}.widget-card .widget-head .dot{width:10px;height:10px;border-radius:50%;background:#C41E3A;box-shadow:0 0 0 3px #fff,0 0 0 5px var(--ink);display:inline-block;margin-right:6px;vertical-align:middle}.widget-card .widget-badge{padding:.3rem .6rem;border:3px solid var(--ink);border-radius:999px;background:var(--sun);font-size:.7rem}.widget-frame{width:100%;flex:1 1 auto;min-height:600px;border:3px solid var(--ink);border-radius:18px;background:#FDF6EE;display:block;overflow:hidden}.widget-frame iframe{width:100%;height:100%;border:0;display:block;background:transparent}@media (max-width:1040px){.widget-card{max-width:100%}.widget-frame{min-height:760px}}.manifesto{border:var(--line);border-radius:26px;background:#fff;padding:26px;box-shadow:6px 6px 0 var(--ink)}
+.workshop{display:grid;grid-template-columns:1.2fr 1fr;gap:22px;position:relative;z-index:1;align-items:stretch}.workshop-left{display:flex;flex-direction:column;gap:22px;min-height:0}.workshop-right{display:flex;flex-direction:column;gap:22px;min-height:0}.widget-card{border:var(--line);border-radius:26px;background:#fff;padding:14px;box-shadow:6px 6px 0 var(--ink);max-width:600px;width:100%;display:flex;flex-direction:column;flex:1 1 auto;min-height:0;overflow:hidden}.widget-card .widget-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:2px 6px 12px;font:900 .78rem/1 'Trebuchet MS',Verdana,sans-serif;text-transform:uppercase;letter-spacing:.14em;flex:0 0 auto}.widget-card .widget-head .dot{width:10px;height:10px;border-radius:50%;background:#C41E3A;box-shadow:0 0 0 3px #fff,0 0 0 5px var(--ink);display:inline-block;margin-right:6px;vertical-align:middle}.widget-card .widget-badge{padding:.3rem .6rem;border:3px solid var(--ink);border-radius:999px;background:var(--sun);font-size:.7rem}.widget-frame{width:100%;flex:1 1 auto;min-height:600px;border:3px solid var(--ink);border-radius:18px;background:#FDF6EE;display:block;overflow:hidden}.widget-frame iframe{width:100%;height:100%;border:0;display:block;background:transparent}@media (max-width:1040px){.widget-card{max-width:100%}.widget-frame{min-height:760px}}.manifesto{border:var(--line);border-radius:26px;background:#fff;padding:26px;box-shadow:6px 6px 0 var(--ink)}
 .manifesto p{font-size:1.25rem;line-height:1.55;margin:.25rem 0}.maker-panel{border:var(--line);border-radius:26px;background:var(--sun);padding:22px;box-shadow:6px 6px 0 var(--ink)}
 .fake-zine{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:16px 0}.fake-zine div{aspect-ratio:3/4;border:3px solid var(--ink);background:#fff;background-size:cover;background-position:center;border-radius:8px;position:relative;overflow:hidden;box-shadow:3px 3px 0 var(--ink)}
 .fake-zine div span{position:absolute;left:6px;right:6px;bottom:6px;padding:3px 6px;border-radius:6px;background:rgba(10,8,16,.72);color:#fff;font:900 .64rem/1 'Trebuchet MS',Verdana,sans-serif;text-align:center}
@@ -515,11 +539,18 @@ html[data-theme="dark"] #library .library-book-title{color:#fff7e4}
 #doodle{display:block;width:100%;height:430px;border-radius:18px;background:#fff8e2;touch-action:none;cursor:crosshair;border:3px dashed rgba(23,33,43,.45)}
 .wall-tools{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;align-items:center}.wall-tools input{width:48px;height:38px;border:3px solid var(--ink);border-radius:10px;background:#fff}
 .prompts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.prompt{border:3px solid var(--ink);border-radius:16px;background:var(--cream);padding:14px;font:900 .92rem/1.2 'Trebuchet MS',Verdana,sans-serif;transform:rotate(var(--r,0deg))}
-.iklan-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;position:relative;z-index:1}
+.iklan-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px;position:relative;z-index:1}
 .iklan-card{border:var(--line);border-radius:26px;background:#fff;padding:16px;box-shadow:6px 6px 0 var(--ink);display:flex;flex-direction:column;gap:14px;min-height:100%}
 .iklan-media{aspect-ratio:1 / 1;border:4px solid var(--ink);border-radius:20px;background:linear-gradient(135deg,#fff6d5,#ffd7e8);position:relative;overflow:hidden;display:grid;place-items:center}
 .iklan-media::before{content:"";position:absolute;inset:10px;border:3px dashed rgba(23,33,43,.35);border-radius:14px}
 .iklan-media img{width:100%;height:100%;object-fit:cover;display:block}
+.iklan-media.is-slides::before{z-index:2}
+.iklan-media.is-slides img{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity .7s ease;z-index:0}
+.iklan-media.is-slides img.is-active{opacity:1;z-index:1}
+.iklan-dots{position:absolute;z-index:3;left:0;right:0;bottom:9px;display:flex;justify-content:center;gap:6px;pointer-events:none}
+.iklan-dots i{width:9px;height:9px;border:2px solid var(--ink);border-radius:999px;background:#fff;opacity:.6}
+.iklan-dots i.is-active{background:var(--ink);opacity:1}
+@media (prefers-reduced-motion:reduce){.iklan-media.is-slides img{transition:none}}
 .iklan-placeholder{position:relative;z-index:1;padding:14px;text-align:center;font:900 .95rem/1.25 'Trebuchet MS',Verdana,sans-serif;text-transform:uppercase;letter-spacing:.08em}
 .iklan-card h3{margin:0;font-size:1.25rem}
 .iklan-card p{margin:0;line-height:1.45}
@@ -553,7 +584,7 @@ label{display:block;font:900 .78rem/1 'Trebuchet MS',Verdana,sans-serif;text-tra
     </div>
     <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="topNav">Menu</button>
     <nav class="nav" id="topNav">
-      <a href="#entrance">Entrance</a><a href="#plaza">Plaza</a><a href="#arcade">Arcade</a><a href="#lab">Lab</a><a href="#library">Library</a><a href="#wall">Wall</a><a href="#iklan">IKLAN</a>
+      <a href="#entrance">Entrance</a><a href="#plaza">Plaza</a><a href="#arcade">Arcade</a><a href="#lab">Lab</a><a href="#library">Library</a><a href="#iklan">IKLAN</a><a href="#wall">Wall</a>
     </nav>
     <time class="top-clock" id="topClock" aria-label="Current time"><span class="clock-h">00</span><span class="clock-colon">:</span><span class="clock-m">00</span></time>
   </header>
@@ -593,28 +624,34 @@ label{display:block;font:900 .78rem/1 'Trebuchet MS',Verdana,sans-serif;text-tra
           <img src="photo-02.jpg" width="260" height="320" alt="Zine-making desk with craft paper, scissors and glue" loading="eager" fetchpriority="high">
           <img src="photo-03.jpg" width="260" height="320" alt="Handmade 'ZINE JAM!' sign at TOKOSUE" loading="eager" fetchpriority="high">
           <img src="photo-04.jpg" width="260" height="320" alt="Hand holding a mini zine from the 'Sleepkit' series" loading="lazy">
+          <img src="photo-16.jpg" width="260" height="320" alt="'Hikayat Sebuah Kedai Buku Indie' by Sue Emoqwin on the shelf at Kedai Fixi" loading="lazy">
           <img src="photo-05.jpg" width="260" height="320" alt="Two visitors making zines together at the Zine Jam table" loading="lazy">
           <img src="photo-06.jpg" width="260" height="320" alt="Handmade 'Little Prince' themed zine on display" loading="lazy">
           <img src="photo-07.jpg" width="260" height="320" alt="Zinester holding a mug that says 'Ask me about my lack of boundaries'" loading="lazy">
           <img src="photo-08.jpg" width="260" height="320" alt="Zine-making desk with a tarot deck, pens and sketch notes" loading="lazy">
           <img src="photo-09.jpg" width="260" height="320" alt="View into TOKOSUE storefront during Zine Jam, shelves and posters" loading="lazy">
           <img src="photo-10.jpg" width="260" height="320" alt="Handmade zine 'Apa cita-cita kamu?' with a child's drawing" loading="lazy">
+          <img src="photo-15.jpg" width="260" height="320" alt="TOKOSUE Kuala Lumpur poster: 'Nikmati Buku, Raikan Seni' illustration, Wisma Central 2022-2025" loading="lazy">
           <img src="photo-11.jpg" width="260" height="320" alt="Zines on display at TOKOSUE: 'Last Chapter' and a portrait zine" loading="lazy">
           <img src="photo-12.jpg" width="260" height="320" alt="Handwritten 'To the people I LOVE!' letters and notes" loading="lazy">
+          <img src="photo-17.jpg" width="260" height="320" alt="'Hikayat Sebuah Kedai Buku Indie' held up at Kedai Fixi, under the Novel Urban Kontemporari sign" loading="lazy">
           <img src="photo-13.jpg" width="260" height="320" alt="Group photo with a caricature drawing outside TOKOSUE" loading="lazy">
           <img src="photo-14.jpg" width="260" height="320" alt="Assorted zines display stand outside the shop" loading="lazy">
           <img src="photo-01.jpg" width="260" height="320" alt="Group selfie with a zine outside Kedai Buku TOKOSUE" loading="lazy">
           <img src="photo-02.jpg" width="260" height="320" alt="Zine-making desk with craft paper, scissors and glue" loading="lazy">
           <img src="photo-03.jpg" width="260" height="320" alt="Handmade 'ZINE JAM!' sign at TOKOSUE" loading="lazy">
           <img src="photo-04.jpg" width="260" height="320" alt="Hand holding a mini zine from the 'Sleepkit' series" loading="lazy">
+          <img src="photo-16.jpg" width="260" height="320" alt="'Hikayat Sebuah Kedai Buku Indie' by Sue Emoqwin on the shelf at Kedai Fixi" loading="lazy">
           <img src="photo-05.jpg" width="260" height="320" alt="Two visitors making zines together at the Zine Jam table" loading="lazy">
           <img src="photo-06.jpg" width="260" height="320" alt="Handmade 'Little Prince' themed zine on display" loading="lazy">
           <img src="photo-07.jpg" width="260" height="320" alt="Zinester holding a mug that says 'Ask me about my lack of boundaries'" loading="lazy">
           <img src="photo-08.jpg" width="260" height="320" alt="Zine-making desk with a tarot deck, pens and sketch notes" loading="lazy">
           <img src="photo-09.jpg" width="260" height="320" alt="View into TOKOSUE storefront during Zine Jam, shelves and posters" loading="lazy">
           <img src="photo-10.jpg" width="260" height="320" alt="Handmade zine 'Apa cita-cita kamu?' with a child's drawing" loading="lazy">
+          <img src="photo-15.jpg" width="260" height="320" alt="TOKOSUE Kuala Lumpur poster: 'Nikmati Buku, Raikan Seni' illustration, Wisma Central 2022-2025" loading="lazy">
           <img src="photo-11.jpg" width="260" height="320" alt="Zines on display at TOKOSUE: 'Last Chapter' and a portrait zine" loading="lazy">
           <img src="photo-12.jpg" width="260" height="320" alt="Handwritten 'To the people I LOVE!' letters and notes" loading="lazy">
+          <img src="photo-17.jpg" width="260" height="320" alt="'Hikayat Sebuah Kedai Buku Indie' held up at Kedai Fixi, under the Novel Urban Kontemporari sign" loading="lazy">
           <img src="photo-13.jpg" width="260" height="320" alt="Group photo with a caricature drawing outside TOKOSUE" loading="lazy">
           <img src="photo-14.jpg" width="260" height="320" alt="Assorted zines display stand outside the shop" loading="lazy">
           </div>
@@ -655,12 +692,8 @@ label{display:block;font:900 .78rem/1 'Trebuchet MS',Verdana,sans-serif;text-tra
           <p class="copy">Make your digital zine. Download. Publish. Share. No permission needed, no official workshop required, no gatekeeper at the door.</p>
           <div class="hero-actions"><a class="button" href="#workshop">Make a zine</a><a class="button secondary" href="https://ipohzinester.github.io/jombuatzine/" target="_blank" rel="noopener noreferrer">Open zine maker</a></div>
         </div>
-        <div class="orbit-map" aria-label="Clickable AIZAT WORLD map">
-          <a class="node plaza" href="#plaza">Main<br>Plaza</a>
-          <a class="node arcade" href="#arcade">Arcade</a>
-          <a class="node lab" href="#lab">Lab</a>
-          <a class="node library" href="#library">Zine<br>Library</a>
-          <a class="node wall" href="#wall">Wall</a>
+        <div class="plaza-poster">
+          <img src="minimikro.png" width="672" height="1008" alt="ZINE MAKER: MINI + MICRO — free to use, an expansion pack of AIZAT WORLD. The indie publisher is you." loading="lazy" decoding="async">
         </div>
       </div>
     </section>
@@ -734,18 +767,6 @@ label{display:block;font:900 .78rem/1 'Trebuchet MS',Verdana,sans-serif;text-tra
       </div>
     </section>
 
-    <section class="section" id="wall">
-      <div class="section-head">
-        <div><span class="kicker">Public space</span><h2>DOODLE WALL</h2></div>
-        <p>Nothing fancy—just a canvas for you to draw and doodle on. Now go save it to your device, yeah?</p>
-      </div>
-      <div class="wall-wrap">
-        <div class="canvas-card">
-          <iframe src="https://wbo.ophir.dev/boards/jombuatzine" title="Doodle wall" loading="lazy" style="width:100%;height:620px;border:0;border-radius:16px;display:block;background:#fff"></iframe>
-        </div>
-      </div>
-    </section>
-
     <section class="section" id="iklan">
       <div class="section-head">
         <div><span class="kicker">Promo space</span><h2>IKLAN</h2></div>
@@ -754,13 +775,26 @@ label{display:block;font:900 .78rem/1 'Trebuchet MS',Verdana,sans-serif;text-tra
       <div class="iklan-grid">
         <article class="iklan-card">
           <div class="iklan-media">
+            <img src="iklan-hikayat-1.webp" alt="Hikayat Sebuah Buku Indie: buku bersama zine dan kod QR order">
+            <img src="iklan-hikayat-2.webp" alt="Hikayat Sebuah Buku Indie di rak Kedai Fixi">
+            <img src="iklan-hikayat-3.webp" alt="Hikayat Sebuah Buku Indie dipegang di Kedai Fixi">
+          </div>
+          <div class="iklan-meta">
+            <span class="iklan-tag">Limited</span>
+            <h3>Hikayat Sebuah Buku Indie</h3>
+            <p>Memoir 96 muka surat tentang perjalanan sebuah kedai buku indie di Wisma Central. Beli di link atau walk-in di Kedai Fixi.</p>
+            <a class="button small secondary" href="https://bit.ly/orderzinehkbi" target="_blank" rel="noopener noreferrer">Open</a>
+          </div>
+        </article>
+        <article class="iklan-card">
+          <div class="iklan-media">
             <img src="iklan-slot-1.png" alt="ZINE#13 OFFICIAL TRAILER thumbnail">
           </div>
           <div class="iklan-meta">
             <span class="iklan-tag">Featured</span>
             <h3>ZINE#13 OFFICIAL TRAILER</h3>
             <p>Sementara itu, explore poster interaktif ini — lebih dari sekadar iklan, ia satu permainan.<br>Naskah sebenar menyusul.<br>Ini cuma permulaan.</p>
-            <a class="button small secondary" href="https://ipohzinester.github.io/zine13/" target="_blank" rel="noopener noreferrer">Open in new window</a>
+            <a class="button small secondary" href="https://ipohzinester.github.io/zine13/" target="_blank" rel="noopener noreferrer">Open</a>
           </div>
         </article>
         <article class="iklan-card">
@@ -771,7 +805,7 @@ label{display:block;font:900 .78rem/1 'Trebuchet MS',Verdana,sans-serif;text-tra
             <span class="iklan-tag">Shopee</span>
             <h3>ZIPPED BLACK TOTE BAG: TOKOSUE IN MEMORY.</h3>
             <p>100% untuk Tokosue. Terus dari Shopee Tokosue.</p>
-            <a class="button small secondary" href="https://shopee.com.my/ZIPPED-BLACK-TOTE-BAG-FOR-INDIE-BOOK-LOVERS-TOKOSUE-IN-MEMORY-i.283053439.51008786546?extraParams=%7B%22display_model_id%22%3A350780043151%2C%22model_selection_logic%22%3A3%7D" target="_blank" rel="noopener noreferrer">Open in new window</a>
+            <a class="button small secondary" href="https://shopee.com.my/ZIPPED-BLACK-TOTE-BAG-FOR-INDIE-BOOK-LOVERS-TOKOSUE-IN-MEMORY-i.283053439.51008786546?extraParams=%7B%22display_model_id%22%3A350780043151%2C%22model_selection_logic%22%3A3%7D" target="_blank" rel="noopener noreferrer">Open</a>
           </div>
         </article>
         <article class="iklan-card">
@@ -782,9 +816,21 @@ label{display:block;font:900 .78rem/1 'Trebuchet MS',Verdana,sans-serif;text-tra
             <span class="iklan-tag">Limited</span>
             <h3>BLACK TSHIRT WITH PRINTED ART: TOKOSUE IN MEMORY PREMIUM COTTON LIMITED EDITION.</h3>
             <p>100% untuk Tokosue. Terus dari Shopee Tokosue.</p>
-            <a class="button small secondary" href="https://shopee.com.my/BLACK-TSHIRT-WITH-PRINTED-ART-TOKOSUE-IN-MEMORY-PREMIUM-COTTON-LIMITED-EDITION-i.283053439.46558803321?extraParams=%7B%22display_model_id%22%3A179150236963%2C%22model_selection_logic%22%3A3%7D" target="_blank" rel="noopener noreferrer">Open in new window</a>
+            <a class="button small secondary" href="https://shopee.com.my/BLACK-TSHIRT-WITH-PRINTED-ART-TOKOSUE-IN-MEMORY-PREMIUM-COTTON-LIMITED-EDITION-i.283053439.46558803321?extraParams=%7B%22display_model_id%22%3A179150236963%2C%22model_selection_logic%22%3A3%7D" target="_blank" rel="noopener noreferrer">Open</a>
           </div>
         </article>
+      </div>
+    </section>
+
+    <section class="section" id="wall">
+      <div class="section-head">
+        <div><span class="kicker">Public space</span><h2>DOODLE WALL</h2></div>
+        <p>Nothing fancy—just a canvas for you to draw and doodle on. Now go save it to your device, yeah?</p>
+      </div>
+      <div class="wall-wrap">
+        <div class="canvas-card">
+          <iframe src="https://wbo.ophir.dev/boards/jombuatzine" title="Doodle wall" loading="lazy" style="width:100%;height:400px;border:0;border-radius:16px;display:block;background:#fff"></iframe>
+        </div>
       </div>
     </section>
 
@@ -961,11 +1007,9 @@ label{display:block;font:900 .78rem/1 'Trebuchet MS',Verdana,sans-serif;text-tra
   const isOverlayLink = (link='') => /\.(html?)(?:[?#].*)?$/i.test(link) || /^(https?:)?\/\//i.test(link);
   const getLibraryColumns = (width) => {
     if(width < 390) return 1;
-    if(width < 640) return 2;
-    if(width < 860) return 3;
-    if(width < 1120) return 4;
-    if(width < 1380) return 5;
-    return 6;
+    if(width < 520) return 2;
+    if(width < 660) return 3;
+    return 4;
   };
   const getLibraryActionLabel = (type) => ACTION_LABELS[type] || ACTION_LABELS.archive;
   const openLibraryItem = (item) => {
@@ -1219,6 +1263,44 @@ label{display:block;font:900 .78rem/1 'Trebuchet MS',Verdana,sans-serif;text-tra
     }
   }
   setTimeout(tick, 300);
+})();
+</script>
+<script>
+/* IKLAN thumbnail auto-slides: any .iklan-media with 2+ <img> becomes a slideshow */
+(function(){
+  var medias = document.querySelectorAll('.iklan-media');
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  Array.prototype.forEach.call(medias, function(media){
+    var imgs = media.querySelectorAll('img');
+    if(imgs.length < 2) return; /* single photo stays exactly as before */
+    media.classList.add('is-slides');
+    var delay = parseInt(media.getAttribute('data-interval'), 10) || 4000;
+    var dots = document.createElement('div');
+    dots.className = 'iklan-dots';
+    Array.prototype.forEach.call(imgs, function(img, i){
+      if(i === 0) img.classList.add('is-active');
+      img.setAttribute('loading', i === 0 ? 'eager' : 'lazy');
+      var d = document.createElement('i');
+      if(i === 0) d.className = 'is-active';
+      dots.appendChild(d);
+    });
+    media.appendChild(dots);
+    if(reduce) return; /* respect reduced-motion: show first photo only */
+    var pips = dots.children, idx = 0, timer = null;
+    function show(n){
+      imgs[idx].classList.remove('is-active');
+      pips[idx].classList.remove('is-active');
+      idx = n;
+      imgs[idx].classList.add('is-active');
+      pips[idx].classList.add('is-active');
+    }
+    function start(){ if(!timer) timer = setInterval(function(){ show((idx + 1) % imgs.length); }, delay); }
+    function stop(){ if(timer){ clearInterval(timer); timer = null; } }
+    media.addEventListener('mouseenter', stop);
+    media.addEventListener('mouseleave', start);
+    document.addEventListener('visibilitychange', function(){ document.hidden ? stop() : start(); });
+    start();
+  });
 })();
 </script>
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"75124c326cb447fe934cde04713ae013","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
