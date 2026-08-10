@@ -302,6 +302,11 @@ h3{font-size:clamp(1.5rem,3vw,3rem)}
 .credit-track{display:flex;width:max-content;gap:48px;padding:9px 0;animation:marquee-scroll 16s linear infinite;font:900 .8rem/1 'Trebuchet MS',Verdana,sans-serif;text-transform:uppercase;letter-spacing:.08em;white-space:nowrap;padding-left:24px}
 .credit-marquee:hover .credit-track{animation-play-state:paused}
 .hero-marquee + .credit-marquee .credit-track{animation-duration:52s}
+.quote-marquee{margin:-32px 0}
+.quote-marquee .credit-track{animation-duration:32s}
+.trail-marquee{margin:-32px 0;display:flex;flex-direction:column;gap:14px}
+.trail-marquee .credit-track{animation-duration:32s}
+.trail-marquee .marquee-track{animation-duration:110s}
 .note{
   position:absolute;right:0;bottom:28px;z-index:6;max-width:300px;background:var(--rose);color:#fff;border:var(--line);border-radius:18px;padding:18px;box-shadow:var(--shadow);font:900 1rem/1.25 'Trebuchet MS',Verdana,sans-serif;transform:rotate(-4deg)
 }
@@ -676,40 +681,42 @@ label{display:block;font:900 .78rem/1 'Trebuchet MS',Verdana,sans-serif;text-tra
         </div>
         <div class="hero-marquee" aria-label="Aizat's Zine Trails: Kuala Lumpur">
           <div class="marquee-track">
-          <img src="photo-01.jpg" width="260" height="320" alt="Group selfie with a zine outside Kedai Buku TOKOSUE" loading="eager" fetchpriority="high">
-          <img src="photo-02.jpg" width="260" height="320" alt="Zine-making desk with craft paper, scissors and glue" loading="eager" fetchpriority="high">
-          <img src="photo-03.jpg" width="260" height="320" alt="Handmade 'ZINE JAM!' sign at TOKOSUE" loading="eager" fetchpriority="high">
-          <img src="photo-04.jpg" width="260" height="320" alt="Hand holding a mini zine from the 'Sleepkit' series" loading="lazy">
-          <img src="photo-16.jpg" width="260" height="320" alt="'Hikayat Sebuah Kedai Buku Indie' by Sue Emoqwin on the shelf at Kedai Fixi" loading="lazy">
-          <img src="photo-05.jpg" width="260" height="320" alt="Two visitors making zines together at the Zine Jam table" loading="lazy">
-          <img src="photo-06.jpg" width="260" height="320" alt="Handmade 'Little Prince' themed zine on display" loading="lazy">
-          <img src="photo-07.jpg" width="260" height="320" alt="Zinester holding a mug that says 'Ask me about my lack of boundaries'" loading="lazy">
-          <img src="photo-08.jpg" width="260" height="320" alt="Zine-making desk with a tarot deck, pens and sketch notes" loading="lazy">
-          <img src="photo-09.jpg" width="260" height="320" alt="View into TOKOSUE storefront during Zine Jam, shelves and posters" loading="lazy">
-          <img src="photo-10.jpg" width="260" height="320" alt="Handmade zine 'Apa cita-cita kamu?' with a child's drawing" loading="lazy">
-          <img src="photo-15.jpg" width="260" height="320" alt="TOKOSUE Kuala Lumpur poster: 'Nikmati Buku, Raikan Seni' illustration, Wisma Central 2022-2025" loading="lazy">
-          <img src="photo-11.jpg" width="260" height="320" alt="Zines on display at TOKOSUE: 'Last Chapter' and a portrait zine" loading="lazy">
-          <img src="photo-12.jpg" width="260" height="320" alt="Handwritten 'To the people I LOVE!' letters and notes" loading="lazy">
-          <img src="photo-17.jpg" width="260" height="320" alt="'Hikayat Sebuah Kedai Buku Indie' held up at Kedai Fixi, under the Novel Urban Kontemporari sign" loading="lazy">
-          <img src="photo-13.jpg" width="260" height="320" alt="Group photo with a caricature drawing outside TOKOSUE" loading="lazy">
-          <img src="photo-14.jpg" width="260" height="320" alt="Assorted zines display stand outside the shop" loading="lazy">
-          <img src="photo-01.jpg" width="260" height="320" alt="Group selfie with a zine outside Kedai Buku TOKOSUE" loading="lazy">
-          <img src="photo-02.jpg" width="260" height="320" alt="Zine-making desk with craft paper, scissors and glue" loading="lazy">
-          <img src="photo-03.jpg" width="260" height="320" alt="Handmade 'ZINE JAM!' sign at TOKOSUE" loading="lazy">
-          <img src="photo-04.jpg" width="260" height="320" alt="Hand holding a mini zine from the 'Sleepkit' series" loading="lazy">
-          <img src="photo-16.jpg" width="260" height="320" alt="'Hikayat Sebuah Kedai Buku Indie' by Sue Emoqwin on the shelf at Kedai Fixi" loading="lazy">
-          <img src="photo-05.jpg" width="260" height="320" alt="Two visitors making zines together at the Zine Jam table" loading="lazy">
-          <img src="photo-06.jpg" width="260" height="320" alt="Handmade 'Little Prince' themed zine on display" loading="lazy">
-          <img src="photo-07.jpg" width="260" height="320" alt="Zinester holding a mug that says 'Ask me about my lack of boundaries'" loading="lazy">
-          <img src="photo-08.jpg" width="260" height="320" alt="Zine-making desk with a tarot deck, pens and sketch notes" loading="lazy">
-          <img src="photo-09.jpg" width="260" height="320" alt="View into TOKOSUE storefront during Zine Jam, shelves and posters" loading="lazy">
-          <img src="photo-10.jpg" width="260" height="320" alt="Handmade zine 'Apa cita-cita kamu?' with a child's drawing" loading="lazy">
-          <img src="photo-15.jpg" width="260" height="320" alt="TOKOSUE Kuala Lumpur poster: 'Nikmati Buku, Raikan Seni' illustration, Wisma Central 2022-2025" loading="lazy">
-          <img src="photo-11.jpg" width="260" height="320" alt="Zines on display at TOKOSUE: 'Last Chapter' and a portrait zine" loading="lazy">
-          <img src="photo-12.jpg" width="260" height="320" alt="Handwritten 'To the people I LOVE!' letters and notes" loading="lazy">
-          <img src="photo-17.jpg" width="260" height="320" alt="'Hikayat Sebuah Kedai Buku Indie' held up at Kedai Fixi, under the Novel Urban Kontemporari sign" loading="lazy">
-          <img src="photo-13.jpg" width="260" height="320" alt="Group photo with a caricature drawing outside TOKOSUE" loading="lazy">
-          <img src="photo-14.jpg" width="260" height="320" alt="Assorted zines display stand outside the shop" loading="lazy">
+          <img src="trail-01.jpg" width="900" height="600" alt="Hand holding a zine with a woman's portrait illustration at a craft table" loading="eager" fetchpriority="high">
+          <img src="trail-02.jpg" width="400" height="600" alt="Open zine spread with a rock star photo and typed text" loading="eager" fetchpriority="high">
+          <img src="trail-03.jpg" width="400" height="600" alt="Retro corner with a vintage TV, cassette tapes and 'BEHAVE' posters" loading="eager" fetchpriority="high">
+          <img src="trail-04.jpg" width="450" height="600" alt="Group of friends posing outside TOKOSUE" loading="lazy" decoding="async">
+          <img src="trail-05.jpg" width="800" height="600" alt="Zinester holding a zine inside the frame of an old bus" loading="lazy" decoding="async">
+          <img src="trail-06.jpg" width="450" height="600" alt="Two people sharing zines in a wooden bookshelf room" loading="lazy" decoding="async">
+          <img src="trail-07.jpg" width="800" height="600" alt="Two friends smiling in a gallery space with easels" loading="lazy" decoding="async">
+          <img src="trail-08.jpg" width="1067" height="600" alt="Zine workshop in session near the TOKOSUE storefront" loading="lazy" decoding="async">
+          <img src="trail-09.jpg" width="450" height="600" alt="'Borderline Personality Disorder' zine by UNIVORSO held against a city view" loading="lazy" decoding="async">
+          <img src="trail-10.jpg" width="450" height="600" alt="'ABANG' zine by KomradBetti with a pop-art cover" loading="lazy" decoding="async">
+          <img src="trail-11.jpg" width="450" height="600" alt="'filsufi.' zine held up in front of a wall of art prints" loading="lazy" decoding="async">
+          <img src="trail-12.jpg" width="450" height="600" alt="Audience seated on the floor at a dim community event" loading="lazy" decoding="async">
+          <img src="trail-13.jpg" width="450" height="600" alt="Reader lying on a carpet between bookshelves with a book" loading="lazy" decoding="async">
+          <img src="trail-14.jpg" width="450" height="600" alt="Zinester lying on the floor holding a zine" loading="lazy" decoding="async">
+          <img src="trail-15.jpg" width="450" height="600" alt="Group sorting papers and zines on a patterned carpet" loading="lazy" decoding="async">
+          <img src="trail-16.jpg" width="800" height="600" alt="Group standing together in a prayer hall" loading="lazy" decoding="async">
+          <img src="trail-17.jpg" width="450" height="600" alt="Zinester holding up zines in a bookstore" loading="lazy" decoding="async">
+          <img src="trail-18.jpg" width="400" height="600" alt="Open zine with a 'POS' article beside a postcard rack" loading="lazy" decoding="async">
+          <img src="trail-01.jpg" width="900" height="600" alt="Hand holding a zine with a woman's portrait illustration at a craft table" loading="lazy" decoding="async">
+          <img src="trail-02.jpg" width="400" height="600" alt="Open zine spread with a rock star photo and typed text" loading="lazy" decoding="async">
+          <img src="trail-03.jpg" width="400" height="600" alt="Retro corner with a vintage TV, cassette tapes and 'BEHAVE' posters" loading="lazy" decoding="async">
+          <img src="trail-04.jpg" width="450" height="600" alt="Group of friends posing outside TOKOSUE" loading="lazy" decoding="async">
+          <img src="trail-05.jpg" width="800" height="600" alt="Zinester holding a zine inside the frame of an old bus" loading="lazy" decoding="async">
+          <img src="trail-06.jpg" width="450" height="600" alt="Two people sharing zines in a wooden bookshelf room" loading="lazy" decoding="async">
+          <img src="trail-07.jpg" width="800" height="600" alt="Two friends smiling in a gallery space with easels" loading="lazy" decoding="async">
+          <img src="trail-08.jpg" width="1067" height="600" alt="Zine workshop in session near the TOKOSUE storefront" loading="lazy" decoding="async">
+          <img src="trail-09.jpg" width="450" height="600" alt="'Borderline Personality Disorder' zine by UNIVORSO held against a city view" loading="lazy" decoding="async">
+          <img src="trail-10.jpg" width="450" height="600" alt="'ABANG' zine by KomradBetti with a pop-art cover" loading="lazy" decoding="async">
+          <img src="trail-11.jpg" width="450" height="600" alt="'filsufi.' zine held up in front of a wall of art prints" loading="lazy" decoding="async">
+          <img src="trail-12.jpg" width="450" height="600" alt="Audience seated on the floor at a dim community event" loading="lazy" decoding="async">
+          <img src="trail-13.jpg" width="450" height="600" alt="Reader lying on a carpet between bookshelves with a book" loading="lazy" decoding="async">
+          <img src="trail-14.jpg" width="450" height="600" alt="Zinester lying on the floor holding a zine" loading="lazy" decoding="async">
+          <img src="trail-15.jpg" width="450" height="600" alt="Group sorting papers and zines on a patterned carpet" loading="lazy" decoding="async">
+          <img src="trail-16.jpg" width="800" height="600" alt="Group standing together in a prayer hall" loading="lazy" decoding="async">
+          <img src="trail-17.jpg" width="450" height="600" alt="Zinester holding up zines in a bookstore" loading="lazy" decoding="async">
+          <img src="trail-18.jpg" width="400" height="600" alt="Open zine with a 'POS' article beside a postcard rack" loading="lazy" decoding="async">
           </div>
         </div>
         <div class="credit-marquee" aria-hidden="true">
@@ -783,6 +790,17 @@ label{display:block;font:900 .78rem/1 'Trebuchet MS',Verdana,sans-serif;text-tra
         <div class="library-shelves" id="libraryShelves" aria-live="polite"></div>
       </div>
     </section>
+
+    <div class="credit-marquee quote-marquee" aria-hidden="true">
+      <div class="credit-track">
+        <span>"Good artists copy, great artists steal" — Pablo Picasso, T.S. Eliot, Igor Stravinsky, Steve Jobs</span>
+        <span>"Good artists copy, great artists steal" — Pablo Picasso, T.S. Eliot, Igor Stravinsky, Steve Jobs</span>
+        <span>"Good artists copy, great artists steal" — Pablo Picasso, T.S. Eliot, Igor Stravinsky, Steve Jobs</span>
+        <span>"Good artists copy, great artists steal" — Pablo Picasso, T.S. Eliot, Igor Stravinsky, Steve Jobs</span>
+        <span>"Good artists copy, great artists steal" — Pablo Picasso, T.S. Eliot, Igor Stravinsky, Steve Jobs</span>
+        <span>"Good artists copy, great artists steal" — Pablo Picasso, T.S. Eliot, Igor Stravinsky, Steve Jobs</span>
+      </div>
+    </div>
 
     <section class="section" id="workshop">
       <div class="section-head">
@@ -868,6 +886,57 @@ label{display:block;font:900 .78rem/1 'Trebuchet MS',Verdana,sans-serif;text-tra
         </article>
       </div>
     </section>
+
+    <div class="trail-marquee">
+      <div class="credit-marquee" aria-hidden="true">
+        <div class="credit-track">
+          <span>Aizat's Zine Trails: Kuala Lumpur</span>
+          <span>Aizat's Zine Trails: Kuala Lumpur</span>
+          <span>Aizat's Zine Trails: Kuala Lumpur</span>
+          <span>Aizat's Zine Trails: Kuala Lumpur</span>
+          <span>Aizat's Zine Trails: Kuala Lumpur</span>
+          <span>Aizat's Zine Trails: Kuala Lumpur</span>
+        </div>
+      </div>
+      <div class="hero-marquee" aria-label="Aizat's Zine Trails: Kuala Lumpur — photo strip two">
+        <div class="marquee-track">
+          <img src="photo-01.jpg" width="260" height="320" alt="Group selfie with a zine outside Kedai Buku TOKOSUE" loading="lazy">
+          <img src="photo-02.jpg" width="260" height="320" alt="Zine-making desk with craft paper, scissors and glue" loading="lazy">
+          <img src="photo-03.jpg" width="260" height="320" alt="Handmade 'ZINE JAM!' sign at TOKOSUE" loading="lazy">
+          <img src="photo-04.jpg" width="260" height="320" alt="Hand holding a mini zine from the 'Sleepkit' series" loading="lazy">
+          <img src="photo-16.jpg" width="260" height="320" alt="'Hikayat Sebuah Kedai Buku Indie' by Sue Emoqwin on the shelf at Kedai Fixi" loading="lazy">
+          <img src="photo-05.jpg" width="260" height="320" alt="Two visitors making zines together at the Zine Jam table" loading="lazy">
+          <img src="photo-06.jpg" width="260" height="320" alt="Handmade 'Little Prince' themed zine on display" loading="lazy">
+          <img src="photo-07.jpg" width="260" height="320" alt="Zinester holding a mug that says 'Ask me about my lack of boundaries'" loading="lazy">
+          <img src="photo-08.jpg" width="260" height="320" alt="Zine-making desk with a tarot deck, pens and sketch notes" loading="lazy">
+          <img src="photo-09.jpg" width="260" height="320" alt="View into TOKOSUE storefront during Zine Jam, shelves and posters" loading="lazy">
+          <img src="photo-10.jpg" width="260" height="320" alt="Handmade zine 'Apa cita-cita kamu?' with a child's drawing" loading="lazy">
+          <img src="photo-15.jpg" width="260" height="320" alt="TOKOSUE Kuala Lumpur poster: 'Nikmati Buku, Raikan Seni' illustration, Wisma Central 2022-2025" loading="lazy">
+          <img src="photo-11.jpg" width="260" height="320" alt="Zines on display at TOKOSUE: 'Last Chapter' and a portrait zine" loading="lazy">
+          <img src="photo-12.jpg" width="260" height="320" alt="Handwritten 'To the people I LOVE!' letters and notes" loading="lazy">
+          <img src="photo-17.jpg" width="260" height="320" alt="'Hikayat Sebuah Kedai Buku Indie' held up at Kedai Fixi, under the Novel Urban Kontemporari sign" loading="lazy">
+          <img src="photo-13.jpg" width="260" height="320" alt="Group photo with a caricature drawing outside TOKOSUE" loading="lazy">
+          <img src="photo-14.jpg" width="260" height="320" alt="Assorted zines display stand outside the shop" loading="lazy">
+          <img src="photo-01.jpg" width="260" height="320" alt="Group selfie with a zine outside Kedai Buku TOKOSUE" loading="lazy">
+          <img src="photo-02.jpg" width="260" height="320" alt="Zine-making desk with craft paper, scissors and glue" loading="lazy">
+          <img src="photo-03.jpg" width="260" height="320" alt="Handmade 'ZINE JAM!' sign at TOKOSUE" loading="lazy">
+          <img src="photo-04.jpg" width="260" height="320" alt="Hand holding a mini zine from the 'Sleepkit' series" loading="lazy">
+          <img src="photo-16.jpg" width="260" height="320" alt="'Hikayat Sebuah Kedai Buku Indie' by Sue Emoqwin on the shelf at Kedai Fixi" loading="lazy">
+          <img src="photo-05.jpg" width="260" height="320" alt="Two visitors making zines together at the Zine Jam table" loading="lazy">
+          <img src="photo-06.jpg" width="260" height="320" alt="Handmade 'Little Prince' themed zine on display" loading="lazy">
+          <img src="photo-07.jpg" width="260" height="320" alt="Zinester holding a mug that says 'Ask me about my lack of boundaries'" loading="lazy">
+          <img src="photo-08.jpg" width="260" height="320" alt="Zine-making desk with a tarot deck, pens and sketch notes" loading="lazy">
+          <img src="photo-09.jpg" width="260" height="320" alt="View into TOKOSUE storefront during Zine Jam, shelves and posters" loading="lazy">
+          <img src="photo-10.jpg" width="260" height="320" alt="Handmade zine 'Apa cita-cita kamu?' with a child's drawing" loading="lazy">
+          <img src="photo-15.jpg" width="260" height="320" alt="TOKOSUE Kuala Lumpur poster: 'Nikmati Buku, Raikan Seni' illustration, Wisma Central 2022-2025" loading="lazy">
+          <img src="photo-11.jpg" width="260" height="320" alt="Zines on display at TOKOSUE: 'Last Chapter' and a portrait zine" loading="lazy">
+          <img src="photo-12.jpg" width="260" height="320" alt="Handwritten 'To the people I LOVE!' letters and notes" loading="lazy">
+          <img src="photo-17.jpg" width="260" height="320" alt="'Hikayat Sebuah Kedai Buku Indie' held up at Kedai Fixi, under the Novel Urban Kontemporari sign" loading="lazy">
+          <img src="photo-13.jpg" width="260" height="320" alt="Group photo with a caricature drawing outside TOKOSUE" loading="lazy">
+          <img src="photo-14.jpg" width="260" height="320" alt="Assorted zines display stand outside the shop" loading="lazy">
+        </div>
+      </div>
+    </div>
 
     <section class="section" id="wall">
       <div class="section-head">
