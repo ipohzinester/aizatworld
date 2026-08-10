@@ -96,6 +96,8 @@ html[data-theme="dark"] .credit-track,
 html[data-theme="dark"] .maker-panel,
 html[data-theme="dark"] .zine-cover,
 html[data-theme="dark"] .iklan-tag,
+html[data-theme="dark"] .widget-badge,
+html[data-theme="dark"] .widget-card .widget-head,
 html[data-theme="dark"] .notice{color:#17212b}
 
 body,.topbar,.ticket,.section,.rib,.poster-box,button,a.button,input,textarea{
@@ -305,8 +307,10 @@ h3{font-size:clamp(1.5rem,3vw,3rem)}
 }
 .hero-media .note,.hero-bottom .note{position:relative;right:auto;bottom:auto;align-self:flex-end;margin:0}
 .ribbon{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:28px 0}
+.hero .ribbon{grid-column:1/-1;margin:14px 0 0}
 .hero{padding-bottom:0}
 .ribbon + .section{margin-top:28px}
+.hero + .section{margin-top:44px}
 .rib{border:var(--line);border-radius:22px;background-color:#fff;padding:16px;box-shadow:6px 6px 0 var(--ink);font:900 .9rem/1.15 'Trebuchet MS',Verdana,sans-serif;text-transform:uppercase;min-height:92px;display:flex;align-items:end;position:relative;overflow:hidden;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.65),0 0 6px rgba(0,0,0,.35);background-size:cover;background-position:center;background-repeat:no-repeat}
 /* Rib wallpapers — apply in BOTH day and night mode, with !important so the
    dark-mode surface color cannot wipe the image layer via the shorthand. */
@@ -629,7 +633,7 @@ label{display:block;font:900 .78rem/1 'Trebuchet MS',Verdana,sans-serif;text-tra
     </div>
     <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="topNav">Menu</button>
     <nav class="nav" id="topNav">
-      <a href="#entrance">Entrance</a><a href="#plaza">Plaza</a><a href="#arcade">Arcade</a><a href="#lab">Lab</a><a href="#library">Library</a><a href="#iklan">IKLAN</a><a href="#wall">Wall</a>
+      <a href="#entrance">Entrance</a><a href="#plaza">Plaza</a><a href="#workshop">Workshop</a><a href="#arcade">Arcade</a><a href="#lab">Lab</a><a href="#library">Library</a><a href="#iklan">IKLAN</a><a href="#wall">Wall</a>
     </nav>
     <time class="top-clock" id="topClock" aria-label="Current time"><span class="clock-h">00</span><span class="clock-colon">:</span><span class="clock-m">00</span></time>
   </header>
@@ -650,6 +654,13 @@ label{display:block;font:900 .78rem/1 'Trebuchet MS',Verdana,sans-serif;text-tra
           <a class="button secondary" href="#arcade">Play</a>
           <a class="button secondary" href="#lab">App Lab</a>
         </div>
+      </div>
+
+      <div class="ribbon" aria-label="Core actions">
+        <a class="rib" href="#arcade" data-glyph="PLAY">Games made with HTML</a>
+        <a class="rib" href="#workshop" data-glyph="MAKE">Open the zine maker</a>
+        <a class="rib" href="#library" data-glyph="READ">Browse the archive</a>
+        <a class="rib" href="#wall" data-glyph="MARK">Leave your mark</a>
       </div>
 
       <div class="hero-bottom">
@@ -719,13 +730,6 @@ label{display:block;font:900 .78rem/1 'Trebuchet MS',Verdana,sans-serif;text-tra
         </div>
       </div>
     </section>
-
-    <div class="ribbon" aria-label="Core actions">
-      <a class="rib" href="#arcade" data-glyph="PLAY">Games made with HTML</a>
-      <a class="rib" href="#workshop" data-glyph="MAKE">Open the zine maker</a>
-      <a class="rib" href="#library" data-glyph="READ">Browse the archive</a>
-      <a class="rib" href="#wall" data-glyph="MARK">Leave your mark</a>
-    </div>
 
     <section class="section" id="plaza">
       <div class="section-head">
@@ -909,7 +913,7 @@ label{display:block;font:900 .78rem/1 'Trebuchet MS',Verdana,sans-serif;text-tra
         <p>Zine tak macam tu.<br>Zine ialah kertas.<br>Mesin fotostat.<br>Gunting.<br>Gam.<br>Meja.<br>Kawan yang sanggup tolong lipat.<br>Kadang-kadang cuma kau seorang dan idea yang tak reti duduk diam.</p>
         <p>Jadi dia buat benda yang lebih kurang sama.</p>
         <p>Satu fail.<br>Satu helai kertas.<br>Lapan muka surat.</p>
-        <p>Tak perlu akaun.<br>Tak perlu langganan.<br>Tak perlu Wi-Fi untuk minta izin jadi kreatif.</p>
+        <p>Tak perlu akaun.<br>Tak perlu langganan.</p>
         <p>Kau buat.<br>Kau simpan.<br>Kau cetak.<br>Kau lipat.<br>Siap.</p>
         <p>Semua kerja kekal dalam pelayar kau. Tak dihantar ke server. Tak dijadikan &ldquo;engagement&rdquo;. Tak dijual balik sebagai statistik kepada orang yang pakai blazer.</p>
         <p>Sebab zine bukan industri.<br>Zine ialah &ldquo;aku buat sebab aku nak buat.&rdquo;</p>
