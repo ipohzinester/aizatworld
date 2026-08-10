@@ -296,7 +296,9 @@ h3{font-size:clamp(1.5rem,3vw,3rem)}
 .hero-marquee::after{content:"";position:absolute;inset:0;pointer-events:none;box-shadow:inset 0 0 0 6px rgba(255,255,255,.08)}
 .marquee-track{display:flex;width:max-content;animation:marquee-scroll 72s linear infinite}
 .hero-marquee:hover .marquee-track{animation-play-state:paused}
-.marquee-track img{flex:0 0 auto;width:auto;height:272px;aspect-ratio:auto;object-fit:contain;border-right:4px solid var(--ink);display:block}
+.marquee-track img{flex:0 0 auto;width:auto;height:272px;aspect-ratio:auto;object-fit:contain;border-right:4px solid var(--ink);display:block;-webkit-user-drag:none;user-select:none;-webkit-user-select:none;pointer-events:none}
+.hero-marquee{touch-action:pan-y;cursor:grab}
+.hero-marquee.is-dragging{cursor:grabbing}
 @keyframes marquee-scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 .credit-marquee{overflow:hidden;border:3px solid var(--ink);border-radius:999px;background:var(--sun);box-shadow:4px 4px 0 var(--ink)}
 .credit-track{display:flex;width:max-content;gap:48px;padding:9px 0;animation:marquee-scroll 16s linear infinite;font:900 .8rem/1 'Trebuchet MS',Verdana,sans-serif;text-transform:uppercase;letter-spacing:.08em;white-space:nowrap;padding-left:24px}
@@ -306,7 +308,8 @@ h3{font-size:clamp(1.5rem,3vw,3rem)}
 .quote-marquee .credit-track{animation-duration:32s}
 .trail-marquee{margin:-32px 0;display:flex;flex-direction:column;gap:14px}
 .trail-marquee .credit-track{animation-duration:32s}
-.trail-marquee .marquee-track{animation-duration:110s}
+.trail-marquee .marquee-track{animation-duration:72s}
+.hero-bottom .hero-marquee .marquee-track{animation-duration:110s}
 .note{
   position:absolute;right:0;bottom:28px;z-index:6;max-width:300px;background:var(--rose);color:#fff;border:var(--line);border-radius:18px;padding:18px;box-shadow:var(--shadow);font:900 1rem/1.25 'Trebuchet MS',Verdana,sans-serif;transform:rotate(-4deg)
 }
@@ -719,22 +722,6 @@ label{display:block;font:900 .78rem/1 'Trebuchet MS',Verdana,sans-serif;text-tra
           <img src="trail-18.jpg" width="400" height="600" alt="Open zine with a 'POS' article beside a postcard rack" loading="lazy" decoding="async">
           </div>
         </div>
-        <div class="credit-marquee" aria-hidden="true">
-          <div class="credit-track">
-            <span>"Never stop learning, because life never stops teaching." - The Internet.</span>
-            <span>STOP THAT TRAIN (of thought) and make a zine!</span>
-            <span>"Never stop learning, because life never stops teaching." - The Internet.</span>
-            <span>STOP THAT TRAIN (of thought) and make a zine!</span>
-            <span>"Never stop learning, because life never stops teaching." - The Internet.</span>
-            <span>STOP THAT TRAIN (of thought) and make a zine!</span>
-            <span>"Never stop learning, because life never stops teaching." - The Internet.</span>
-            <span>STOP THAT TRAIN (of thought) and make a zine!</span>
-            <span>"Never stop learning, because life never stops teaching." - The Internet.</span>
-            <span>STOP THAT TRAIN (of thought) and make a zine!</span>
-            <span>"Never stop learning, because life never stops teaching." - The Internet.</span>
-            <span>STOP THAT TRAIN (of thought) and make a zine!</span>
-          </div>
-        </div>
       </div>
     </section>
 
@@ -780,6 +767,23 @@ label{display:block;font:900 .78rem/1 'Trebuchet MS',Verdana,sans-serif;text-tra
         <article class="specimen"><div class="cover"><img src="microzinethumb.png" alt="Micro Zine Maker thumbnail" width="300" height="200" loading="lazy" decoding="async"></div><h3>Micro Zine Maker</h3><p>An OTG micro zine maker. 16-page micro zine.</p><a class="button small" href="https://ipohzinester.github.io/microzine16/" target="_blank" rel="noopener noreferrer">Try it</a></article>
       </div>
     </section>
+
+    <div class="credit-marquee quote-marquee" aria-hidden="true">
+      <div class="credit-track">
+        <span>"Never stop learning, because life never stops teaching." - The Internet.</span>
+        <span>STOP THAT TRAIN (of thought) and make a zine!</span>
+        <span>"Never stop learning, because life never stops teaching." - The Internet.</span>
+        <span>STOP THAT TRAIN (of thought) and make a zine!</span>
+        <span>"Never stop learning, because life never stops teaching." - The Internet.</span>
+        <span>STOP THAT TRAIN (of thought) and make a zine!</span>
+        <span>"Never stop learning, because life never stops teaching." - The Internet.</span>
+        <span>STOP THAT TRAIN (of thought) and make a zine!</span>
+        <span>"Never stop learning, because life never stops teaching." - The Internet.</span>
+        <span>STOP THAT TRAIN (of thought) and make a zine!</span>
+        <span>"Never stop learning, because life never stops teaching." - The Internet.</span>
+        <span>STOP THAT TRAIN (of thought) and make a zine!</span>
+      </div>
+    </div>
 
     <section class="section" id="library">
       <div class="section-head">
@@ -1478,6 +1482,96 @@ label{display:block;font:900 .78rem/1 'Trebuchet MS',Verdana,sans-serif;text-tra
     media.addEventListener('mouseleave', start);
     document.addEventListener('visibilitychange', function(){ document.hidden ? stop() : start(); });
     start();
+  });
+})();
+</script>
+<script>
+/* Draggable photo marquees with inertia.
+   Takes over the CSS marquee animation and drives it with rAF so the user
+   can grab (mouse or touch), fling, and watch it glide with friction before
+   the auto-scroll resumes. */
+(function(){
+  document.querySelectorAll('.hero-marquee .marquee-track').forEach(function(track){
+    var wrap = track.parentElement;
+    var duration = parseFloat(getComputedStyle(track).animationDuration) || 72; // seconds per half-loop
+    track.style.animation = 'none';
+
+    var x = 0;              // current offset (px, kept within [-halfW, 0))
+    var v = 0;              // current velocity px/s (negative = leftward)
+    var halfW = 0;          // width of one image set (track holds two copies)
+    var baseV = 0;          // auto-scroll velocity
+    var dragging = false, hovering = false;
+    var lastT = performance.now();
+    var samples = [];       // recent pointer moves for release velocity
+
+    function measure(){
+      halfW = track.scrollWidth / 2;
+      baseV = halfW > 0 ? -(halfW / duration) : 0;
+    }
+    measure();
+    if (window.ResizeObserver) new ResizeObserver(measure).observe(track);
+    window.addEventListener('load', measure);
+
+    function wrapX(val){
+      if (halfW <= 0) return 0;
+      return -(((-val) % halfW + halfW) % halfW);
+    }
+
+    function frame(now){
+      var dt = Math.min((now - lastT) / 1000, 0.05);
+      lastT = now;
+      if (!dragging && halfW > 0){
+        var target = hovering ? 0 : baseV;
+        if (Math.abs(v - target) > 2){
+          // inertia: exponential friction toward the auto-scroll speed
+          var decay = Math.exp(-dt * 2.2);
+          v = target + (v - target) * decay;
+        } else {
+          v = target;
+        }
+        x = wrapX(x + v * dt);
+        track.style.transform = 'translateX(' + x + 'px)';
+      }
+      requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+
+    wrap.addEventListener('pointerdown', function(e){
+      if (e.button !== undefined && e.button !== 0) return;
+      dragging = true; v = 0;
+      samples = [{x: e.clientX, t: performance.now()}];
+      wrap.classList.add('is-dragging');
+      wrap.setPointerCapture && wrap.setPointerCapture(e.pointerId);
+    });
+
+    wrap.addEventListener('pointermove', function(e){
+      if (!dragging) return;
+      var now = performance.now();
+      var last = samples[samples.length - 1];
+      var dx = e.clientX - last.x;
+      x = wrapX(x + dx);
+      track.style.transform = 'translateX(' + x + 'px)';
+      samples.push({x: e.clientX, t: now});
+      while (samples.length > 2 && now - samples[0].t > 120) samples.shift();
+    });
+
+    function release(){
+      if (!dragging) return;
+      dragging = false;
+      wrap.classList.remove('is-dragging');
+      var now = performance.now();
+      var first = samples[0], last = samples[samples.length - 1];
+      var dt = (last.t - first.t) / 1000;
+      v = dt > 0.016 ? (last.x - first.x) / dt : 0;
+      var MAX = 4000;
+      if (v > MAX) v = MAX; if (v < -MAX) v = -MAX;
+      lastT = performance.now();
+    }
+    wrap.addEventListener('pointerup', release);
+    wrap.addEventListener('pointercancel', release);
+
+    wrap.addEventListener('pointerenter', function(e){ if (e.pointerType === 'mouse') hovering = true; });
+    wrap.addEventListener('pointerleave', function(e){ if (e.pointerType === 'mouse') hovering = false; });
   });
 })();
 </script>
