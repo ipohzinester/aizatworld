@@ -67,6 +67,11 @@ html[data-theme="dark"] .manifesto,
 html[data-theme="dark"] .guest-form,
 html[data-theme="dark"] .step,
 html[data-theme="dark"] .skip{background:var(--dm-surface)}
+html[data-theme="dark"] .about-paper{background:var(--dm-surface)}
+html[data-theme="dark"] .about-masthead,
+html[data-theme="dark"] .about-byline,
+html[data-theme="dark"] .about-copy,
+html[data-theme="dark"] .about-tag{color:var(--dm-text)}
 html[data-theme="dark"] .specimen{background:linear-gradient(135deg,#1c2437,#16302d)}
 html[data-theme="dark"] .guest-card{background:var(--dm-surface-2)}
 html[data-theme="dark"] .iklan-card,
@@ -90,6 +95,7 @@ html[data-theme="dark"] .kicker,
 html[data-theme="dark"] .credit-track,
 html[data-theme="dark"] .maker-panel,
 html[data-theme="dark"] .zine-cover,
+html[data-theme="dark"] .iklan-tag,
 html[data-theme="dark"] .notice{color:#17212b}
 
 body,.topbar,.ticket,.section,.rib,.poster-box,button,a.button,input,textarea{
@@ -559,9 +565,48 @@ html[data-theme="dark"] #library .library-book-title{color:#fff7e4}
 .guestbook{display:grid;grid-template-columns:.85fr 1.15fr;gap:20px;position:relative;z-index:1}.guest-form{border:var(--line);border-radius:26px;background:#fff;padding:22px;box-shadow:6px 6px 0 var(--ink)}
 label{display:block;font:900 .78rem/1 'Trebuchet MS',Verdana,sans-serif;text-transform:uppercase;letter-spacing:.1em;margin:14px 0 8px}input[type=text],textarea{width:100%;border:3px solid var(--ink);border-radius:14px;padding:12px;font:1rem/1.35 Georgia,serif;background:#fffaf0}textarea{min-height:116px;resize:vertical}.entries{display:grid;gap:12px;max-height:420px;overflow:auto;padding-right:8px}.guest-card{min-height:auto;background:#fff8d8;padding:14px}.guest-card strong{font-family:'Trebuchet MS',Verdana,sans-serif}.guest-card small{display:block;opacity:.65;margin-top:6px}
 .loop{display:grid;grid-template-columns:repeat(7,1fr);gap:10px;position:relative;z-index:1}.step{border:3px solid var(--ink);border-radius:18px;background:#fff;padding:14px;min-height:120px;display:flex;flex-direction:column;justify-content:space-between;font:900 .85rem/1.15 'Trebuchet MS',Verdana,sans-serif}.step b{font-size:1.8rem}.notice-board{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;position:relative;z-index:1}.notice{min-height:150px;background:var(--cover,#fff);font:900 .95rem/1.2 'Trebuchet MS',Verdana,sans-serif;transform:rotate(var(--r,0deg))}.notice small{display:block;margin-bottom:18px;opacity:.68;text-transform:uppercase;letter-spacing:.12em}
-.footer{margin:70px 0 0;border:var(--line);border-radius:34px;background:var(--ink);color:#fff;padding:34px;box-shadow:var(--shadow);display:flex;justify-content:space-between;gap:22px;align-items:center;flex-wrap:wrap}.footer h2{font-size:clamp(1.6rem,4vw,3.2rem);text-shadow:none;color:#fff}.footer p{max-width:560px;line-height:1.5}.footer .button{box-shadow:5px 5px 0 #fff}
+.section:last-of-type{margin-bottom:28px}
+.footer{margin:28px 0 0;border:var(--line);border-radius:34px;background:var(--ink);color:#fff;padding:34px;box-shadow:var(--shadow);display:flex;justify-content:space-between;gap:22px;align-items:center;flex-wrap:wrap}.footer h2{font-size:clamp(1.6rem,4vw,3.2rem);text-shadow:none;color:#fff}.footer p{max-width:560px;line-height:1.5}.footer .button{box-shadow:5px 5px 0 #fff}
 .modal{position:fixed;inset:0;background:rgba(18,23,37,.72);display:none;align-items:center;justify-content:center;z-index:200;padding:20px}.modal.open{display:flex}.modal-card{max-width:620px;width:100%;border:var(--line);border-radius:28px;background:var(--paper);box-shadow:12px 12px 0 var(--ink);padding:28px;position:relative}.modal-card h3{margin-bottom:12px}.modal-card p{line-height:1.55}.close{position:absolute;right:14px;top:14px;width:42px;height:42px;border-radius:50%;padding:0;background:#fff}
 .float-tools{position:fixed;right:16px;bottom:16px;z-index:95;display:grid;gap:8px}.float-tools button{width:54px;height:54px;padding:0;border-radius:50%;background:#fff;font-size:1.2rem}
+.float-tools-tl{position:fixed;left:16px;top:12px;z-index:95}
+.float-tools-tl button{position:relative;width:54px;height:54px;padding:0;border-radius:50%;overflow:hidden;background:var(--ink);box-shadow:5px 5px 0 var(--ink);transform:rotate(-1deg)}
+.float-tools-tl button img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 34%;filter:grayscale(.1) contrast(1.05)}
+.float-tools-tl button::after{content:"";position:absolute;inset:0;border-radius:50%;box-shadow:inset 0 0 0 3px rgba(255,255,255,.85)}
+.float-tools-tl button[aria-expanded="true"]{box-shadow:5px 5px 0 var(--sun)}
+.float-tools-tl button[aria-expanded="true"]::after{box-shadow:inset 0 0 0 3px var(--sun)}
+.about-backdrop{position:fixed;inset:0;z-index:94;background:rgba(18,23,37,0);pointer-events:none;transition:background .32s ease}
+.about-backdrop.open{background:rgba(18,23,37,.38);pointer-events:auto}
+.about-window{
+  position:fixed;left:16px;top:88px;z-index:96;
+  width:min(420px,calc(100vw - 32px));max-height:min(74vh,600px);
+  transform-origin:32px 0px;
+  transform:rotate(-1deg) scaleY(.06) translateY(-6px);
+  opacity:0;visibility:hidden;pointer-events:none;
+  transition:transform .38s cubic-bezier(.22,1,.36,1),opacity .22s ease,visibility 0s linear .38s;
+}
+.about-window.open{
+  transform:rotate(-1deg) scaleY(1) translateY(0);
+  opacity:1;visibility:visible;pointer-events:auto;
+  transition:transform .38s cubic-bezier(.22,1,.36,1),opacity .22s ease,visibility 0s linear 0s;
+}
+.about-paper{border:var(--line);border-radius:20px;background:#fdf8e9;box-shadow:var(--shadow);padding:0;overflow:hidden;display:flex;flex-direction:column;max-height:min(74vh,600px)}
+.about-head{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 14px;border-bottom:3px solid var(--ink);background:repeating-linear-gradient(45deg,var(--ink),var(--ink) 6px,#000 6px,#000 12px)}
+.about-head span{font:900 .66rem/1 'Trebuchet MS',Verdana,sans-serif;text-transform:uppercase;letter-spacing:.14em;color:#fff}
+.about-head button{width:26px;height:26px;padding:0;border-radius:50%;background:#fff;color:var(--ink);font-size:.9rem;box-shadow:2px 2px 0 #000;transform:none}
+.about-body{overflow-y:auto;padding:18px 22px 24px}
+.about-kicker{display:block;text-align:center;font:900 .64rem/1 'Trebuchet MS',Verdana,sans-serif;text-transform:uppercase;letter-spacing:.3em;color:var(--rose);margin-bottom:2px}
+.about-masthead{font-family:'Cooper Black','Bookman Old Style',Georgia,serif;text-align:center;font-size:1.85rem;line-height:1;letter-spacing:-.02em;border-bottom:4px double var(--ink);padding-bottom:9px;margin-bottom:4px;color:var(--ink)}
+.about-byline-row{display:flex;align-items:center;justify-content:center;gap:14px;margin:12px 0 18px}
+.about-photo{flex:0 0 auto;width:112px;height:112px;border-radius:50%;overflow:hidden;border:4px solid var(--ink);box-shadow:4px 4px 0 var(--ink)}
+.about-photo img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 34%;filter:grayscale(1) contrast(1.1)}
+.about-byline{font:900 .66rem/1.2 'Trebuchet MS',Verdana,sans-serif;text-transform:uppercase;letter-spacing:.12em;color:var(--ink);opacity:.75;text-align:left}
+.about-copy{font-family:Georgia,'Book Antiqua',serif;font-size:1.05rem;line-height:1.62;color:var(--ink)}
+.about-copy p{margin:0 0 .85em}
+.about-copy p:first-of-type::first-letter{font-family:'Cooper Black','Bookman Old Style',Georgia,serif;font-size:2.8rem;line-height:.75;float:left;padding:4px 6px 0 0;color:var(--rose)}
+.about-copy::after{content:"";display:block;clear:both}
+.about-tag{display:block;text-align:center;margin-top:6px;font:900 .64rem/1 'Trebuchet MS',Verdana,sans-serif;text-transform:uppercase;letter-spacing:.12em;color:var(--ink);opacity:.6}
+@media (max-width:480px){.about-masthead{font-size:1.5rem}.about-copy{font-size:.98rem}}
 @media (max-width:1040px){.plaza-grid,.wall-wrap,.guestbook{grid-template-columns:minmax(0,1fr)}.iklan-grid{grid-template-columns:repeat(2,1fr)}.loop,.notice-board{grid-template-columns:repeat(3,1fr)}.ribbon{grid-template-columns:repeat(2,1fr)}.topbar{border-radius:24px}.brand{white-space:normal}.top-clock{justify-self:end}.section-head{display:block}.section-head p{margin-top:12px}}
 @media (max-width:720px){.workshop{grid-template-columns:minmax(0,1fr)}#arcade .card-grid,#lab .card-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:480px){#arcade .card-grid,#lab .card-grid,.iklan-grid{grid-template-columns:1fr}}
@@ -601,7 +646,7 @@ label{display:block;font:900 .78rem/1 'Trebuchet MS',Verdana,sans-serif;text-tra
         <p class="copy">Tiada jadual. Tiada majlis penutup. Masuk bila-bila masa. ZINENOTDEAD sebab JOMBUATZINE hidup!</p>
         <div class="hero-actions">
           <a class="button" href="#plaza">Start here</a>
-          <a class="button secondary" href="#workshop">Make a zine</a>
+          <a class="button secondary" href="#workshop">Workshop</a>
           <a class="button secondary" href="#arcade">Play</a>
           <a class="button secondary" href="#lab">App Lab</a>
         </div>
@@ -687,10 +732,8 @@ label{display:block;font:900 .78rem/1 'Trebuchet MS',Verdana,sans-serif;text-tra
         <div class="plaza-head-inner"><span class="kicker">Main plaza</span><img class="plaza-title-img" src="jombuatzine-header.png" alt="JOM.BUAT.ZINE! — Drag. Susun. Print. Lipat. The indie publisher is you. — by Zinester, Amirul Aizat"></div>
       </div>
       <div class="plaza-grid">
-        <div class="signboard">
-          <h3>A free digital zine maker</h3>
-          <p class="copy">Make your digital zine. Download. Publish. Share. No permission needed, no official workshop required, no gatekeeper at the door.</p>
-          <div class="hero-actions"><a class="button" href="#workshop">Make a zine</a><a class="button secondary" href="https://ipohzinester.github.io/jombuatzine/" target="_blank" rel="noopener noreferrer">Open zine maker</a></div>
+        <div class="plaza-poster">
+          <img src="editors-note.png" width="393" height="477" alt="EDITOR'S NOTE — a Notepad window with a note from Amirul Aizat: Make. Download. Publish. Share. No permission. No official workshop. No gatekeeper. Ater komer, JOM BUAT ZINE." loading="lazy" decoding="async">
         </div>
         <div class="plaza-poster">
           <img src="minimikro.png" width="672" height="1008" alt="ZINE MAKER: MINI + MICRO — free to use, an expansion pack of AIZAT WORLD. The indie publisher is you." loading="lazy" decoding="async">
@@ -775,13 +818,13 @@ label{display:block;font:900 .78rem/1 'Trebuchet MS',Verdana,sans-serif;text-tra
       <div class="iklan-grid">
         <article class="iklan-card">
           <div class="iklan-media">
-            <img src="iklan-hikayat-1.webp" alt="Hikayat Sebuah Buku Indie: buku bersama zine dan kod QR order">
-            <img src="iklan-hikayat-2.webp" alt="Hikayat Sebuah Buku Indie di rak Kedai Fixi">
-            <img src="iklan-hikayat-3.webp" alt="Hikayat Sebuah Buku Indie dipegang di Kedai Fixi">
+            <img src="iklan-hikayat-1.webp" alt="Hikayat Sebuah Kedai Buku Indie: buku bersama zine dan kod QR order">
+            <img src="iklan-hikayat-2.webp" alt="Hikayat Sebuah Kedai Buku Indie di rak Kedai Fixi">
+            <img src="iklan-hikayat-3.webp" alt="Hikayat Sebuah Kedai Buku Indie dipegang di Kedai Fixi">
           </div>
           <div class="iklan-meta">
             <span class="iklan-tag">Limited</span>
-            <h3>Hikayat Sebuah Buku Indie</h3>
+            <h3>Hikayat Sebuah Kedai Buku Indie</h3>
             <p>Memoir 96 muka surat tentang perjalanan sebuah kedai buku indie di Wisma Central. Beli di link atau walk-in di Kedai Fixi.</p>
             <a class="button small secondary" href="https://bit.ly/orderzinehkbi" target="_blank" rel="noopener noreferrer">Open</a>
           </div>
@@ -842,6 +885,42 @@ label{display:block;font:900 .78rem/1 'Trebuchet MS',Verdana,sans-serif;text-tra
 </div>
 
 <div class="float-tools" aria-label="Floating controls"><button id="nightToggle" title="Toggle night mode" aria-label="Toggle night mode" aria-pressed="false">🌙</button><button id="sound" title="Toggle ambience" aria-label="Toggle ambience">♪</button><button id="top" title="Back to entrance" aria-label="Back to entrance">↑</button></div>
+
+<div class="float-tools-tl" aria-label="About the developer"><button id="aboutToggle" title="Siapa buat benda ni?" aria-label="About the developer" aria-expanded="false" aria-controls="aboutWindow"><img src="aizat.jpeg" alt="" aria-hidden="true"></button></div>
+<div class="about-backdrop" id="aboutBackdrop"></div>
+<div class="about-window" id="aboutWindow" role="dialog" aria-modal="false" aria-labelledby="aboutMasthead">
+  <div class="about-paper">
+    <div class="about-head">
+      <span>Edisi Percuma — Jangan Beli</span>
+      <button id="aboutClose" aria-label="Close">×</button>
+    </div>
+    <div class="about-body">
+      <span class="about-kicker">Muka Depan · Zine Gazette</span>
+      <h3 class="about-masthead" id="aboutMasthead">Siapa Buat Benda Ni?</h3>
+      <div class="about-byline-row">
+        <span class="about-photo"><img src="aizat.jpeg" alt="Amirul Aizat"></span>
+        <span class="about-byline">Oleh Amirul Aizat<br>Zinester</span>
+      </div>
+      <div class="about-copy">
+        <p>Amirul Aizat.<br>Zinester. Pembuat zine. Pembuat alat untuk orang yang buat zine.</p>
+        <p>Dia buat Jombuatzine! sebab dia dah penat dengan benda yang kononnya &ldquo;mudah&rdquo;.</p>
+        <p>Mudah, tapi kena daftar.<br>Mudah, tapi kena bayar.<br>Mudah, tapi kena online.<br>Mudah, tapi data kau entah pergi mana.</p>
+        <p>Babi.</p>
+        <p>Zine tak macam tu.<br>Zine ialah kertas.<br>Mesin fotostat.<br>Gunting.<br>Gam.<br>Meja.<br>Kawan yang sanggup tolong lipat.<br>Kadang-kadang cuma kau seorang dan idea yang tak reti duduk diam.</p>
+        <p>Jadi dia buat benda yang lebih kurang sama.</p>
+        <p>Satu fail.<br>Satu helai kertas.<br>Lapan muka surat.</p>
+        <p>Tak perlu akaun.<br>Tak perlu langganan.<br>Tak perlu Wi-Fi untuk minta izin jadi kreatif.</p>
+        <p>Kau buat.<br>Kau simpan.<br>Kau cetak.<br>Kau lipat.<br>Siap.</p>
+        <p>Semua kerja kekal dalam pelayar kau. Tak dihantar ke server. Tak dijadikan &ldquo;engagement&rdquo;. Tak dijual balik sebagai statistik kepada orang yang pakai blazer.</p>
+        <p>Sebab zine bukan industri.<br>Zine ialah &ldquo;aku buat sebab aku nak buat.&rdquo;</p>
+        <p>Kalau alat ini boleh buat seorang manusia yang tak pernah buat zine tiba-tiba buka kertas dan mula conteng&mdash;<br>bagus.<br>Memang itu tujuannya.</p>
+        <p>Indie tak perlu eksklusif.<br>DIY tak perlu gatekeeping.</p>
+        <p>Masuklah. Pintu dah terbuka.</p>
+      </div>
+      <span class="about-tag">— Tamat / Sila lipat semula —</span>
+    </div>
+  </div>
+</div>
 <div id="ytAmbience" style="position:absolute;width:1px;height:1px;overflow:hidden;opacity:0;pointer-events:none"></div>
 
 <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
@@ -884,6 +963,32 @@ label{display:block;font:900 .78rem/1 'Trebuchet MS',Verdana,sans-serif;text-tra
     const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
     applyTheme(next);
     localStorage.setItem(themeKey, next);
+  });
+
+  // About-the-developer floating window (non-invasive, no backdrop, no new tab)
+  const aboutBtn = $('#aboutToggle');
+  const aboutWindow = $('#aboutWindow');
+  const aboutClose = $('#aboutClose');
+  const aboutBackdrop = $('#aboutBackdrop');
+  const aboutBody = $('.about-body', aboutWindow);
+  const setAboutOpen = (open) => {
+    aboutWindow.classList.toggle('open', open);
+    aboutBackdrop.classList.toggle('open', open);
+    aboutBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    if(open){
+      aboutClose.focus();
+    } else if(aboutBody){
+      aboutBody.scrollTop = 0;
+    }
+  };
+  aboutBtn.addEventListener('click', () => setAboutOpen(!aboutWindow.classList.contains('open')));
+  aboutClose.addEventListener('click', () => setAboutOpen(false));
+  aboutBackdrop.addEventListener('click', () => setAboutOpen(false));
+  document.addEventListener('keydown', e => { if(e.key === 'Escape' && aboutWindow.classList.contains('open')) setAboutOpen(false); });
+  document.addEventListener('click', e => {
+    if(!aboutWindow.classList.contains('open')) return;
+    if(aboutWindow.contains(e.target) || aboutBtn.contains(e.target)) return;
+    setAboutOpen(false);
   });
 
   const modal = $('#modal');
@@ -1304,6 +1409,9 @@ label{display:block;font:900 .78rem/1 'Trebuchet MS',Verdana,sans-serif;text-tra
 })();
 </script>
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"75124c326cb447fe934cde04713ae013","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"75124c326cb447fe934cde04713ae013","r":1}' crossorigin="anonymous"></script>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"75124c326cb447fe934cde04713ae013","r":1}' crossorigin="anonymous"></script>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"75124c326cb447fe934cde04713ae013","r":1}' crossorigin="anonymous"></script>
 <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"75124c326cb447fe934cde04713ae013","r":1}' crossorigin="anonymous"></script>
 <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"75124c326cb447fe934cde04713ae013","r":1}' crossorigin="anonymous"></script>
 <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"75124c326cb447fe934cde04713ae013","r":1}' crossorigin="anonymous"></script>
