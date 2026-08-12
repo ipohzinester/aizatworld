@@ -73,5 +73,12 @@ window.libraryItems = [
     description: "Would Socrated and Benjamin Bloom Be Anti-AI?",
     cover: "covers/ai-cover.PNG",
     link: "zines/ai.pdf"
+  },
+  {
+    type: "zine",
+    title: "VIRTUE SIGNALLING",
+    description: "A RM50 thrift tee that says \"D.I.Y. DO NOT USE AI\" becomes the starting point for eight questions about selective ignorance — if artificiality is the problem, where exactly does the rejection begin, and which artificial things have we decided we can afford to reject?",
+    cover: "covers/virtue-signalling.jpg",
+    link: "zines/virtue-signalling.pdf"
   }
 ];
